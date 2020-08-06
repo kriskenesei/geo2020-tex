@@ -1,0 +1,89 @@
+\documentclass[10pt, a4paper, twoside, openright, fleqn,%
+               headinclude, footinclude, parskip=half,%
+               numbers=noenddot, cleardoublepage=empty]{scrbook}
+
+\usepackage[utf8]{inputenc} 
+\usepackage{mathpazo} %-- use Palatino font
+\usepackage[left=25mm, top=25mm]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage[square]{natbib}
+\usepackage{subcaption} 
+\usepackage{xspace}
+\usepackage[breaklinks=true,
+            colorlinks=true,
+            linktocpage=true,
+            allcolors=colorforlinks]{hyperref} 
+\usepackage[ruled, vlined, algochapter, linesnumbered]{algorithm2e}
+\usepackage{calc}
+\usepackage{ccicons} 
+\usepackage{xspace} 
+\usepackage{booktabs} 
+\usepackage[english]{babel}  
+\usepackage{listings}
+\usepackage{scrhack} % ignore warnings about deprecated KOMA-Script
+\usepackage[printonlyused, smaller, withpage]{acronym}
+\usepackage[usenames, dvipsnames]{xcolor}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+
+\input{mysettings}
+
+\setcapindent{1em} %-- for captions of Figures
+% \setcounter{tocdepth}{\sectiontocdepth}
+
+\subject{MSc thesis in Geomatics}
+\title{\myTitle}
+\author{\myName}
+\date{\myGraduationMonth\xspace\myGraduationYear}
+\publishers{A thesis submitted to the Delft University of Technology in partial fulfillment of the requirements for the degree of Master of Science in Geomatics}
+
+\begin{document}
+
+%******************************************************************
+% Frontmatter
+%******************************************************************
+\frontmatter
+
+\includepdf{cover/cover_front.pdf}
+\cleardoublepage
+
+\maketitle[3]
+
+\input{front/titleback}
+\cleardoublepage
+\include{front/abstract}
+\clearpage
+\include{front/contents}
+\clearpage
+\include{front/acronyms}
+\cleardoublepage
+
+%******************************************************************
+% Mainmatter
+%******************************************************************
+\mainmatter
+
+\include{chapters/introduction}
+\include{chapters/relatedwork}
+
+\appendix
+
+\cleardoublepage
+\include{appendices/app_main}
+\include{appendices/reproducibility}
+
+% *****************************************************************
+% Backmatter
+%******************************************************************
+\backmatter 
+
+\bibliographystyle{apalike}
+\bibliography{myreferences}
+
+\clearpage
+\include{back/colophon}
+\cleardoublepage
+
+\includepdf{cover/cover_back.pdf}
+
+\end{document}
