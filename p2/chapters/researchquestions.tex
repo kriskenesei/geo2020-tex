@@ -15,13 +15,14 @@ The decision was made to include the research questions before the Related work 
         \item Is it possible to base the workflow entirely on 2.5D methods by decomposing this intrinsically 3D problem into a collection of smaller problems?
         \item Can such a method of decomposition be used to simultaneously solve the scaling issues related to handling a national Lidar point cloud input dataset?
         \item Is it possible to build a workflow that satisfies the above, but also allows efficient update operations to be carried out as new data arrives or old data is updated?
+        \item How do temporal inconsistencies manifest themselves in the procedure, and in the output? What problems may arise, and how best to solve them?
         \item How well does the implementation perform in areas of complex 3D road relationships? How can this performance best be assessed visually and quantitatively using real-world examples, such as multi-level motorway exchanges and roads on long, elevated civil engineering structures?
         \item How well does the implementation perform in areas where input elevation data is scarce, or missing? How can this performance best be assessed visually and quantitatively using real-world examples, such as dense vegetation cover or buildings occluding roads, roads in tunnels, or roads under other civil engineering structures?
         \item How can we best assess the overall performance of the implementation against the commercial implementation in key locations such as the above?
         \item How smooth is the output visually? Are sudden jumps introduced after aggregating back the decomposed road segments? If so, can this be resolved by optimising the procedure, or are additional smoothing steps necessary?
         \item Can the workflow be used to also derive elevations for lines representing the \textit{vicinity} of roads in the exact same way?
         \item Can the workflow be used to optimise the \textit{horizontal} location of NWB centrelines?
-        \item Is the procedure useful in terms of providing a single "working environment" for multiple data providers? Can it serve as an aggregator of elevation information from various sources, including small scale ones (such as road management datasets)?
+        \item Is the procedure useful in terms of providing a single "working environment" for multiple data providers? Can it serve as an aggregator of elevation information from various sources, including small scale ones (such as road management datasets)? Are small-scale temporal inconsistencies that this may introduce possible to solve using these methods?
         \item The workflow is planned to produce surface models of road segment, but what would be needed to aggregate these into a global model containing all roads?
     \end{enumerate}
     \item Can the workflow be developed in a way that it can guarantee prescribed levels of output accuracy?
