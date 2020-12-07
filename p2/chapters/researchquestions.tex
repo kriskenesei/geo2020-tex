@@ -14,13 +14,15 @@ The decision was made to include the research questions before the Related work 
     \item Is it possible to based the workflow entirely on 2.5D methods by decomposing this intrinsically 3D problem into a collection of smaller problems?
     \item Can such a method of decomposition be used to simultaneously solve the scaling issues related to handling a national Lidar point cloud input dataset?
     \item Is it possible to build a workflow that satisfies the above, but also allows efficient update operations to be carried out as new data arrives or old data is updated?
-    \item How well does the implementation perform in areas of complex 3D road relationships? How can this performance best be assessed visually and quantitatively using real-world examples, such as multi-level motorway exchanges?
-    \item How well does the implementation perform in areas where input elevation data is scarce, or missing? How can this performance best be assessed visually and quantitatively using real-world examples
-    \item Explore whether lines representing the vicinity of the roads can be enriched with elevations in the same way.
+    \item How well does the implementation perform in areas of complex 3D road relationships? How can this performance best be assessed visually and quantitatively using real-world examples, such as multi-level motorway exchanges and roads on long, elevated civil engineering structures?
+    \item How well does the implementation perform in areas where input elevation data is scarce, or missing? How can this performance best be assessed visually and quantitatively using real-world examples, such as dense vegetation cover or buildings occluding roads, roads in tunnels, or roads under other civil engineering structures?
+    \item Can the workflow be used to also derive elevations for lines representing the \textit{vicinity} of roads in the exact same way?
+    \item Can the workflow be used to optimise the \textit{horizontal} location of NWB centrelines?
+    \item Can the workflow yield surface models of individual roads, perhaps even the road surface as a whole?
 \end{enumerate}
-\item 
+\item Can the workflow be developed in a way that it can guarantee prescribed levels of output accuracy?
 \begin{enumerate}
-\item Research and assess the initial accuracy of the input datasets. This includes NWB itself.
-\item Track changes in accuracy throughout the procedure
+\item What types of accuracy may we distinguish between? Topological accuracy? Lateral accuracy? Purely elevation accuracy? How does uncertainty of certain types of inaccuracy affect the output? What does it corrupt exactly?
+\item What is the accuracy of our elevation sources? Is it we
 \end{enumerate}
 \end{enumerate}
