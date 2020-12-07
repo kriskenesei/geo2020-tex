@@ -7,13 +7,13 @@ The decision was made to include the research questions before the Related work 
 
 
 \begin{enumerate}
-\item Is it possible to find a combination of geomatics methods that can perform the elevation-enrichment of NWB in a similar manner to the commercial implementation, but eliminating suspected shortcomings as best as possible.
+\item Is it possible to find a combination of geomatics methods that can perform the elevation-enrichment of NWB in a similar manner to the commercial implementation, but eliminating suspected shortcomings as best as possible?
 \begin{enumerate}
-    \item Attempt to use the same datasets as the commercial implementation.
-    \item
-    \item Find and implement a workflow to decompose intrinsically 3D problem into a collection of smaller problems that can be solved by 2.5D methods.
-    \item Solve the scaling-related issues optimally by building on the same decomposition as the one needed to ensure 2.5D-compliance.
-    \item Building once again on the decomposition, ensure that efficient updates are possible as new data arrives or old data is updated.
+    \item Can this be done using the same (or equivalent) datasets as the ones used in the commercial implementation?
+    \item Is the existing accuracy of NWB itself good enough to support such a workflow?
+    \item Is it possible to based the workflow entirely on 2.5D methods by decomposing this intrinsically 3D problem into a collection of smaller problems?
+    \item Can such a method of decomposition be used to simultaneously solve the scaling issues related to handling a national Lidar paint cloud input dataset?
+    \item Is it possible to build a workflow that satisfies the above, but also allows efficient updated operations to be carried out as new data arrives or old data is updated?
     \item Benchmark the solution in areas of complex 3D relationships and optimise the implementation accordingly.
     \item Benchmark the solution in areas where input data is scarce due to occlusion or other reasons and optimise the implementation accordingly.
     \item Explore whether lines representing the vicinity of the roads can be enriched with elevations in the same way.
