@@ -7,23 +7,27 @@ The decision was made to include the research questions before the Related work 
 
 
 \begin{enumerate}
-\item Is it possible to find a combination of geomatics methods that can perform the elevation-enrichment of NWB in a similar manner to the commercial implementation, but eliminating suspected shortcomings as best as possible?
-\begin{enumerate}
-    \item Can this be done using the same (or equivalent) datasets as the ones used in the commercial implementation?
-    \item Is the existing accuracy of NWB itself good enough to support such a workflow?
-    \item Is it possible to based the workflow entirely on 2.5D methods by decomposing this intrinsically 3D problem into a collection of smaller problems?
-    \item Can such a method of decomposition be used to simultaneously solve the scaling issues related to handling a national Lidar point cloud input dataset?
-    \item Is it possible to build a workflow that satisfies the above, but also allows efficient update operations to be carried out as new data arrives or old data is updated?
-    \item How well does the implementation perform in areas of complex 3D road relationships? How can this performance best be assessed visually and quantitatively using real-world examples, such as multi-level motorway exchanges and roads on long, elevated civil engineering structures?
-    \item How well does the implementation perform in areas where input elevation data is scarce, or missing? How can this performance best be assessed visually and quantitatively using real-world examples, such as dense vegetation cover or buildings occluding roads, roads in tunnels, or roads under other civil engineering structures?
-    \item Can the workflow be used to also derive elevations for lines representing the \textit{vicinity} of roads in the exact same way?
-    \item Can the workflow be used to optimise the \textit{horizontal} location of NWB centrelines?
-    \item Can the workflow yield surface models of individual roads, perhaps even the road surface as a whole?
-\end{enumerate}
-\item Can the workflow be developed in a way that it can guarantee prescribed levels of output accuracy?
-\begin{enumerate}
-\item What types of accuracy may we distinguish between? Topological accuracy? Lateral accuracy? Purely elevation accuracy? How does uncertainty of certain types of inaccuracy affect the output? What does it corrupt exactly?
-\item What is the accuracy of our elevation sources? Is it well-documented? In the absence of this in the documentation, can we estimate it some other way?
-\tiem 
-\end{enumerate}
+    \item Is it possible to find a combination of geomatics methods that can perform the elevation-enrichment of NWB in a similar manner to the commercial implementation, but eliminating suspected shortcomings as best as possible?
+    \begin{enumerate}
+        \item Can this be done using the same (or equivalent) datasets as the ones used in the commercial implementation?
+        \item Is the existing accuracy of NWB itself good enough to support such a workflow?
+        \item Is it possible to based the workflow entirely on 2.5D methods by decomposing this intrinsically 3D problem into a collection of smaller problems?
+        \item Can such a method of decomposition be used to simultaneously solve the scaling issues related to handling a national Lidar point cloud input dataset?
+        \item Is it possible to build a workflow that satisfies the above, but also allows efficient update operations to be carried out as new data arrives or old data is updated?
+        \item How well does the implementation perform in areas of complex 3D road relationships? How can this performance best be assessed visually and quantitatively using real-world examples, such as multi-level motorway exchanges and roads on long, elevated civil engineering structures?
+        \item How well does the implementation perform in areas where input elevation data is scarce, or missing? How can this performance best be assessed visually and quantitatively using real-world examples, such as dense vegetation cover or buildings occluding roads, roads in tunnels, or roads under other civil engineering structures?
+        \item How can we best assess the overall performance of the implementation against the commercial implementation in key locations such as the above?
+        \item Can the workflow be used to also derive elevations for lines representing the \textit{vicinity} of roads in the exact same way?
+        \item Can the workflow be used to optimise the \textit{horizontal} location of NWB centrelines?
+        \item Can the workflow yield surface models of individual roads, perhaps even the road surface as a whole?
+    \end{enumerate}
+    \item Can the workflow be developed in a way that it can guarantee prescribed levels of output accuracy?
+    \begin{enumerate}
+        \item What types of accuracy may we distinguish between? Topological accuracy? Lateral accuracy? Purely elevation accuracy? How does uncertainty of certain types of inaccuracy affect the output? What does it corrupt exactly?
+        \item What is the accuracy of our elevation sources? Is it well-documented? In the absence of this in the documentation, can we estimate it some other way?
+        \tiem How does the accuracy of each of our input sources relate to one another, how are they suspected to interact when combined into a single dataset?
+        \item What do we need to be able to track the evolution of the accuracy throughout the workflow? Can we build it exclusively from steps that prevent any serious degradation to the accuracy, while making any degradation quantifiable?
+        \item Is the accuracy controlled by global factors only, or is it influenced by geographically local factors too? If so, how can we quantify these and include them in the output estimation of uncertainty? How can we minimise their effects?
+        \item Would it be possible to develop the solution in a way that it can indicate where levels of uncertainty drop below agreeable threshold, and explanations of where the errors came from?
+    \end{enumerate}
 \end{enumerate}
