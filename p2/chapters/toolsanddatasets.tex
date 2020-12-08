@@ -72,20 +72,20 @@ Like NWB, DTB (or more specifically, DTB-Droog, the DTB roads product) is a Dutc
 Due to its volume, it will not be possible to develop and test the implementation without cropping AHN3 Lidar data. Even after the implementation of the segmentation workflow, the size of the testing point clouds will need to be manageable to facilitate efficient debugging. At the same time, they will need to be sufficiently representative to provide an insight into both the computational complexity and the visual performance of the algorithm in various types of environments. I have already selected and pre-processed several AHN3 tiles into medium-sized point clouds that will be further cropped when developing and testing specific parts of the implementation. The table below provides an inventory of the testing datasets I produced by selecting various lengths of NWB centrelines at interesting road features and keeping only those Lidar points which are within a 150-metre buffer distance from the selected road centrelines. The resulting datasets fit into memory easily even when extracted to LAS. The tile numbers in the first column are from: https://downloads.pdok.nl/ahn3-downloadpage/
 
 \begin{table}[]
-\begin{tabular}{@{}lll@{}}
+\begin{tabular}{@{}p{2.6cm}p{7cm}p{6cm}@{}}
 \toprule
-Title / tile  & Features & Render \\ \midrule
-Markerwarddijk / 20BN1 & Dike-based P-road in the Markermeer. Very limited amount of terrain around the road. Road consistently build on ground, with no involvement of bridge structures. & render \\
-Amsterdam Hemhavens / 25BZ2 & Portion of Ringweg-West (R-road), as it crosses the IJ through the Coentunnel. Densely built-up environment with scarce natural terrain. The road mostly runs on artificially elevated ground in this area, and on short bridges. Part of Westradweg also included, which has been built entirely on a long bridge. & render \\
-Amsterdam Zuid / 25DN2 & R-roads with many closely spaced bridges, small tunnels, dense grouping of holes around roads due to presence of water and buildings & render \\
-Bunschoten / 32BN1 & P-roads with three big roundabouts, and one road that ends in a small roundabout. Amersfoortseweg has its two lanes on separate roads surfaces (like motorways), but with frequent connecting segments. & render \\
-Veluwe / 32FZ2 & Straight R-roads surrounded by dense forest and crossed by wide wildlife overpasses. & render \\
-Apeldoornseweg / 32HZ2 & P-road in dense forest with canopy frequently occluding the road surface, decreasing point density and occasionally creating gaps. The road has small parallel branches running very close to it, which may make it difficult for the algorithm to distinguish between them. It also has roundabouts. & render \\
-Hoenderloo / 33CN2 & P-road in extremely dense, continuous forest with canopy frequently occluding the road surface, decreasing point density and occasionally creating gaps. Both lanes are on the same road surface & render \\
-Rotterdam Ketheltunnel / 37EZ1 & This segment of the A4 heading North from Rotterdam has been recently reconstructed in an underground tunnel. In addition, a significant portion of this R-road now runs in a trench towards Delft. AHN3 was imaged during the reconstruction, and hence contains erratic data about the road surface. & render \\
-Knoppunt Ridderkerk / 37HN2 & The Ridderkerk interchange is one of the largest of its kind in The Netherlands, in one place containing 4 overlapping R-roads. Furthermore, it contains an extremely high density of R-roads in a small area, many of them very tightly packed in small areas. Many are intensely curved. & render \\
-Gorinchem / 38GZ1 & Complex interchange between a P-road and an R-road with small ramps, roundabouts and overlapping geometries. & render \\
-Knoppunt Deil / 39CZ1 & Straight and intensely curved R-roads in a motorway interchange setting. Less complex, but analogous to the Ridderkerk interchange. & Please refer to Figures 7,8 and 10.
+Title, tile  & Features & Render \\ \midrule
+Markerwarddijk, 20BN1 & Dike-based P-road in the Markermeer. Very limited amount of terrain around the road. Road consistently build on ground, with no involvement of bridge structures. & render \\
+Amsterdam Hemhavens, 25BZ2 & Portion of Ringweg-West (R-road), as it crosses the IJ through the Coentunnel. Densely built-up environment with scarce natural terrain. The road mostly runs on artificially elevated ground in this area, and on short bridges. Part of Westradweg also included, which has been built entirely on a long bridge. & render \\
+Amsterdam Zuid, 25DN2 & R-roads with many closely spaced bridges, small tunnels, dense grouping of holes around roads due to presence of water and buildings & render \\
+Bunschoten, 32BN1 & P-roads with three big roundabouts, and one road that ends in a small roundabout. Amersfoortseweg has its two lanes on separate roads surfaces (like motorways), but with frequent connecting segments. & render \\
+Veluwe, 32FZ2 & Straight R-roads surrounded by dense forest and crossed by wide wildlife overpasses. & render \\
+Apeldoornseweg, 32HZ2 & P-road in dense forest with canopy frequently occluding the road surface, decreasing point density and occasionally creating gaps. The road has small parallel branches running very close to it, which may make it difficult for the algorithm to distinguish between them. It also has roundabouts. & render \\
+Hoenderloo, 33CN2 & P-road in extremely dense, continuous forest with canopy frequently occluding the road surface, decreasing point density and occasionally creating gaps. Both lanes are on the same road surface & render \\
+Rotterdam Ketheltunnel, 37EZ1 & This segment of the A4 heading North from Rotterdam has been recently reconstructed in an underground tunnel. In addition, a significant portion of this R-road now runs in a trench towards Delft. AHN3 was imaged during the reconstruction, and hence contains erratic data about the road surface. & render \\
+Knoppunt Ridderkerk, 37HN2 & The Ridderkerk interchange is one of the largest of its kind in The Netherlands, in one place containing 4 overlapping R-roads. Furthermore, it contains an extremely high density of R-roads in a small area, many of them very tightly packed in small areas. Many are intensely curved. & render \\
+Gorinchem, 38GZ1 & Complex interchange between a P-road and an R-road with small ramps, roundabouts and overlapping geometries. & render \\
+Knoppunt Deil, 39CZ1 & Straight and intensely curved R-roads in a motorway interchange setting. Less complex, but analogous to the Ridderkerk interchange. & Please refer to Figures 7,8 and 10.
 \end{tabular}
 \end{table}
 
