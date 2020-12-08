@@ -62,9 +62,9 @@ Like NWB, DTB (or more specifically, DTB-Droog, the DTB roads product) is a Dutc
 
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{p2/figs/dtb_sample_10.png} 
+    \includegraphics[width=\linewidth]{p2/figs/ahn_sample_10.png} 
     \caption{Renders of DTB line features overlain with AHN3 in 3D. \textbf{Top:} all DTB lines are shown, illustrating that roadside slopes, canals, ditches, safety rails and other objects are all represented in this dataset. Even the full-width motorway signs are represented (either by lines on the road, or on the structure itself, inconsistently). \textbf{Bottom:} the same visualisation, but with only DTB \textit{verflijnen} shown. The lines are generally in good agreement with AHN3 visually, in terms of their elevations. As this figure illustrates, they are also a viable source of information in the context of identifying which class-26 Lidar points lie on the surface of R-roads. Same location and AHN3 data as in previous figures in this section, but with ground points being shown in green.}
-    \label{fig:dtbnwb}
+    \label{fig:dtbahn}
 \end{figure}
 
 \section*{Testing data}
@@ -87,6 +87,18 @@ Knoppunt Ridderkerk / 37HN2 & The Ridderkerk interchange is one of the largest o
 Gorinchem / 38GZ1 & Complex interchange between a P-road and an R-road with small ramps, roundabouts and overlapping geometries. & render \\
 Knoppunt Deil / 39CZ1 & Straight and intensely curved R-roads in a motorway interchange setting. Less complex, but analogous to the Ridderkerk interchange. & Please refer to Figures 7,8 and 10.
 \end{tabular}
+\end{table}
+
+\begin{table}
+       \begin{tabular}{c c p{6cm}} \toprule
+          \multicolumn{1}{m{2cm}}{\centering Name}
+          & \multicolumn{1}{m{2.3cm}}{\centering Variable Form In Code}
+          & \multicolumn{1}{m{6cm}}{\centering Meaning} \\
+          \midrule
+          x   &   \verb|x|   &   Thickness of the back iron on part 1 \\
+         x   &   \verb|x|   &   Thickness of the magnet on part 1 \\
+          \bottomrule
+       \end{tabular}
 \end{table}
 
 \section*{Tools}
