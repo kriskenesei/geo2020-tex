@@ -1,7 +1,7 @@
 %!TEX root = thesis_proposal.tex
 
-\chapter{Tools and Datasets}
-\label{chap:td}
+\section{Tools and Datasets}
+\label{sec:td}
 
 In terms of datasets, both the commercial implementation and the proposed research rely on the following three sources:
 
@@ -20,7 +20,7 @@ NWB (or more specifically, NWB-Wegen, the NWB roads product) is an ESRI shapefil
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{p2/figs/nwb_sample_02.png} 
-    \caption{An example render of NWB. The road segments \textit{(wegvakken)} are colour-coded to indicate management \textit{(wegbeheerdersoort)}. Yellow is used for R-roads (state-managed roads), red denotes P-roads (province-managed roads), magenta means G-roads (municipality-managed roads), and W-roads (RWS-managed roads) are not shown in this figure. Blue roads are T-roads, collecting all roads that do not fall into either of the above 4 categories. In this particular case, they are managed by TU Delft. This extract also contains examples illustrating the challenging geometries that this project will be concerned with. Where the P-road Kruithuisweg/Kruithuisplein crosses the G-road Schoemakerstraat and the R-road A13, no topological interactions are present in 2D, and in fact the roads cross over one another in reality. These locations are indicated in the figure by red circles. Furthermore, where the bike path IJsmeestertunnel (a G-road in NWB) crosses the A13, a series of 3 short tunnels are located in reality. This is indicated in the figure by a blue oval. These are two types of road layouts that we expect to have to dedicate special attention to (although in this project, we will only be dealing with R-roads and P-roads). More information regarding these topics can be found in the Methodology section (\ref{chap:m}).}
+    \caption{An example render of NWB. The road segments \textit{(wegvakken)} are colour-coded to indicate management \textit{(wegbeheerdersoort)}. Yellow is used for R-roads (state-managed roads), red denotes P-roads (province-managed roads), magenta means G-roads (municipality-managed roads), and W-roads (RWS-managed roads) are not shown in this figure. Blue roads are T-roads, collecting all roads that do not fall into either of the above 4 categories. In this particular case, they are managed by TU Delft. This extract also contains examples illustrating the challenging geometries that this project will be concerned with. Where the P-road Kruithuisweg/Kruithuisplein crosses the G-road Schoemakerstraat and the R-road A13, no topological interactions are present in 2D, and in fact the roads cross over one another in reality. These locations are indicated in the figure by red circles. Furthermore, where the bike path IJsmeestertunnel (a G-road in NWB) crosses the A13, a series of 3 short tunnels are located in reality. This is indicated in the figure by a blue oval. These are two types of road layouts that we expect to have to dedicate special attention to (although in this project, we will only be dealing with R-roads and P-roads). More information regarding these topics can be found in the Methodology section (\ref{sec:m}).}
     \label{fig:nwb}
 \end{figure}
 
