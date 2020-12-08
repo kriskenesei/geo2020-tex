@@ -27,6 +27,10 @@
 \usepackage{pdfpages}
 \usepackage{wrapfig}
 \usepackage[format=plain, font=small,labelfont=bf]{caption}
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+\makeatother
 
 \input{mysettings}
 
