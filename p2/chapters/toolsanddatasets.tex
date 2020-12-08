@@ -13,7 +13,8 @@ In terms of datasets, both the commercial implementation and the proposed resear
 
 As mentioned in the section about research questions, I am also planning to examine how specific datasets from individual NDW data suppliers (such as municipalities, road authorities, civil engineering agencies) can be integrated in the procedure and how they affect the accuracy. At this stage in the project, the specific datasets for this aspect have not been chosen yet.
 
-\section*{Nationaal Wegenbestand – NWB}
+\subsection{Nationaal Wegenbestand – NWB}
+\label{sub:nwb}
 
 NWB (or more specifically, NWB-Wegen, the NWB roads product) is an ESRI shapefile-based vector dataset comprised of a semantically rich set of 2D MultiLineString objects. They are interconnected in such a way that NWB can be regarded topologically as a graph representation of the Dutch road network. Although the NWB contains all named and numbered roads in The Netherlands, we are only interested in roads that are semantically marked as state-owned or province-owned (category R for Rijk and P for Provincie), because the new noise regulation is only relevant to these types. NWB and the road types it contains are illustrated in Figure \ref{fig:nwb}. In addition to its important topological graph structure, the NWB lines are georeferenced with good accuracy. Although the accurate nature of its georeferencing is specifically mentioned in the documentation of the data, it is not evidenced by a rigorous evaluation. The quality description includes only a single figure, which is 5-metre accuracy at two standard deviations (i.e. 95 percent confidence), but with the confidence being based on the total number of roads, implying that the accuracy evaluation method is performed on a road-to-road basis, each of which may be comprised of multiple MultiLineString objects. It is not described, how the accuracy is evaluated for each road, for instance whether it is based on the accuracy of the vertex locations of the road, an arbitrary sampling along their length, and how it is aggregated. Furthermore, we do not know whether the reference for the accuracy was empirical (surveyed control points) or whether it is purely theoretical and is based on the sources and the methods involved in creating  and updating the dataset. Both the topological and the geographical information content of NWB is assembled from a wide range of providers ranging from large national providers such as RWS and Kadaster, to local providers such as specific road authorities and civil engineering agencies. No clear indication is given in the documentation about the sources used for the compilation of specific NWB road types or the estimation of their accuracies, but it is mentioned that they are inconsistent across the range of road types. Although the above nominal lateral accuracy (and its description) is not sufficient for compliance with the new noise regulations, the 3D conversion of NWB is not concerned with improving it – in fact, it is a requirement of the project not to displace NWB horizontally. Hence, we may say that the intended outcome of the 3D conversion is to devise a method that can produce accurate elevations for NWB assuming it  is up to SWUNG2 standards. To achieve this in practice, lateral refinement is being done in a separate project by developing a workflow to match NWB roads with roads in another Dutch national open data geospatial dataset called Basisregistratie Grootschalige Topografie (BGT). Since BGT is already compliant with the accuracy requirements, correcting NWB geometries based on BGT will foreseeably solve the lateral accuracy problem of NWB. However, at the time of writing of this report, the BGT-based correction has only been carried out and released for municipality-owned roads (category G for Gemeente), hence both the commercial and the scientific 3D-NWB project still rely on NWB data that lacks this correction. Regardless of improving NWB’s lateral accuracy not being within the scope of this project, it is important to be aware of the uncertainty because of its implications when overlaying NWB with other datasets, such as AHN and DTB.
 
@@ -24,7 +25,8 @@ NWB (or more specifically, NWB-Wegen, the NWB roads product) is an ESRI shapefil
     \label{fig:nwb}
 \end{figure}
 
-\section*{Actueel Hoogtebestand Nederland – AHN}
+\subsection{Actueel Hoogtebestand Nederland – AHN}
+\label{sub:ahn}
 
 \begin{figure}
     \centering
@@ -42,7 +44,8 @@ AHN are airborne Lidar (ALS) survey datasets available as open government geospa
     \label{fig:ahnsigns}
 \end{figure}
 
-\section*{Digitaal Topografisch Bestand – DTB}
+\subsection{Digitaal Topografisch Bestand – DTB}
+\label{sub:dtb}
 
 \begin{figure}
     \centering
@@ -67,7 +70,8 @@ Like NWB, DTB (or more specifically, DTB-Droog, the DTB roads product) is a Dutc
     \label{fig:dtbahn}
 \end{figure}
 
-\section*{Testing data}
+\subsection{Testing data}
+\label{sub:testingdata}
 
 Due to its volume, it will not be possible to develop and test the implementation without cropping AHN3 input point cloud tiles. Even after the implementation of the segmentation workflow, the size of the testing point clouds will need to be manageable to facilitate efficient debugging. At the same time, they will need to be sufficiently representative to provide an insight into both the computational complexity and the visual performance of the algorithm in various types of environments. I have already selected and pre-processed a range of medium-sized point clouds that may be further cropped when developing and testing specific aspects of the implementation. Table \ref{tab:inventory} provides an inventory of the testing datasets I produced by selecting various lengths of NWB centrelines at interesting road features and keeping only those Lidar points which are within a 150-metre buffer distance from the selected road centrelines. The resulting datasets fit into memory easily even when extracted to LAS.
 
@@ -89,6 +93,7 @@ Knoppunt Deil, 39CZ1 & Straight and intensely curved R-roads in a motorway inter
 \caption{Inventory of testing datasets \label{tab:inventory}}
 \end{longtable}
 
-\section*{Tools}
+\subsection{Tools}
+\label{sub:tools}
 
 In terms of tools, for visualisation purposes I will use QGIS and CloudCompare, with potential additions in later stages of the project. In terms of coding, the source code will be written in Python 3, with a strong dependence on pre-existing packages. The final set of tools will be determined when implementing the methodology. To give a few examples, I may use native modules such as fiona and shapely for handling basic vector operations, and PDAL and CGAL bindings as well as binaries such as GDAL and LASTools for point cloud processing and various geometric operations such as terrain modelling. GitHub will be used for source code management.
