@@ -29,6 +29,14 @@
 \usepackage{wrapfig}
 \usepackage[format=plain, font=small,labelfont=bf]{caption}
 
+\makeatletter
+\renewcommand{\thesection}{%
+  \ifnum\c@chapter<1 \@arabic\c@section
+  \else \thechapter.\@arabic\c@section
+  \fi
+}
+\makeatother
+
 \input{mysettings}
 
 \subject{MSc thesis proposal (P2) in Geomatics}
