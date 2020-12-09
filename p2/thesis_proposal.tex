@@ -47,62 +47,36 @@
 % Frontmatter
 %******************************************************************
 \frontmatter
-
-\begin{titlepage}
-	\centering
-	{\Large \par}
-	\vspace{1.5cm}
-	{\huge \myTitle\par}
-	\vspace{2cm}
-	{\Large \myName\par}
-	\begin{tabular}{ll}
-    Supervisors:  &  \mySupervisorOne \\
-                  &  \mySupervisorTwo \\
-    \end{tabular}
-
-	\vfill
-
-% Bottom of the page
-	{\large \today\par}
 	
 \begin{titlepage}
-  \null\vfill
+  \vfill
   \begin{center}
+    {%
+      \usekomafont{subject}{%
+        MSc thesis proposal (P2) in Geomatics
+      \par}%
+    }%
+    {%
+      \usekomafont{title}{\huge
+        \myTitle
+      \par}%
+    }%
+    \vskip 1em
     {%
       \usekomafont{author}{%
         \lineskip 0.75em
         \begin{tabular}[t]{c}
-          John Doe% <- author
+          Kristof Kenesei
         \end{tabular}\par
+        \begin{tabular}{ll}
+        Supervisors:  &  \mySupervisorOne \\
+                      &  \mySupervisorTwo \\
+        \end{tabular}
       }%
     }%
-    \vskip 1em
-    {%
-      \usekomafont{title}{\huge
-        My title% <- title
-      \par}%
-    }%
-    \vskip 1em
-    {%
-      \usekomafont{subtitle}{%
-        My subtitle% <- subtitle
-      \par}%
-    }%
-    \vskip 1.5em
+    \vfill
     {\usekomafont{date}{\today \par}}%
-    \vskip 0pt plus 4fill
   \end{center}
-  \clearpage
-  \thispagestyle{empty}
-  \noindent\begin{minipage}[t]{\textwidth}
-    Upper Text% <- upper text
-  \end{minipage}\par
-  \vfill
-  \noindent\begin{minipage}[b]{\textwidth}
-    Lower Text% <- lower text
-  \end{minipage}\par
-\end{titlepage}
-	
 \end{titlepage}
 
 %******************************************************************
