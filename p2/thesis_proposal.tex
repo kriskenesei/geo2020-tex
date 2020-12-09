@@ -44,7 +44,7 @@
 \subject{MSc thesis proposal (P2) in Geomatics}
 \title{\myTitle}
 \author{\myName}
-\date{\myGraduationMonth\xspace\myGraduationYear}
+\date{\today}
 \publishers{A thesis proposal (P2) submitted to the Delft University of Technology in partial fulfillment of the requirements for the degree of Master of Science in Geomatics}
 
 \begin{document}
@@ -54,13 +54,23 @@
 %******************************************************************
 \frontmatter
 
-\maketitle[3]
-\vspace{3em}
-\noindent
-\begin{tabular}{ll}
-Supervisors:  &  \mySupervisorOne \\
-              &  \mySupervisorTwo \\
-\end{tabular}
+\begin{titlepage}
+	\centering
+	{\scshape\Large MSc thesis proposal (P2) in Geomatics\par}
+	\vspace{1.5cm}
+	{\huge\bfseries \myTitle\par}
+	\vspace{2cm}
+	{\Large\itshape \myName\par}
+	\begin{tabular}{ll}
+    Supervisors:  &  \mySupervisorOne \\
+                  &  \mySupervisorTwo \\
+    \end{tabular}
+
+	\vfill
+
+% Bottom of the page
+	{\large \today\par}
+\end{titlepage}
 
 %******************************************************************
 % Mainmatter
