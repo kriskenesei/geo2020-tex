@@ -29,8 +29,8 @@ My proposed approach is the result of a combined understanding of concepts in re
     \end{enumerate}
     \item Point cloud partitioning
     \begin{enumerate}
-        \item For each NBRS from the previous stage, fit planes  to the neighbourhood of edges  and fetch  points that are close to them. When selecting a final plane from candidate planes, perform a similarity check between the parameters of neighbouring planes, so that the resulting succession of planes are not oriented unrealistically with respect to each other. Determine the exact procedure and parametrisation in a way that it is not too complex computationally, but still captures most Lidar points relevant to the given NBRS (i.e. do not use conservative thresholds at this stage).
-        \item Merge the sub-clouds of edges into a single sub-cloud for the NBRS and save to disk with an identifier linking it to the NBRS itself.
+        \item For each NBRS from the previous stage, fit planes to the neighbourhood of edges and fetch points that are close to them. When selecting a final plane from candidate planes, perform a similarity check between the parameters of neighbouring planes, so that the resulting succession of planes are not oriented unrealistically with respect to each other. Determine the exact procedure and parametrisation in a way that it is not too complex computationally, but still captures most Lidar points relevant to the given NBRS (i.e. do not use conservative thresholds at this stage).
+        \item Merge the subclouds of edges into a single sub-cloud for the NBRS and save to disk with an identifier linking it to the NBRS itself.
     \end{enumerate}
     \item Road edge identification
     \item[] To be performed on each generated NBRS (and linked sub-cloud of Lidar points).
