@@ -25,7 +25,7 @@ The above methodology is illustrated on a flowchart in Figure \ref{fig:methodflo
     \label{fig:methodflow}
 \end{figure}
 
-\subsection{Pre-existing implementations}
+\subsection{Methods of existing implementations}
 \label{sub:premethods}
 \subsubsection*{NDW prototype}
 
@@ -54,7 +54,7 @@ It is worth mentioning that the RHDHV implementation deals with all non-standard
 
 From a scientific point of view, there are numerous potential issues suggested by the description of this workflow. For instance, point cloud to raster conversion is, by definition, associated with inherent information loss (less raster cells than pixels), and further reduction in accuracy is introduced by the interpolation mechanism itself. Radial IDW was used to generate AHN3 DTM tiles, which several of the reviewed papers found to be specifically unsuitable for interpolating large-scale areas in which zones of decreased point density or gaps exist – both of which characterise ground-filtered AHN data (e.g. \cite{guo_etal_2010}). In addition, the procedure performs another layer of interpolation to infill gaps, which may further deteriorate accuracy. Furthermore, RHDHV uses bilinear interpolation inside the raster to produce NWB elevations, which is suggested by \cite{shi_etal_2005}, to be less accurate than other common methods such as bicubic. In terms of their strong prioritising of DTB for R-roads, I should remark that DTB itself is also a secondary source of information (it is based on a procedural combination of data from various types of sensing, into vector features), and in contrast with AHN3, neither its overall nor its local accuracy are known. While it no doubt contains valuable information, relying on it as the sole source of elevation data does not appear to permit the estimation of output accuracy, which is a pre-requisite of compliance with SWUNG2.
 
-\subsection{First approximation of my own methods}
+\subsection{First approximation of methods to be implemented}
 \label{sub:mymethods}
 
 The proposed first approximation of the exact methods is the result of a combined understanding of concepts described in related work, my own knowledge and experience relating to the geomatics discipline, as well as inspiration from the commercial implementation of RHDHV. The proposed workflow was built with the research questions in mind. The below summary is only a brief overview, as the detailed specifications will be refined iteratively during development.
