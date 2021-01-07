@@ -57,7 +57,7 @@ From a scientific point of view, there are numerous potential issues suggested b
 \subsection{First approximation of my own methods}
 \label{sub:mymethods}
 
-My proposed approach is the result of a combined understanding of concepts in related work, my own knowledge and experience relating to geomatics concepts and methods, as well as inspiration from the commercial implementation of RHDHV. The proposed workflow was built with the research questions in mind. The below summary is only a top-level description, as the detailed specifications may change during development.
+The proposed first approximation of the exact methods is the result of a combined understanding of concepts described in related work, my own knowledge and experience relating to the geomatics discipline, as well as inspiration from the commercial implementation of RHDHV. The proposed workflow was built with the research questions in mind. The below summary is only a brief overview, as the detailed specifications will be refined iteratively during development.
 
 \begin{enumerate}
     \item Pre-processing
@@ -104,7 +104,7 @@ Unfortunately, since the above procedure is specialised to reconstructing 3D roa
 
 The above workflow uses concepts already discussed in the last few paragraphs in the Related work section (\ref{sec:rw}). For instance, the point cloud segmentation to decompose the problem into 2.5D sub-problems was inspired by \cite{oudeElberink_vosselman_2009} and \cite{boyko_funkhauser_2011}. The cross-section based workflow was, among others, inspired by \cite{yang_etal_2013} and the commercial implementation. The use of a CDT to represent the final surface comes from \cite{oudeElberink_vosselman_2006}. The active contour-based workflow was inspired by \cite{boyko_funkhauser_2011} and \cite{gopfert_etal_2011}. However, while in previous research contours were snapped to road curbs, my road-edge energy term will not be specialised to traditional curb geometries. It will be more general; a term that attracts the contour to the first noticeable change in curvature away from NWB.
 
-For the accuracy assessment part of the project, the following secondary workflow is proposed:
+For the accuracy assessment part of the project, I propose the following secondary workflow:
 
 \begin{enumerate}
     \item Pre-processing
