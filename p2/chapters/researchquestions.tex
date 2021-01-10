@@ -6,30 +6,30 @@
 My main research question is \textit{"How can we achieve a 3D conversion of the NWB dataset using Dutch open geospatial data and a primarily 2.5D-based surface modelling methodology, while guaranteeing optimal and quantifiable accuracy and completeness?"}. As I already mentioned in Section \ref{sec:rw}, combining this question with an awareness of which exact datasets I will be able to use suggests two sub-topics: identifying a combination of primarily 2.5D geomatics methods that could be used to complete the 3D enrichment of NDW, and ensuring and quantifying output accuracy. The research questions I present below are separated into two groups accordingly.
 
 \begin{enumerate}
-    \item How is it possible to perform and benchmark the elevation-enrichment of NWB using Dutch open geospatial data and an efficient, predominantly 2.5D-based geomatics set of methods?
+    \item How is it possible to \textit{perform and benchmark} the elevation-enrichment of NWB using Dutch open geospatial data and an efficient, predominantly 2.5D-based geomatics set of methods?
     \begin{enumerate}
-        \item What is the exact methodology of the commercial implementation? What do we suspect the theoretical shortcomings to be based on RHDHV's methodology and output?
-        \item Can my methodology by built around the same datasets as the ones used in the commercial implementation? What are the characteristics of these datasets?
+        \item What are the exact methods of the commercial implementation? What do we suspect the theoretical shortcomings to be, based on RHDHV's methods and output?
         \item What types of research have been carried out in this particular field? What can we learn from existing research? How successful were the related research projects?
-        \item Is it possible to base the workflow entirely on 2.5D methods by decomposing this intrinsically 3D problem into a collection of smaller problems? Can such a method of decomposition be used to simultaneously solve the scaling issues related to handling a national Lidar point cloud input dataset?
+        \item Can my methods be built around the same datasets as the ones used in the commercial implementation? What are the characteristics of these datasets?
+        \item Is it possible to base the workflow entirely on 2.5D methods by decomposing this intrinsically 3D problem into a collection of smaller problems? Can such a method of decomposition also be used to solve the scaling issues related to handling a national Lidar point cloud input dataset?
         \item How well does the implementation perform in areas of complex 3D road relationships? How can this performance be assessed visually and quantitatively using real-world examples, such as multi-level motorway exchanges and roads on long, elevated civil engineering structures?
         \item Is it possible to build the workflow in a way that it allows efficient update operations to be carried out as new data arrives or old data is updated?
         \item How do temporal inconsistencies manifest themselves in the procedure, and in the output? What problems may arise, and how best to solve them?
         \item How well does the implementation perform in areas where input elevation data is scarce, or missing? How can this performance best be assessed visually and quantitatively using real-world examples, such as dense vegetation cover or other objects occluding roads, and roads constructed in tunnels?
         \item How can we best assess the overall performance of the implementation against the commercial implementation in locations that are expected to be difficult to work with, such as where data is scarce?
         \item How smooth is the output? Are sudden jumps introduced after aggregating the decomposed model? If so, can this be resolved by optimising the procedure, or are additional smoothing steps necessary?
-        \item Can the same workflow be used to also derive elevations for lines that a fixed distance away from the NWB centrelines, representing the \textit{vicinity} of roads?
+        \item Can the same workflow be used to also derive elevations for lines that lie a fixed distance away from the NWB centrelines, representing the \textit{vicinity} of roads?
         \item Can the workflow be used to optimise the \textit{horizontal} location of NWB centrelines?
-        \item Can the workflow serve as an aggregator of elevation data from small scale sources such as road management datasets?
+        \item Can the workflow serve as an aggregator of elevation data originating from small scale sources such as road management datasets?
         \item The workflow is planned to produce surface models of \textit{road segments}. What would be needed to aggregate these into a global model containing all roads?
     \end{enumerate}
-    \item Can the processing workflow be developed in a way that it can guarantee optimal completeness and accuracy, based on a scientifically sound quantification thereof?
+    \item Can the processing workflow be developed in a way that it can guarantee optimal \textit{completeness and accuracy}, based on a scientifically sound quantification thereof?
     \begin{enumerate}
-        \item What types of accuracy may we distinguish between? Topological accuracy? Lateral accuracy? Purely elevation accuracy? How does each type of uncertainty affect the output? Is uncertainty also influenced by geographically variable factors? If so, how can we quantify these and include them in the output estimation of uncertainty? How can we minimise their effects?
+        \item What types of accuracy may we distinguish between? Topological accuracy? Lateral accuracy? Purely elevation accuracy? How does each type of uncertainty affect the output? Is uncertainty also influenced by geographically variable factors?
         \item In pre-existing research, what methods have been used to measure accuracy and estimate the influence of processing steps on accuracy?
         \item What is the accuracy of our elevation sources? Can we trust elevation data sources with undocumented accuracy?
         \item What is the effect of uncertainty in the lateral positions of NWB centrelines? Could the impact of this be reduced by optimising the lateral location of NWB?
-        \item What do we need to be able to track the evolution of the accuracy throughout the workflow? Can we build it exclusively from steps that prevent serious degradation to the accuracy, and also make any degradation quantifiable?
+        \item What do we need to be able to track the evolution of the accuracy throughout the workflow? Can we build it exclusively from steps that prevent serious degradation to the accuracy, while making any degradation quantifiable?
         \item How does the addition of small-scale elevation data sources influence accuracy? How can they be best made use of in this context?
         \item Would it be possible to develop the solution in a way that it can automatically indicate where levels of uncertainty drop below the prescribed threshold, and why?
         \item If smoothing steps are necessary as a post-processing step, how can we be certain that the vertical displacements do not corrupt accuracy? Are topological constraints necessary? If so, how can they be enforced?
