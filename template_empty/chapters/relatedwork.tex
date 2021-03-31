@@ -107,4 +107,10 @@ They do not exclusively consider roads; all polygonal vector objects are extrude
 
 Their method was later extended in \cite{oudeElberink_vosselman_2009} to work well in complex multi-level road settings by using point cloud segmentation in a manner resembling what I already described in the context of \cite{boyko_funkhauser_2011}. In his doctoral thesis \cite{oudeElberink_2010} he combined this method with the overall procedure in \cite{oudeElberink_vosselman_2006} to form one integral whole. Furthermore he extended it with a road extraction quality assessment procedure, which was later perfected and also published separately in \cite{oudeElberink_vosselman_2012}. Their quality and accuracy assessment methodology is comprised of two separate procedures and the comparison of their results: a theoretical (functional and stochastic) evaluation, and an empirical one against reference data. Interestingly, their reference data was DTB (see Section \ref{sec:td}) and in general, showed good agreement with their road extraction results.
 
+\section{Summary of literature review}
+
+[Section to be written.]
+
+[Text below copied from P2; to be adapted.]
+
 While none of the above research provides an all-in-one solution to answering the research questions of this project, they contain procedures and concepts which can be used as building blocks for my methodology. The main area \textit{not} explicitly covered by the examined papers is the use of external 3D vector data (DTB in our case) as a further constraint when extracting roads from point clouds. However, methods to perform this can be derived from the operations in them that relate to using vector geometries as approximate road locations in 2D, and from general geomatics concepts and methods. An additional consideration related to the input road centrelines is that in all research presented above, refining the lateral position of the road is permitted. However, NDW specifically requested that I do not move the NWB lines horizontally. Hence, I plan to focus primarily on enriching NWB with elevations without moving them laterally, with only exploring its lateral refinement to a limited extent.
