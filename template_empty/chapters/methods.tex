@@ -23,14 +23,13 @@ The above methodology is illustrated on a flowchart in Figure \ref{fig:methodflo
     \label{fig:methodflow}
 \end{figure}
 
-\section{Methods}
-\label{sec:methods}
-\subsection{Methods of existing implementations}
-\subsubsection*{NDW prototype}
+\section{Methods of existing implementations}
+\label{sec:methodsexisting}
+\subsection{NDW prototype}
 
 NDW themselves produced a non-commercial prototype implementation, which can achieve a 3D enrichment of NWB with only a few gaps in the produced elevation profiles. Although their workflow does not have a formal documentation, I have been given a verbal description of it, as well as the output. Based on my understanding of these, their primary technique involved snapping close-by AHN3 Lidar points to the line geometries of NWB. Notable problems with the implementation included non-road points being snapped to centrelines, causing road centrelines to be given overestimated elevations, in turn resulting in sudden jumps in the elevation profiles. Furthermore, no close-by points could be found for underground roads (i.e. tunnels), and strongly occluded parts of roads. For small gaps, this was resolved partially by writing an algorithm to interpolate linearly inside NWB, using the closest vertices where snapping was successful. For larger gaps, an attempt was made to resolve issues by including information from external sources semi-automatically. Neither issue could be fully resolved via these approaches, hence the results of this project were only used by NDW to gain a better understanding of the problem and the expected challanges. For a reliable, commercial toolbox they subsequently commissioned an implementation from RHDHV.
 
-\subsubsection*{RHDHV commercial toolbox}
+\subsection{RHDHV commercial toolbox}
 
 RHDHV developed their implementation in parallel with the \textit{planning} of the present scientific research. I have attended NDW-RHDHV meetings, discussed the implementation directly with RHDHV, and was granted access to the codebase of the project. Understanding their implementation is crucial for this research, as it aims to both assess the accuracy of the commercial implementation, as well as in part base its methodology and implementation on the suspected shortcomings of the commercial implementation. The steps of the procedure are briefly described below.
 
@@ -139,15 +138,15 @@ Testing the accuracy of the commercial implementation will take place via two di
 
 Hence, my first method will involve merely examining general properties of the output, such as smoothness, density of outliers and missing values. It will also involve a visual assessment of their results, including comparisons with the AHN3 point cloud and my own results, particularly in difficult environments. The second approach will involve deriving errors and RMSE values \textit{relative} to my own results. Making this comparison will indicate where the commercial results diverge from the ranges of plausible values, as specified by the uncertainty ranges in my output. Where their output falls outside these ranges of uncertainty – which could be examined visually by plotting the differences on NWB centrelines 2D – I will closely examine the two results in the context of differences in the methodologies and local features in the data sources, and attempt to explain the disagreement scientifically.
 
-\subsection{Detailed methods}
+\section{Detailed methods}
 \label{sub:methodsdetailed}
 
-\subsubsection*{Splitting NWB into NBRS}
-\subsubsection*{Lidar segmentation}
-\subsubsection*{Edge approximation}
-\subsubsection*{Active contour optimisation}
-\subsubsection*{TIN construction}
-\subsubsection*{Interpolation in TIN and snapping}
+\subsection{Splitting NWB into NBRS}
+\subsection{Lidar segmentation}
+\subsection{Edge approximation}
+\subsection{Active contour optimisation}
+\subsection{TIN construction}
+\subsection{Interpolation in TIN and snapping}
 
-\subsection{Programming framework}
-\label{sub:methodsdetailed}
+\section{Programming framework}
+\label{sub:programming}
