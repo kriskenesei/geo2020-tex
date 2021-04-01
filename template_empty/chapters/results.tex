@@ -3,11 +3,14 @@
 \chapter{Results}
 \label{chap:r}
 
+\textit{[Chapter intro to be written.]}
+
 \section{Input assessment}
 \label{sec:input}
 
-\section{Tools and Datasets}
-\label{sec:td}
+\textit{[Section intro to be written.]}
+
+\textit{[Text below copied from P2; to be adapted.]}
 
 In terms of datasets, both the commercial implementation and the proposed research rely on the following three sources:
 
@@ -21,6 +24,10 @@ As mentioned in the section about research questions, I am also planning to exam
 
 \subsection{Nationaal Wegenbestand – NWB}
 \label{sub:nwb}
+
+\textit{[Subsection to be written.]}
+
+\textit{[Text below copied from P2; to be adapted.]}
 
 \begin{figure}[h]
     \centering
@@ -40,6 +47,10 @@ NWB (or more specifically, NWB-Wegen, the NWB roads product) is an \textit{ESRI 
 
 \subsection{Actueel Hoogtebestand Nederland – AHN}
 \label{sub:ahn}
+
+\textit{[Subsection to be written.]}
+
+\textit{[Text below copied from P2; to be adapted.]}
 
 AHN are airborne Lidar (ALS) survey datasets available as open government geospatial data in The Netherlands. The surveys are commissioned every few years with AHN1 to AHN3 already complete (1996 to 2019), and the first AHN4 surveys nearing release. At this stage of the project, we are interested in AHN3, although it is a planned side-track of the research to examine how freshly released AHN4 data could best be made use of. The dataset has a combined systematic and stochastic elevation error of 15 centimetres at two standard deviations (i.e. 95 \% confidence), and 6 to 10 points per square metre point density on average, corresponding to a 0.41 to 0.32 metre posting distance. The lateral error is 18 centimetres at two standard deviations (\cite{ahn_kwaliteit}). Comparing these to the descriptors of datasets mentioned in research examined as part of our literature review (see the Relevant work section), AHN3 can be considered accurate, and to have excellent point density. The AHN3 point cloud has been classified semi-automatically with great accuracy and is released with the classification included. This means that for most purposes, the point cloud needs not be ground filtered manually, and that extracting certain features is made far easier. Of the various classes available, we are interested in class 2 the most, which corresponds to ground points, and class 26 which contains, among other things, bridges. Ground points are primarily interesting to us because they contain the road points. This includes roads that were constructed directly on the terrain, as well as roads constructed on altered terrain, such as those built on elevated ground or in open trenches. It also contains the points that represent the terrain in the vicinity of the roads. Elevated roads and bridges are not considered ground points and are generally represented by gaps in class 2, which can, in most cases, be filled by using data from class 26, as shown in Figure \ref{fig:ahnbridges}. However, it is worth noting that class 26 also contains other types of objects, for instance large motorway signs arching over the road surface (shown in Figure \ref{fig:ahnsigns}), as well as the civil engineering structures of elevated roads and bridges (in addition to the road surfaces on them).
 \begin{figure}[h!]
@@ -66,6 +77,10 @@ AHN3 is released in the form of a point cloud, as well as DSM and DTM rasters. B
 \subsection{Digitaal Topografisch Bestand – DTB}
 \label{sub:dtb}
 
+\textit{[Subsection to be written.]}
+
+\textit{[Text below copied from P2; to be adapted.]}
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.95\linewidth]{p2/figs/ahn_sample_10.png} 
@@ -75,8 +90,12 @@ AHN3 is released in the form of a point cloud, as well as DSM and DTM rasters. B
 
 Like NWB, DTB (or more specifically, DTB-Droog, the DTB roads product) is a Dutch open data geospatial dataset in the \textit{ESRI Shapefile} format. For the purposes of this project, we only need DTB street outlines (edges), hence we can also regard this as a dataset comprised exclusively of \textit{MultiLineString} objects, making it identical to NWB in its data structure. DTB is managed by RWS and it is concerned only with state-owned roads and roads on state-leased land, which translate almost exclusively to NWB R-roads. DTB is, hence, not a reliable source of information about provincial roads (NWB P-roads), our other road type of interest. The DTB lines that are commonly used as road edges are not, in fact, the edges of the paved surface. They are called \textit{verflijnen}, and are the approximate locations of the painted lines representing the outermost edges of the area open to traffic. This is a lucky correspondence with NWB, as it too, contains the centrelines of the areas of roads that are open to traffic. The second-best option would be to use the category \textit{gelederail constructie}, which generally provide good approximations of the edges of the paved surfaces on which the \textit{verflijnen} were painted. Unfortunately, these correspond to the location of safety rails, and as such they are sometimes not on the road and are also not always present. Like NWB (but unlike AHN), DTB’s acquisition also concerns several organisations performing various types of sensing, which are then semi-automatically assembled into the complete DTB product. DTB lines are primarily photogrammetry-derived, with land-based surveying methods and car-mounted Lidar (MLS) used in some areas to improve accuracy (\cite{oudeElberink_vosselman_2012}). The documentation of DTB consist of a documentation (\cite{dtb_docs}) and a handbook (\cite{dtb_handbook}). The accuracy of DTB is not published by RWS or any other organisation contributing to or using the dataset, although it is generally thought to be quite accurate. It is mostly used for purposes relating to road management and civil engineering and apart from road edges, it contains more than 400 other types of semantically identified roadside object types. As most users of DTB work in GIS environments, particular care is taken to separate objects into layers in such a way that inside any one layer, they never overlap. This means that they can be processed using 2D GIS tools easier, reducing the significance of elevation to a mere semantic detail (non-geometric attribute). Whenever objects in any given such layer are found in the same position (or closer than a certain threshold), they are automatically shifted by a maximum distance of 5 centimetres to eliminate the overlap, most commonly for DTB road signs. While descriptions in the documentation can be found suggesting that DTB lines are measured accurately, I must consider the formal accuracy of DTB unknown due to the lack of any numerical figures or other evidence to support this. Furthermore, as I illustrate in \ref{fig:dtbnwb}, a visual comparison with NWB reveals various types of significant inconsistencies and interpretation issues. A visual comparison with AHN3 is also shown in \ref{fig:dtbahn}.
 
-\subsection{Testing data}
+\subsection{Testing datasets}
 \label{sub:testingdata}
+
+\textit{[Subsection to be written.]}
+
+\textit{[Text below copied from P2; to be adapted.]}
 
 Due to its volume, it will not be possible to develop and test the implementation without cropping AHN3 input point cloud tiles. Even after the implementation of the segmentation workflow, the size of the testing point clouds will need to be manageable, to facilitate efficient debugging. At the same time, they will need to be representative enough to provide an insight into the computational complexity and visual performance of the algorithm. I have already produced a range of testing datasets by selecting various lengths of NWB centrelines at interesting road features, and keeping only those Lidar points which are within a 150-metre buffer distance from the selected road centrelines. Table \ref{tab:inventory} provides an inventory of these. The tile identifier in the first column refers to those used in \cite{ahn3_download}. The resulting datasets fit into memory easily, even when extracted to LAS.
 
@@ -101,22 +120,74 @@ Knoppunt Deil, 39CZ1 & Less complex, but analogous interchange to the Knoppunt R
 \section{Results of processing steps}
 \label{sec:results}
 
+\textit{[Section intro to be written.]}
+
 \subsection{Splitting NWB into NBRS}
+\label{sub:r_nbrsgeneration}
+
+\textit{[Subsection to be written.]}
+
 \subsection{Lidar segmentation}
+\label{sub:r_lidarsegmentation}
+
+\textit{[Subsection to be written.]}
+
 \subsection{Edge approximation}
+\label{sub:r_edgeapproximation}
+
+\textit{[Subsection to be written.]}
+
 \subsection{Active contour optimisation}
+\label{sub:r_activecontours}
+
+\textit{[Subsection to be written.]}
+
 \subsection{TIN construction}
+\label{sub:r_tinconstruction}
+
+\textit{[Subsection to be written.]}
+
 \subsection{Interpolation in TIN and snapping}
+\label{sub:r_interpolation}
+
+\textit{[Subsection to be written.]}
 
 \section{Accuracy assessment}
 \label{sec:accuracy}
 
+\textit{[Section intro to be written.]}
+
+\subsection{Which steps affect accuracy?}
+\label{sub:accuracysteps}
+
+\textit{[Subsection to be written.]}
+
 \subsection{TIN completeness and accuracy}
-\subsection{3D-NWB accuracy}
+\label{sub:accuracytin}
+
+\textit{[Subsection to be written.]}
+
+\subsection{3D road network accuracy}
+\label{sub:accuracynwb}
+
+\textit{[Subsection to be written.]}
 
 \section{Comparison with commercial implementation}
 \label{sec:comparison}
 
+\textit{[Section intro to be written.]}
+
 \subsection{Overall comparison}
+\label{sub:comparisonoverall}
+
+\textit{[Subsection to be written.]}
+
 \subsection{R-roads}
+\label{sub:comparisonrroads}
+
+\textit{[Subsection to be written.]}
+
 \subsection{P-roads}
+\label{sub:comparisonproads}
+
+\textit{[Subsection to be written.]}

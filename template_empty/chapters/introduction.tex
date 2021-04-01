@@ -6,9 +6,9 @@
 \section{Motivation}
 \label{sec:motivation}
 
-[Section to be written.]
+\textit{[Section to be written.]}
 
-[Text below copied from P2; to be adapted.]
+\textit{[Text below copied from P2; to be adapted.]}
 
 Constructing and maintaining an up-to-date graph-like road network on the national level has a range of firmly established uses. Owing to its structure, it can be used efficiently for modelling and simulation purposes, such as for traffic flow simulations, passenger transport modelling, construction and upgrade impact modelling (to pinpoint optimal locations and types of investment), and traffic noise load modelling (\cite{bell_lida_1997, zhu_li_2007, zhang_2011, duran_santos_2014, peng_etal_2020}). It can also be used for navigation; a graph-like road network representation is at the heart of most road navigation services (\cite{yue_etal_2008}). Combined with other data sets, we can mention an even wider range of use cases: complemented by ecological statistics and models, it can offer insight into the impact of the presence of roads, and planned road construction on the flora and fauna in their vicinity. Or to mention logistical benefits, a good model representing the road network in a digital format may be used as a shared working space when aggregating geospatial data relating to road infrastructure from various sources. It makes it possible for geographical road locations, topographical relationships, and arbitrary semantic information to reside in the same network-type data model, making analysis techniques more straightforward, enforcing consistency and saving effort for data providers who would otherwise all need to maintain their own road model (\cite{ekpenyong_etal_2007}).
 
@@ -23,26 +23,26 @@ When a use case arises and an accurate 3D model is needed, the provider generall
 \section{The NDW commission}
 \label{sec:commission}
 
-[Section to be written.]
+\textit{[Section to be written.]}
 
-[Text below copied from P2; to be adapted.]
+\textit{[Text below copied from P2; to be adapted.]}
 
 In certain projects the accuracy requirement and restrictions on the modelling procedure may be prescribed legally. Such is the case for the client of the proposed MSc dissertation research, the \textit{Nationaal Dataportaal Wegverkeer} (NDW, National Road Traffic Data Portal), part of \textit{Rijkswaterstaat} (RWS, Directorate-General for Public Works and Water Management), a Dutch government organisation who are in the process of enriching their pre-existing open data 2D road model, called \textit{Nationaal Wegenbestand} (NWB, National Road Database), with 3D data, to attain compliance with \textit{SWUNG2}, the new version of the Dutch noise legislation or \textit{geluidwetgeving}. The new version of this legislation prescribes, among other things, accuracy requirements for the road model underlying the noise simulations, with explicit mention of it having to be three-dimensional. Due to cost considerations and reasons related to NDW’s data acquisition pipeline, the pre-existing 2D realisation of NWB will be converted into a 3D dataset (dubbed \textit{3D-NWB}) primarily using open data geospatial datasets. They have produced a prototype realisation themselves, and subsequently contracted the consultant firm \textit{Royal HaskoningDHV} (RHDHV) to create a commercial implementation based on their experience with the prototype. The development of this tool was concluded in December 2020. In addition to simply using the commercial implementation, they wish to assess how it fares in terms of spatial accuracy-related SWUNG2-compliance. This dissertation research will attempt to contribute to this assessment by producing an original implementation that favours accuracy, and in which accuracy can be \textit{tracked} and \textit{quantitatively evaluated}. This implementation will also serve as a reference to which its commercial counterpart can be compared so that its accuracy can be evaluated indirectly, and will also explore various related geomatics topics in the process. This document presents the preliminary findings and project plans of the proposed research.
 
 \section{Field and relevance}
 
-[Section to be written.]
+\textit{[Section to be written.]}
 
-[Text below copied from P2; to be adapted.]
+\textit{[Text below copied from P2; to be adapted.]}
 
 I will primarily focus on a Lidar point cloud and a 3D topographical line dataset as elevation sources. In both of these datasets, it is evidenced that roads are in truly three-dimensional relationships with one another and with their environment. For instance, they cross above and below other roads and are often constructed underground, in tunnels. The question arises, how such real-world geometries should be dealt with in the conversion process. The answer to this question defines which field of geoscience my project is positioned in. The two candidates in the context of digital road network modelling are GIS and geomatics. It is thus worth discussing briefly how each typically treats 3D objects. One of the reasons why 2D road models are popular is that their geometry and network properties can be analysed using a multitude of well-proven GIS methods and software kits. However, in GIS models, even if elevation measurements exist, they are generally only present as an \textit{elevation attribute} (i.e. a semantic data field, like street names), because GIS geometrical models do not typically support true 3D operations. This is conceptually identical to projecting the geometries onto the horizontal plane. Geometric models that treat the vertical dimension explicitly are more common in geomatics; namely 2.5D and 3D models. While using 2.5D models restricts the types of physical entities that can be modelled, it also greatly simplifies certain types of analysis conceptually and computationally. This makes it ideal for modelling on similar scales to GIS; on the national scale for instance, as in this research. While 2.5D modelling initially appears to be a good candidate for this project, we may observe that it is by definition unsuitable for handling the 3D relationships that roads have with each other and with their environment. However, much like how the concept of divide-and-conquer works in computer science, it is possible decompose 3D problems into smaller sub-problems until they become natively compatible with 2.5D methods. This research is positioned in the geomatics field because my implementation will explore how 2.5D methods can be applied in a way that enables the \textit{piecewise} modelling of a national road network. The divide-and-conqer concept will be applied to decompose the road network into segments that can be individually, locally regarded as \textit{terrain} and hence be modelled in 2.5D. As the proposed research focuses on 2.5D methods to a great extent, it overlaps with the geomatics field of digital terrain modelling in terms of how it will generate and store the digital representation of road surfaces, and as a consequence, the manner in which it will derive elevations from them. As the Methodology section (\ref{sec:m}) will reveal, it also strongly overlaps with the geomatics field of 3D feature extraction (and to a small extent, photogrammetry), because of how I propose to derive the 2.5D road surface models from our input datasets. As also indicated in the Research questions section (\ref{sec:rq}), it is among the specific aims of this project to study how a combination of mainly geomatics-based tools and methods can be used to accomplish the tasks required by NDW, as well as to assess their accuracy and suitability when used in this way.
 
 \section{Research questions}
 \label{sec:rq}
 
-[Section to be written.]
+\textit{[Section to be written.]}
 
-[Text below copied from P2; to be adapted.]
+\textit{[Text below copied from P2; to be adapted.]}
 
 My main research question is \textit{"How can we achieve a 3D conversion of the NWB dataset using Dutch open geospatial data and a primarily 2.5D-based surface modelling methodology, while guaranteeing optimal and quantifiable accuracy and completeness?"}. As I already mentioned in Section \ref{sec:rw}, combining this question with an awareness of which exact datasets I will be able to use suggests two sub-topics: identifying a combination of primarily 2.5D geomatics methods that could be used to complete the 3D enrichment of NDW, and ensuring and quantifying output accuracy. The research questions I present below are separated into two groups accordingly.
 
@@ -77,14 +77,3 @@ My main research question is \textit{"How can we achieve a 3D conversion of the 
         \item How may we measure or estimate the accuracy of the commercial implementation? Can it be tracked throughout their procedure starting from input accuracy, or is it necessary to rely on more indirect methods?
     \end{enumerate}
 \end{enumerate}
-
-\section{Research timeline}
-\label{sec:rq}
-
-[Section to be written.]
-
-[Text below copied from P2; to be adapted.]
-
-The following page contains a diagram illustrating the schedule of my graduation year. Please note that the exact P3, P4 and P5 dates are not yet known, hence the week in which they are shown in the diagram are tentative. As a result, the overall length of time available in the second semester is also not yet fixed; the longest possible time is shown.
-
-\includepdf[landscape=true]{figs/project_schedule_a4.pdf}

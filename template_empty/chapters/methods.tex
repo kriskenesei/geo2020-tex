@@ -3,24 +3,50 @@
 \chapter{Methodology and methods}
 \label{chap:mm}
 
+\textit{[Chapter intro to be written.]}
+
+\textit{[Text below copied from P2; to be adapted.]}
+
 This section first presents a top-level description of the methodology of the planned dissertation work. This description is limited to matters relating to planning the execution of the dissertation work. Methodology is then further discussed in terms of the exact \textit{methods} used in the commercial implementation, and the ones that I plan to implement as part of the dissertation work. First, the workflows are presented which were implemented by NDW to produce the prototype implementation and by RHDHV to build the commercial toolbox. This is followed by structured \textit{first approximations} of the workflows I will aim to implement and analyse during the period starting from my P2 presentation and leading up to the P4.
 
 \section{Methodological framework}
 \label{sec:methodology}
 
+\textit{[Section intro to be written.]}
+
 \subsection{Preparation}
+\label{sub:preparation}
+
+\textit{[Subsection to be written.]}
+
+\textit{[Text below copied from P2; to be adapted.]}
 
 Since this project concerns a client with specific requirements and pre-existing methods in addition to aspects that are purely scientific, the first stage of the project involved \textit{consultation with the client} (and directly with their commercial developers) in addition to the general task of \textit{familiarising myself with the research topic and literature}. The results of these preparation tasks were \textit{discussed internally} (with my supervisors) and used to \textit{define the final list of formal research questions}, and to \textit{produce the P1 submission}. This stage roughly coincided with Q1 of the academic year, and with the P1 period of the dissertation research.
 
 \subsection{Preliminary analysis, proposal writing}
+\label{sub:preliminaryanalysis}
+
+\textit{[Subsection to be written.]}
+
+\textit{[Text below copied from P2; to be adapted.]}
 
 The second stage of the project involved \textit{further consultation with the client and their developers} to determine to what extent the commercial and scientific branches of the 3D-NDW project could be linked, and to allow me to understand the exact methods used in the prototype and the commercial implementation (which was being actively developed during this period of time). In parallel, I \textit{performed the necessary in-depth literature review} and preliminary analysis. The preliminary analysis comprised a \textit{close examination of the input datasets and their documentations} and based on this and the research questions, the \textit{final selection of relevant concepts and methods}. I also selected a range of illustrative geographical regions during the preliminary analysis, and cropped the datasets to their extents to \textit{create testing input files} for later development and testing. Lastly, the results of this stage were distilled to \textit{produce the present P2 proposal}. This stage roughly coincided with Q2 of the academic year, and with the P2 period of the dissertation research.
 
 \subsection{Analysis}
+\label{sub:analysis}
+
+\textit{[Subsection to be written.]}
+
+\textit{[Text below copied from P2; to be adapted.]}
 
 The third stage of this dissertation will span the period between my P2 and P4 presentations. This stage will be concerned with performing the bulk of the analysis. The period will start with the \textit{implementation of individual algorithms and steps of the workflow}. The first approximation of \textit{the overall workflow will be refined iteratively}, as a function of what I find to be feasible to implement considering the available set of tools, as well as the scope and time constraints of the project. Following the P3 meeting, I plan to shift my focus to \textit{assembling the pipeline} from the individual algorithms and procedures and when finished, \textit{performing the accuracy-related analysis}. Testing the individual procedures and the pipeline will be continuous and be carried out regularly while debugging the code during development, as well as in more depth after reaching milestones. Testing, and the assessment of performance and accuracy will use the testing datasets I produced before the P2 date. This stage will be concluded by \textit{writing the draft thesis} based on the results.
 
 \subsection{Finalisation}
+\label{sub:finalisation}
+
+\textit{[Subsection to be written.]}
+
+\textit{[Text below copied from P2; to be adapted.]}
 
 The last stage of the project will last a few weeks between the P4 presentation and the P5 presentation. Both \textit{the implementations and the thesis itself will be improved and finalised} during this time.
 
@@ -35,11 +61,24 @@ The above methodology is illustrated on a flowchart in Figure \ref{fig:methodflo
 
 \section{Methods of existing implementations}
 \label{sec:methodsexisting}
+
 \subsection{NDW prototype}
+\label{sub:ndwprototype}
+
+\textit{[Subsection to be written.]}
+
+\textit{[Text below copied from P2; to be adapted.]}
 
 NDW themselves produced a non-commercial prototype implementation, which can achieve a 3D enrichment of NWB with only a few gaps in the produced elevation profiles. Although their workflow does not have a formal documentation, I have been given a verbal description of it, as well as the output. Based on my understanding of these, their primary technique involved snapping close-by AHN3 Lidar points to the line geometries of NWB. Notable problems with the implementation included non-road points being snapped to centrelines, causing road centrelines to be given overestimated elevations, in turn resulting in sudden jumps in the elevation profiles. Furthermore, no close-by points could be found for underground roads (i.e. tunnels), and strongly occluded parts of roads. For small gaps, this was resolved partially by writing an algorithm to interpolate linearly inside NWB, using the closest vertices where snapping was successful. For larger gaps, an attempt was made to resolve issues by including information from external sources semi-automatically. Neither issue could be fully resolved via these approaches, hence the results of this project were only used by NDW to gain a better understanding of the problem and the expected challanges. For a reliable, commercial toolbox they subsequently commissioned an implementation from RHDHV.
 
 \subsection{RHDHV commercial toolbox}
+\label{sub:commercialproduct}
+
+\subsubsection{Commercial methods}
+
+\textit{[Subsubsection to be written.]}
+
+\textit{[Text below copied from P2; to be adapted.]}
 
 RHDHV developed their implementation in parallel with the \textit{planning} of the present scientific research. I have attended NDW-RHDHV meetings, discussed the implementation directly with RHDHV, and was granted access to the codebase of the project. Understanding their implementation is crucial for this research, as it aims to both assess the accuracy of the commercial implementation, as well as in part base its methodology and implementation on the suspected shortcomings of the commercial implementation. The steps of the procedure are briefly described below.
 
@@ -60,12 +99,24 @@ The angle condition mentioned above is a threshold-based evaluation concerning t
 
 It is worth mentioning that the RHDHV implementation deals with all non-standard input data sets (i.e. small-scale engineering models, road management datasets, etc.) by first converting them to rasters with the same specifications as AHN3 DTM tiles and mosaicking them into an output raster based on a priority list, before filling in any remaining gaps and interpolating bilinearly.
 
+\subsubsection{Potential limitations}
+
+\textit{[Subsubsection to be written.]}
+
+\textit{[Text below copied from P2; to be adapted.]}
+
 From a scientific point of view, there are numerous potential issues suggested by the description of this workflow. For instance, point cloud to raster conversion is, by definition, associated with inherent information loss (less raster cells than pixels), and further reduction in accuracy is introduced by the interpolation mechanism itself. Radial IDW was used to generate AHN3 DTM tiles, which several of the reviewed papers found to be specifically unsuitable for interpolating large-scale areas in which zones of decreased point density or gaps exist – both of which characterise ground-filtered AHN data (e.g. \cite{guo_etal_2010}). In addition, the procedure performs another layer of interpolation to infill gaps, which may further deteriorate accuracy. Furthermore, RHDHV uses bilinear interpolation inside the raster to produce NWB elevations, which is suggested by \cite{shi_etal_2005}, to be less accurate than other common methods such as bicubic. In terms of their strong prioritising of DTB for R-roads, I should remark that DTB itself is also a secondary source of information (it is based on a procedural combination of data from various types of sensing, into vector features), and in contrast with AHN3, neither its overall nor its local accuracy are known. While it no doubt contains valuable information, relying on it as the sole source of elevation data does not appear to permit the estimation of output accuracy, which is a pre-requisite of compliance with SWUNG2.
 
 Care will be taken to examine how the same challenges as we expect to face regarding output accuracy and 3D road interactions are handled by the commercial implementation – in fact, some of my research questions are based specifically on challanges reported by the developers of the commercial implementation, and the known shortcomings of their final product. Our preliminary analysis of the implementation indicates that for instance, it uses input data with non-validated accuracy for motorways, and simple bilinear interpolation in poorly interpolated, Lidar-based raster DTMs for provincial roads. Furthermore, it only handles 3D interactions explicitly for motorways and even for these, it does so via a series of assumptions that do not hold in general, necessitating the use of various fallback mechanisms. This comparison may provide an insight into some aspects of 3D geospatial data processing that are frequently overlooked, or oversimplified in commercial implementations.
 
 \subsection{Overview of planned methods}
 \label{sub:methodsoverview}
+
+\subsubsection{Proposed processing pipeline}
+
+\textit{[Subsubsection to be written.]}
+
+\textit{[Text below copied from P2; to be adapted.]}
 
 The proposed first approximation of the exact methods is the result of a combined understanding of concepts described in related work, my own knowledge and experience relating to the geomatics discipline, as well as inspiration from the commercial implementation of RHDHV. The proposed workflow was built with the research questions in mind. The below summary is only a brief overview, as the detailed specifications will be refined iteratively during development.
 
@@ -108,13 +159,41 @@ The proposed first approximation of the exact methods is the result of a combine
 
 To summarise, the planned implementation of the proposed research is comprised of taking NWB, applying a pipeline of mostly geomatics operations, and outputting an an elevation-enriched version of it. In intermediate steps, it will be decomposed into subsets that are solvable by 2.5D methods, and reassembled into a 3D-enriched version of the input geometries. A byproduct of the procedure will be accurate piecewise 3D road surface models. The accuracy will be tracked throughout the procedure. Ultimately, the implementation will be a \textit{tool} to help answer the research questions that are presented in the next section.
 
+The above workflow uses concepts already discussed in the last few paragraphs in the Related work section (\ref{sec:rw}). For instance, the point cloud segmentation to decompose the problem into 2.5D sub-problems was inspired by \cite{oudeElberink_vosselman_2009} and \cite{boyko_funkhauser_2011}. The cross-section based workflow was, among others, inspired by \cite{yang_etal_2013} and the commercial implementation. The use of a CDT to represent the final surface comes from \cite{oudeElberink_vosselman_2006}. The active contour-based workflow was inspired by \cite{boyko_funkhauser_2011} and \cite{gopfert_etal_2011}. However, while in previous research contours were snapped to road curbs, my road-edge energy term will not be specialised to traditional curb geometries. It will be more general; a term that attracts the contour to the first noticeable change in curvature away from NWB.
+
+\subsubsection{DTB's role in processing steps}
+
+\textit{[Subsubsection to be written.]}
+
+\textit{[Text below copied from P2; to be adapted.]}
+
+Due to the completeness problems, topological issues, and unverified accuracy of DTB as described in the Datasets and tools section (\ref{sec:td}), I did not include it in the primary workflow.
+
+However, there might be other uses for it that do not have this side-effect. Firstly, a DTB \textit{verflijn} is generally found close to the edges of most R-roads and as a result, they may be useful as fallback road edge estimates wherever the 1D line-fitting-based method fails, in which case they would need to be intersected with the cross sections in 2D, much like in the commercial implementation. Secondly, in most places DTB appears to consistently represent the lines that are painted on R-roads a fixed distance from the actual edges of the asphalt. As such, where they do indeed represent these lines, they could be useful as secondary attractors in the active contour optimisation step, perhaps as a safeguard mechanism to ensure that blunders in the cross-section based initial road edge approximations do not affect the final road contours too badly. Furthermore, based on my preliminary analysis, the lateral location of DTB lines tends to agree better with AHN3 than that of NWB. Hence, NWB’s position relative to the closest DTB lines on each side could be a good indicator of local lateral inaccuracy in NWB. In addition, on bridges (where class 26 also contains the supporting structures of bridges), DTB lines may provide important first approximations of the road surface plane.
+
+Lastly, but perhaps most importantly, DTB can be used to fill large Lidar data gaps such as those appearing underneath big structures covering the surfaces of R-roads, and inside tunnels. Assuming the accuracy assessment workflow is implemented in a similar way as in the description above, then these locations will be characterised by extreme drops in point density, anomalous point distribution, unusually large CDT triangles, and as a result, low interpolation accuracy. In other words, we can use the derived accuracy to detect  where the algorithm encountered data gaps, and estimate how big the gaps are. For locations where only a few vertices are missing (e.g. a length of road covering only 10-20 metres), linear interpolation inside the elevation series is probably reasonable, although it will need to be indicated in the output where this has taken place. Alternatively, the original interpolated values can be left in, assuming they are not outliers. However, where many such vertices are found in a succession, the program must assume the presence of a large AHN3 data gap. In such areas, DTB could be used as a fallback source of elevations, as it was augmented with land-based survey data wherever its primary photogrammetry-based workflow yielded insufficient data (thereby containing useful data inside tunnels and under occluding objects). However, its use would need to also be marked semantically in the output because of the unknown accuracy of DTB.
+
+To make such uses of DTB possible, it would first need to be pre-processed so that only the correct, edge-representative DTB lines remain (not, for instance the stop lines shown in the top left image in Figure \ref{fig:dtbnwb}). Furthermore, smoothing may need to be performed close to where DTB-based elevations are “patched into” the AHN3-based interpolation results – as the commercial results have already indicated, there can be significant differences between elevations suggested by DTB and AHN3 for the same section of a road. 
+
+Given the trial-and-error nature of implementing these additional DTB-based workflows in the overall procedure, some of them may end up in the final implementation, while others may be omitted. This is the reason why they are not included in the formal workflow description and are instead only vaguely described in this paragraph.
+
+\subsubsection{Suspected challenges}
+
+\textit{[Subsubsection to be written.]}
+
+\textit{[Text below copied from P2; to be adapted.]}
+
 Avoiding the creation of sudden jumps where NBRSs are stitched together may require special attention. In view of the above workflow, we may observe that \textit{in areas surrounding intersections}, the CDT of each NBRS terminating there (or crossing it) will be constructed from roughly the same set of Lidar points (the road points forming the real-life intersection). This is supported by the fact that the CDT construction step is mostly independent of the preceding cross-section-based workflow and the active contour approximation in the sense that it works directly from the Lidar data. However, the proposed segmentation workflow inhibits the creation of identical CDTs at intersections because the edge-based selection procedure may not select the \textit{exact} same Lidar points for each NBRS that terminates at or crosses the intersection. This means that the same intersection vertex may be given different elevation values in different NBRSs, giving rise to ambiguity. 
 
 Furthermore, depending on the quality of the raw output elevation profiles, some form of constrained smoothing (or other form of post-processing) may also be needed \textit{generally}, not only at intersections. One solution that is applicable to both purposes in theory, is spline fitting. Using NWB vertices as control points could ensure not only continuity across intersections, but formal C\textsuperscript{1} smoothness across them and C\textsuperscript{2} everywhere else. However, this raises the question of how we should then treat the rule that the lateral position of NWB centrelines should not change (i.e. in theory the spline fitting would only have one degree of freedom).
 
 Unfortunately, since the above procedure is specialised to reconstructing 3D road geometries within their paved extents, it is not directly applicable to the additional requests I received from NDW regarding the enrichment of lines with elevation data to represent the \textit{vicinity} of roads. The specification of this request included the condition that the exact same methodology needs to be employed in the enrichment of these lines, as the one used for the centrelines themselves. Our CDT road models will not extend beyond the edges of roads, hence it will be impossible to use them to convert lines to 3D that are not on road surfaces. To make this possible, the CDT would need to be \textit{extended} by inserting ground points outside the road edge constraints, beyond where the vicinity-line (effectively buffered centreline) would lie. This would require working outside the segmented point clouds of NBRSs and fetching points directly from AHN3 tiles for a second time. As this direction of research does not fit into my methodology well and given that its motives are not strongly scientific, it is not clear at this point whether it will be tackled.
 
-The above workflow uses concepts already discussed in the last few paragraphs in the Related work section (\ref{sec:rw}). For instance, the point cloud segmentation to decompose the problem into 2.5D sub-problems was inspired by \cite{oudeElberink_vosselman_2009} and \cite{boyko_funkhauser_2011}. The cross-section based workflow was, among others, inspired by \cite{yang_etal_2013} and the commercial implementation. The use of a CDT to represent the final surface comes from \cite{oudeElberink_vosselman_2006}. The active contour-based workflow was inspired by \cite{boyko_funkhauser_2011} and \cite{gopfert_etal_2011}. However, while in previous research contours were snapped to road curbs, my road-edge energy term will not be specialised to traditional curb geometries. It will be more general; a term that attracts the contour to the first noticeable change in curvature away from NWB.
+\subsubsection{Accuracy assessment of processing steps}
+
+\textit{[Subsubsection to be written.]}
+
+\textit{[Text below copied from P2; to be adapted.]}
 
 For the accuracy assessment part of the project, I propose the following secondary workflow:
 
@@ -138,29 +217,50 @@ For the accuracy assessment part of the project, I propose the following seconda
     \end{enumerate}
 \end{enumerate}
 
-Due to the completeness problems, topological issues, and unverified accuracy of DTB as described in the Datasets and tools section (\ref{sec:td}), I did not include it in the primary workflow. Mostly because of the latter, from a purely theoretical point of view, its elevation values cannot be used in a way that influences derived elevations, because that would prevent the estimation of output accuracy. 
+\subsubsection{Comparison with commercial results}
 
-However, there might be other uses for it that do not have this side-effect. Firstly, a DTB \textit{verflijn} is generally found close to the edges of most R-roads and as a result, they may be useful as fallback road edge estimates wherever the 1D line-fitting-based method fails, in which case they would need to be intersected with the cross sections in 2D, much like in the commercial implementation. Secondly, in most places DTB appears to consistently represent the lines that are painted on R-roads a fixed distance from the actual edges of the asphalt. As such, where they do indeed represent these lines, they could be useful as secondary attractors in the active contour optimisation step, perhaps as a safeguard mechanism to ensure that blunders in the cross-section based initial road edge approximations do not affect the final road contours too badly. Furthermore, based on my preliminary analysis, the lateral location of DTB lines tends to agree better with AHN3 than that of NWB. Hence, NWB’s position relative to the closest DTB lines on each side could be a good indicator of local lateral inaccuracy in NWB. In addition, on bridges (where class 26 also contains the supporting structures of bridges), DTB lines may provide important first approximations of the road surface plane.
+\textit{[Subsubsection to be written.]}
 
-Lastly, but perhaps most importantly, DTB can be used to fill large Lidar data gaps such as those appearing underneath big structures covering the surfaces of R-roads, and inside tunnels. Assuming the accuracy assessment workflow is implemented in a similar way as in the description above, then these locations will be characterised by extreme drops in point density, anomalous point distribution, unusually large CDT triangles, and as a result, low interpolation accuracy. In other words, we can use the derived accuracy to detect  where the algorithm encountered data gaps, and estimate how big the gaps are. For locations where only a few vertices are missing (e.g. a length of road covering only 10-20 metres), linear interpolation inside the elevation series is probably reasonable, although it will need to be indicated in the output where this has taken place. Alternatively, the original interpolated values can be left in, assuming they are not outliers. However, where many such vertices are found in a succession, the program must assume the presence of a large AHN3 data gap. In such areas, DTB could be used as a fallback source of elevations, as it was augmented with land-based survey data wherever its primary photogrammetry-based workflow yielded insufficient data (thereby containing useful data inside tunnels and under occluding objects). However, its use would need to also be marked semantically in the output because of the unknown accuracy of DTB.
-
-To make such uses of DTB possible, it would first need to be pre-processed so that only the correct, edge-representative DTB lines remain (not, for instance the stop lines shown in the top left image in Figure \ref{fig:dtbnwb}). Furthermore, smoothing may need to be performed close to where DTB-based elevations are “patched into” the AHN3-based interpolation results – as the commercial results have already indicated, there can be significant differences between elevations suggested by DTB and AHN3 for the same section of a road. 
-
-Given the trial-and-error nature of implementing these additional DTB-based workflows in the overall procedure, some of them may end up in the final implementation, while others may be omitted. This is the reason why they are not included in the formal workflow description and are instead only vaguely described in this paragraph.
+\textit{[Text below copied from P2; to be adapted.]}
 
 Testing the accuracy of the commercial implementation will take place via two different approaches. The ideal approach, which would be to enable the computation of the formal accuracy inside the commercial application by injecting additional code, are made difficult, likely impossible, by two factors. Firstly, their code is written in \textit{ArcPy}, hence the first step would be to port their entire codebase into the open-source framework that my implementation will be built in, or at least the main algorithms from it. Furthermore, this approach could never yield accuracy values for R-road elevations, because RHDHV rely on DTB for these roads, which does not have a formal accuracy description in its documentation. As a result, attempting this approach is not well justified.
 
 Hence, my first method will involve merely examining general properties of the output, such as smoothness, density of outliers and missing values. It will also involve a visual assessment of their results, including comparisons with the AHN3 point cloud and my own results, particularly in difficult environments. The second approach will involve deriving errors and RMSE values \textit{relative} to my own results. Making this comparison will indicate where the commercial results diverge from the ranges of plausible values, as specified by the uncertainty ranges in my output. Where their output falls outside these ranges of uncertainty – which could be examined visually by plotting the differences on NWB centrelines 2D – I will closely examine the two results in the context of differences in the methodologies and local features in the data sources, and attempt to explain the disagreement scientifically.
 
 \section{Detailed methods}
-\label{sub:methodsdetailed}
+\label{sec:methodsdetailed}
+
+\textit{[Section intro to be written.]}
 
 \subsection{Splitting NWB into NBRS}
+\label{sub:m_nbrsgeneration}
+
+\textit{[Subsection to be written.]}
+
 \subsection{Lidar segmentation}
+\label{sub:m_lidarsegmentation}
+
+\textit{[Subsection to be written.]}
+
 \subsection{Edge approximation}
+\label{sub:m_edgeapproximation}
+
+\textit{[Subsection to be written.]}
+
 \subsection{Active contour optimisation}
+\label{sub:m_activecontours}
+
+\textit{[Subsection to be written.]}
+
 \subsection{TIN construction}
+\label{sub:m_tinconstruction}
+
+\textit{[Subsection to be written.]}
+
 \subsection{Interpolation in TIN and snapping}
+\label{sub:m_interpolation}
+
+\textit{[Subsection to be written.]}
 
 \section{Programming framework}
-\label{sub:programming}
+\label{sec:programming}

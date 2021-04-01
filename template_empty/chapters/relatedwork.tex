@@ -3,22 +3,23 @@
 \chapter{Related work}
 \label{chap:rw}
 
-[Section to be written.]
+\textit{[Section to be written.]}
 
-[Text below copied from P2; to be adapted.]
+\textit{[Text below copied from P2; to be adapted.]}
 
 Many relevant research papers have been located and examined as part of the literature review stage of this project. Because my focus will be restricted to openly available Dutch geospatial datasets, I already know which sources of elevation measurements will be relevant. For reasons to do with the selection of available datasets and their accuracy-related characteristics (further discussed in Section \ref{sec:td} and Section \ref{sec:m}), my primary candidate is the national Lidar point cloud of The Netherlands, AHN. As a result, there are two main areas that are of interest in this literature review: Lidar accuracy (and derived DEM accuracy), and road feature reconstruction from Lidar point clouds. The literature review concerning these two areas will be presented below in separate subsections.
 
 \section{Lidar accuracy}
 \label{sec:lidaraccuracy}
 
-[Section intro to be written.]
+\textit{[Section intro to be written.]}
 
 \subsection{Accuracy description of Lidar sensing}
+\label{sub:lidaraccuracy_sensing}
 
-[Subsection to be written.]
+\textit{[Subsection to be written.]}
 
-[Text below copied from P2; to be adapted.]
+\textit{[Text below copied from P2; to be adapted.]}
 
 \begin{wrapfigure}{r}{0.46\textwidth}
     \includegraphics[width=0.95\linewidth]{p2/figs/hodgson_breshanan_2004_01.png} 
@@ -31,28 +32,30 @@ Many papers describe that the accuracy of Lidar-derived DEMs depends on the accu
 The point is made in several of these papers that because of the logarithmic correlation between point spacing and accuracy, increasing the target point density of a survey is only justified up to a certain point. This depends strongly on the study area because point density itself is correlated with the vegetation cover and often the terrain relief. In most of the mentioned papers, the pinpointing of specific sources of error and the type of correlation include traditional methods of manual or automatic 1D or 2D regression, as well as for instance supervised classification with potential sources of errors as the variables. It is argued by several authors, most prominently by \cite{guo_etal_2010}, that in vegetation-free areas of low relief, most ALS surveys oversample the terrain by as much as 30 to 50 percent, leading to increased processing times, reduced algorithmic stability, and no improvement in accuracy. \cite{bater_coops_2009} comes to the same conclusion, and the logarithmic trend generally observed between point density and elevation accuracy further supports this. Conversely, in rugged, vegetation-covered terrain additional cross-flight surveys can increase accuracy significantly by improving ground point density, as \cite{peng_shih_2006} noted.
 
 \subsection*{Accuracy description of Lidar-based DEM-generation}
+\label{sub:lidaraccuracy_dem}
 
-[Subsection to be written.]
+\textit{[Subsection to be written.]}
 
-[Text below copied from P2; to be adapted.]
+\textit{[Text below copied from P2; to be adapted.]}
 
 The topic of the influence of DEM interpolators (specifically, DTM interpolators) on accuracy has also been widely studied. There exist various types of approaches, such as deriving exact error propagation formulae from the mathematical descriptions of certain interpolators, as well as the more popular approaches based on simply performing the interpolation and checking its accuracy post-application via split-sample, cross-validation or jack-knife methods. As an example of the theoretical approach, \cite{aguilar_etal_2010} propagates errors mathematically through the IDW interpolator to obtain a specific expression. Among other things, such a formula depends on the sensing accuracy, the local factors of accuracy (e.g. slope), the gridding resolution, as well as a mathematical expression derived from the interpolator’s formal definition. As that paper shows, it is possible to simplify the process by performing Monte Carlo simulations on the mathematical definition of the interpolator rather than to derive the formula directly. \cite{kraus_etal_2006} also apply a similar, theoretical method to analyse errors propagating through the moving Maximum Likelihood Estimator (MLE). Post-application statistical evaluation was performed by for instance \cite{peng_shih_2006} (jack-knife, using surveyed reference points), and \cite{guo_etal_2010} (ten-fold cross-validation). Notably, \cite{smith_etal_2005} used all three approaches (split-sample, cross-validation, and jack-knife) for a wide range of interpolators in an urban setting.
 Firstly, many of these papers examined the influence of gridded DTM resolution on accuracy. \cite{chow_hodgson_2009} examined via regression techniques (on IDW interpolation) how it is correlated with point density and found that linear to logarithmic correlations exist. \cite{guo_etal_2010} argues that for most interpolators, the overall trend is linear between accuracy and resolution, up to the scale of the Lidar point density. They also found that differences in accuracy between interpolators were most prominent at the finest resolution. \cite{bater_coops_2009} found that the local influence on accuracy of slope and point density are mostly invariant relative to DTM resolution. In terms of the accuracy ranking of interpolators, there is a clear consensus that no such ranking exists that is independent of the size and type of the study area, and the purpose of the interpolation. For instance, the accuracy of piecewise spline-based, quintic-type, kriging and ANUDEM methods were found lacking in the context of their insensitivity to small, sudden changes (such as natural faults in the terrain and anthropogenic modifications thereof) while they were proven to work well for large-scale terrain, as described by \cite{bater_coops_2009} and \cite{guo_etal_2010} for instance. All reviewed papers agreed that the accuracy of all interpolators decreases the most in areas of high relief and reduced point density, with spline-based, IDW methods generally producing the worst results in such areas, especially for large-scale terrain. Interestingly, the relative importance of interpolation-introduced errors is reportedly low relative to instrument-related errors and surface-related local sources of error, according to research such as \cite{hodgson_breshanan_2004} and \cite{aguilar_etal_2010}. The former goes as far as to state that the decrease in accuracy after the application of an interpolator is insignificant, or that interpolation may even increase the overall accuracy, although this was observed in densely vegetated areas where point spacing and accuracy are severely afflicted. TIN-based interpolation methods were recommended specifically by \cite{bater_coops_2009} for complex geometries and found it in their research to be the most conservative in terms of RMSE analysis. \cite{hodgson_breshanan_2004} also used TIN-based interpolation in their research, and detected no significant decrease in accuracy following interpolation. Furthermore, \cite{peng_shih_2006} used TIN-based interpolation in their research, in which they found local influences on elevation accuracy highly predictable. Unlike most papers, \cite{aguilar_etal_2010} considers the accuracy of ground filtering explicitly, and states that its success is a precondition of accurate terrain interpolation wherever the terrain is occluded or shaded partially. It suggests the estimation of ground filtering error (even if only from generic values) and its inclusion in overall elevation accuracy. Overall, it is evident from the review (and specifically recommended by various authors) that testing several candidate interpolators before making a final choice is recommended.
 
 \section{Road identification in point clouds}
+\label{sec:roadidentification}
 
-[Section intro to be written.]
+\textit{[Section intro to be written.]}
 
-[Text below copied from P2; to be adapted.]
+\textit{[Text below copied from P2; to be adapted.]}
 
 Our second domain of interest is feature extraction because our intention is to not only systematically query a DEM for elevations around the NWB road centrelines, but to take into account the entire road surface as represented by the point cloud. This requires one to identify, or at least approximate which point cloud points were reflected from the surface of the given road.
 
-\label{sub:roadidentification}
 \subsection{Research using point clouds only}
+\label{sub:roadidentification_pconly}
 
-[Subsection to be written.]
+\textit{[Subsection to be written.]}
 
-[Text below copied from P2; to be adapted.]
+\textit{[Text below copied from P2; to be adapted.]}
 
 In terms of point cloud feature extraction techniques relevant to roads, I have looked at a range of papers that give account of a spectrum of divergent methods. One strategy, most prominently represented by \cite{hu_2003, hu_etal_2004, zhu_mordohai_2009, zhu_hyppa_2014, lin_etal_2015}, is based on the idea of transitioning to a photogrammetric analysis at some point in the process. First, a set of pre-processing techniques to better characterise potential road points in the source Lidar data are applied, generally by performing some form of filtering (in some cases simply by setting thresholds applicable to returns from bitumen), or by extracting ground planes using various techniques and selecting points that lie close to them. Then, images are rendered from the point cloud from various angles, often using colour-coding based on point properties, and applying photogrammetric methods to identify roads. Sometimes high-definition aerial or satellite imagery is incorporated in the photogrammetric workflows. The success rates of such strategies are mediocre, rely strongly on manual parametrisation, and are unsuitable for large study areas with inhomogeneous types and distribution of roads, as also concluded by the literature review in the paper \cite{yang_etal_2013}.
 
@@ -80,10 +83,11 @@ There are many more papers dealing with this task without using external vector 
 \end{figure}
 
 \subsection{Methods using input point clouds and external vector data}
+\label{sub:lidaraccuracy_external}
 
-[Subsection to be written.]
+\textit{[Subsection to be written.]}
 
-[Text below copied from P2; to be adapted.]
+\textit{[Text below copied from P2; to be adapted.]}
 
 This last category contains research that used similar input data to mine (including initial road estimate vector datasets) and achieved similar goals.
 
@@ -108,9 +112,10 @@ They do not exclusively consider roads; all polygonal vector objects are extrude
 Their method was later extended in \cite{oudeElberink_vosselman_2009} to work well in complex multi-level road settings by using point cloud segmentation in a manner resembling what I already described in the context of \cite{boyko_funkhauser_2011}. In his doctoral thesis \cite{oudeElberink_2010} he combined this method with the overall procedure in \cite{oudeElberink_vosselman_2006} to form one integral whole. Furthermore he extended it with a road extraction quality assessment procedure, which was later perfected and also published separately in \cite{oudeElberink_vosselman_2012}. Their quality and accuracy assessment methodology is comprised of two separate procedures and the comparison of their results: a theoretical (functional and stochastic) evaluation, and an empirical one against reference data. Interestingly, their reference data was DTB (see Section \ref{sec:td}) and in general, showed good agreement with their road extraction results.
 
 \section{Summary of literature review}
+\label{sec:rwsummary}
 
-[Section to be written.]
+\textit{[Section to be written.]}
 
-[Text below copied from P2; to be adapted.]
+\textit{[Text below copied from P2; to be adapted.]}
 
 While none of the above research provides an all-in-one solution to answering the research questions of this project, they contain procedures and concepts which can be used as building blocks for my methodology. The main area \textit{not} explicitly covered by the examined papers is the use of external 3D vector data (DTB in our case) as a further constraint when extracting roads from point clouds. However, methods to perform this can be derived from the operations in them that relate to using vector geometries as approximate road locations in 2D, and from general geomatics concepts and methods. An additional consideration related to the input road centrelines is that in all research presented above, refining the lateral position of the road is permitted. However, NDW specifically requested that I do not move the NWB lines horizontally. Hence, I plan to focus primarily on enriching NWB with elevations without moving them laterally, with only exploring its lateral refinement to a limited extent.
