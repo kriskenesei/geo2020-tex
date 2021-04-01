@@ -192,7 +192,8 @@ Furthermore, depending on the quality of the raw output elevation profiles, some
 
 Unfortunately, since the above procedure is specialised to reconstructing 3D road geometries within their paved extents, it is not directly applicable to the additional requests I received from NDW regarding the enrichment of lines with elevation data to represent the \textit{vicinity} of roads. The specification of this request included the condition that the exact same methodology needs to be employed in the enrichment of these lines, as the one used for the centrelines themselves. Our CDT road models will not extend beyond the edges of roads, hence it will be impossible to use them to convert lines to 3D that are not on road surfaces. To make this possible, the CDT would need to be \textit{extended} by inserting ground points outside the road edge constraints, beyond where the vicinity-line (effectively buffered centreline) would lie. This would require working outside the segmented point clouds of NBRSs and fetching points directly from AHN3 tiles for a second time. As this direction of research does not fit into my methodology well and given that its motives are not strongly scientific, it is not clear at this point whether it will be tackled.
 
-\subsubsection{Accuracy assessment of processing steps}
+\subsection{Accuracy assessment of processing steps}
+\label{sub:accuracyoverview}
 
 \textit{[Subsubsection to be written.]}
 
