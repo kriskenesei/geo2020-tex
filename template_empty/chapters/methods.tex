@@ -5,7 +5,7 @@
 
 \textit{[Chapter intro to be written.]}
 
-\textit{[Text below copied from P2; to be adapted.]}
+\textit{[Content below copied from P2; to be adapted.]}
 
 This section first presents a top-level description of the methodology of the planned dissertation work. This description is limited to matters relating to planning the execution of the dissertation work. Methodology is then further discussed in terms of the exact \textit{methods} used in the commercial implementation, and the ones that I plan to implement as part of the dissertation work. First, the workflows are presented which were implemented by NDW to produce the prototype implementation and by RHDHV to build the commercial toolbox. This is followed by structured \textit{first approximations} of the workflows I will aim to implement and analyse during the period starting from my P2 presentation and leading up to the P4.
 
@@ -19,7 +19,7 @@ This section first presents a top-level description of the methodology of the pl
 
 \textit{[Subsection to be written.]}
 
-\textit{[Text below copied from P2; to be adapted.]}
+\textit{[Content below copied from P2; to be adapted.]}
 
 Since this project concerns a client with specific requirements and pre-existing methods in addition to aspects that are purely scientific, the first stage of the project involved \textit{consultation with the client} (and directly with their commercial developers) in addition to the general task of \textit{familiarising myself with the research topic and literature}. The results of these preparation tasks were \textit{discussed internally} (with my supervisors) and used to \textit{define the final list of formal research questions}, and to \textit{produce the P1 submission}. This stage roughly coincided with Q1 of the academic year, and with the P1 period of the dissertation research.
 
@@ -28,7 +28,7 @@ Since this project concerns a client with specific requirements and pre-existing
 
 \textit{[Subsection to be written.]}
 
-\textit{[Text below copied from P2; to be adapted.]}
+\textit{[Content below copied from P2; to be adapted.]}
 
 The second stage of the project involved \textit{further consultation with the client and their developers} to determine to what extent the commercial and scientific branches of the 3D-NDW project could be linked, and to allow me to understand the exact methods used in the prototype and the commercial implementation (which was being actively developed during this period of time). In parallel, I \textit{performed the necessary in-depth literature review} and preliminary analysis. The preliminary analysis comprised a \textit{close examination of the input datasets and their documentations} and based on this and the research questions, the \textit{final selection of relevant concepts and methods}. I also selected a range of illustrative geographical regions during the preliminary analysis, and cropped the datasets to their extents to \textit{create testing input files} for later development and testing. Lastly, the results of this stage were distilled to \textit{produce the present P2 proposal}. This stage roughly coincided with Q2 of the academic year, and with the P2 period of the dissertation research.
 
@@ -37,7 +37,7 @@ The second stage of the project involved \textit{further consultation with the c
 
 \textit{[Subsection to be written.]}
 
-\textit{[Text below copied from P2; to be adapted.]}
+\textit{[Content below copied from P2; to be adapted.]}
 
 The third stage of this dissertation will span the period between my P2 and P4 presentations. This stage will be concerned with performing the bulk of the analysis. The period will start with the \textit{implementation of individual algorithms and steps of the workflow}. The first approximation of \textit{the overall workflow will be refined iteratively}, as a function of what I find to be feasible to implement considering the available set of tools, as well as the scope and time constraints of the project. Following the P3 meeting, I plan to shift my focus to \textit{assembling the pipeline} from the individual algorithms and procedures and when finished, \textit{performing the accuracy-related analysis}. Testing the individual procedures and the pipeline will be continuous and be carried out regularly while debugging the code during development, as well as in more depth after reaching milestones. Testing, and the assessment of performance and accuracy will use the testing datasets I produced before the P2 date. This stage will be concluded by \textit{writing the draft thesis} based on the results.
 
@@ -46,7 +46,7 @@ The third stage of this dissertation will span the period between my P2 and P4 p
 
 \textit{[Subsection to be written.]}
 
-\textit{[Text below copied from P2; to be adapted.]}
+\textit{[Content below copied from P2; to be adapted.]}
 
 The last stage of the project will last a few weeks between the P4 presentation and the P5 presentation. Both \textit{the implementations and the thesis itself will be improved and finalised} during this time.
 
@@ -67,7 +67,7 @@ The above methodology is illustrated on a flowchart in Figure \ref{fig:methodflo
 
 \textit{[Subsection to be written.]}
 
-\textit{[Text below copied from P2; to be adapted.]}
+\textit{[Content below copied from P2; to be adapted.]}
 
 NDW themselves produced a non-commercial prototype implementation, which can achieve a 3D enrichment of NWB with only a few gaps in the produced elevation profiles. Although their workflow does not have a formal documentation, I have been given a verbal description of it, as well as the output. Based on my understanding of these, their primary technique involved snapping close-by AHN3 Lidar points to the line geometries of NWB. Notable problems with the implementation included non-road points being snapped to centrelines, causing road centrelines to be given overestimated elevations, in turn resulting in sudden jumps in the elevation profiles. Furthermore, no close-by points could be found for underground roads (i.e. tunnels), and strongly occluded parts of roads. For small gaps, this was resolved partially by writing an algorithm to interpolate linearly inside NWB, using the closest vertices where snapping was successful. For larger gaps, an attempt was made to resolve issues by including information from external sources semi-automatically. Neither issue could be fully resolved via these approaches, hence the results of this project were only used by NDW to gain a better understanding of the problem and the expected challanges. For a reliable, commercial toolbox they subsequently commissioned an implementation from RHDHV.
 
@@ -78,7 +78,7 @@ NDW themselves produced a non-commercial prototype implementation, which can ach
 
 \textit{[Subsubsection to be written.]}
 
-\textit{[Text below copied from P2; to be adapted.]}
+\textit{[Content below copied from P2; to be adapted.]}
 
 RHDHV developed their implementation in parallel with the \textit{planning} of the present scientific research. I have attended NDW-RHDHV meetings, discussed the implementation directly with RHDHV, and was granted access to the codebase of the project. Understanding their implementation is crucial for this research, as it aims to both assess the accuracy of the commercial implementation, as well as in part base its methodology and implementation on the suspected shortcomings of the commercial implementation. The steps of the procedure are briefly described below.
 
@@ -103,20 +103,21 @@ It is worth mentioning that the RHDHV implementation deals with all non-standard
 
 \textit{[Subsubsection to be written.]}
 
-\textit{[Text below copied from P2; to be adapted.]}
+\textit{[Content below copied from P2; to be adapted.]}
 
 From a scientific point of view, there are numerous potential issues suggested by the description of this workflow. For instance, point cloud to raster conversion is, by definition, associated with inherent information loss (less raster cells than pixels), and further reduction in accuracy is introduced by the interpolation mechanism itself. Radial IDW was used to generate AHN3 DTM tiles, which several of the reviewed papers found to be specifically unsuitable for interpolating large-scale areas in which zones of decreased point density or gaps exist – both of which characterise ground-filtered AHN data (e.g. \cite{guo_etal_2010}). In addition, the procedure performs another layer of interpolation to infill gaps, which may further deteriorate accuracy. Furthermore, RHDHV uses bilinear interpolation inside the raster to produce NWB elevations, which is suggested by \cite{shi_etal_2005}, to be less accurate than other common methods such as bicubic. In terms of their strong prioritising of DTB for R-roads, I should remark that DTB itself is also a secondary source of information (it is based on a procedural combination of data from various types of sensing, into vector features), and in contrast with AHN3, neither its overall nor its local accuracy are known. While it no doubt contains valuable information, relying on it as the sole source of elevation data does not appear to permit the estimation of output accuracy, which is a pre-requisite of compliance with SWUNG2.
 
 Care will be taken to examine how the same challenges as we expect to face regarding output accuracy and 3D road interactions are handled by the commercial implementation – in fact, some of my research questions are based specifically on challanges reported by the developers of the commercial implementation, and the known shortcomings of their final product. Our preliminary analysis of the implementation indicates that for instance, it uses input data with non-validated accuracy for motorways, and simple bilinear interpolation in poorly interpolated, Lidar-based raster DTMs for provincial roads. Furthermore, it only handles 3D interactions explicitly for motorways and even for these, it does so via a series of assumptions that do not hold in general, necessitating the use of various fallback mechanisms. This comparison may provide an insight into some aspects of 3D geospatial data processing that are frequently overlooked, or oversimplified in commercial implementations.
 
-\subsection{Overview of planned methods}
-\label{sub:methodsoverview}
+\section{Overview of planned methods}
+\label{sec:methodsoverview}
 
-\subsubsection{Proposed processing pipeline}
+\subsection{Proposed processing pipeline}
+\label{sub:pipeline}
 
-\textit{[Subsubsection to be written.]}
+\textit{[Subsection to be written.]}
 
-\textit{[Text below copied from P2; to be adapted.]}
+\textit{[Content below copied from P2; to be adapted.]}
 
 The proposed first approximation of the exact methods is the result of a combined understanding of concepts described in related work, my own knowledge and experience relating to the geomatics discipline, as well as inspiration from the commercial implementation of RHDHV. The proposed workflow was built with the research questions in mind. The below summary is only a brief overview, as the detailed specifications will be refined iteratively during development.
 
@@ -161,11 +162,12 @@ To summarise, the planned implementation of the proposed research is comprised o
 
 The above workflow uses concepts already discussed in the last few paragraphs in the Related work section (\ref{sec:rw}). For instance, the point cloud segmentation to decompose the problem into 2.5D sub-problems was inspired by \cite{oudeElberink_vosselman_2009} and \cite{boyko_funkhauser_2011}. The cross-section based workflow was, among others, inspired by \cite{yang_etal_2013} and the commercial implementation. The use of a CDT to represent the final surface comes from \cite{oudeElberink_vosselman_2006}. The active contour-based workflow was inspired by \cite{boyko_funkhauser_2011} and \cite{gopfert_etal_2011}. However, while in previous research contours were snapped to road curbs, my road-edge energy term will not be specialised to traditional curb geometries. It will be more general; a term that attracts the contour to the first noticeable change in curvature away from NWB.
 
-\subsubsection{DTB's role in processing steps}
+\subsection{DTB's role in processing steps}
+\label{sub:dtbrole}
 
-\textit{[Subsubsection to be written.]}
+\textit{[Subsection to be written.]}
 
-\textit{[Text below copied from P2; to be adapted.]}
+\textit{[Content below copied from P2; to be adapted.]}
 
 Due to the completeness problems, topological issues, and unverified accuracy of DTB as described in the Datasets and tools section (\ref{sec:td}), I did not include it in the primary workflow.
 
@@ -177,9 +179,10 @@ To make such uses of DTB possible, it would first need to be pre-processed so th
 
 Given the trial-and-error nature of implementing these additional DTB-based workflows in the overall procedure, some of them may end up in the final implementation, while others may be omitted. This is the reason why they are not included in the formal workflow description and are instead only vaguely described in this paragraph.
 
-\subsubsection{Suspected challenges}
+\subsection{Suspected challenges}
+\label{sub:suspectedchallenges}
 
-\textit{[Subsubsection to be written.]}
+\textit{[Subsection to be written.]}
 
 \textit{[Text below copied from P2; to be adapted.]}
 
