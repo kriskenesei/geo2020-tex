@@ -10,7 +10,7 @@
 
 \textit{[Section intro to be written.]}
 
-\textit{[Text below copied from P2; to be adapted.]}
+\textit{[Content below copied from P2; to be adapted.]}
 
 In terms of datasets, both the commercial implementation and the proposed research rely on the following three sources:
 
@@ -27,7 +27,7 @@ As mentioned in the section about research questions, I am also planning to exam
 
 \textit{[Subsection to be written.]}
 
-\textit{[Text below copied from P2; to be adapted.]}
+\textit{[Content below copied from P2; to be adapted.]}
 
 \begin{figure}[h]
     \centering
@@ -50,7 +50,7 @@ NWB (or more specifically, NWB-Wegen, the NWB roads product) is an \textit{ESRI 
 
 \textit{[Subsection to be written.]}
 
-\textit{[Text below copied from P2; to be adapted.]}
+\textit{[Content below copied from P2; to be adapted.]}
 
 AHN are airborne Lidar (ALS) survey datasets available as open government geospatial data in The Netherlands. The surveys are commissioned every few years with AHN1 to AHN3 already complete (1996 to 2019), and the first AHN4 surveys nearing release. At this stage of the project, we are interested in AHN3, although it is a planned side-track of the research to examine how freshly released AHN4 data could best be made use of. The dataset has a combined systematic and stochastic elevation error of 15 centimetres at two standard deviations (i.e. 95 \% confidence), and 6 to 10 points per square metre point density on average, corresponding to a 0.41 to 0.32 metre posting distance. The lateral error is 18 centimetres at two standard deviations (\cite{ahn_kwaliteit}). Comparing these to the descriptors of datasets mentioned in research examined as part of our literature review (see the Relevant work section), AHN3 can be considered accurate, and to have excellent point density. The AHN3 point cloud has been classified semi-automatically with great accuracy and is released with the classification included. This means that for most purposes, the point cloud needs not be ground filtered manually, and that extracting certain features is made far easier. Of the various classes available, we are interested in class 2 the most, which corresponds to ground points, and class 26 which contains, among other things, bridges. Ground points are primarily interesting to us because they contain the road points. This includes roads that were constructed directly on the terrain, as well as roads constructed on altered terrain, such as those built on elevated ground or in open trenches. It also contains the points that represent the terrain in the vicinity of the roads. Elevated roads and bridges are not considered ground points and are generally represented by gaps in class 2, which can, in most cases, be filled by using data from class 26, as shown in Figure \ref{fig:ahnbridges}. However, it is worth noting that class 26 also contains other types of objects, for instance large motorway signs arching over the road surface (shown in Figure \ref{fig:ahnsigns}), as well as the civil engineering structures of elevated roads and bridges (in addition to the road surfaces on them).
 \begin{figure}[h!]
@@ -79,7 +79,7 @@ AHN3 is released in the form of a point cloud, as well as DSM and DTM rasters. B
 
 \textit{[Subsection to be written.]}
 
-\textit{[Text below copied from P2; to be adapted.]}
+\textit{[Content below copied from P2; to be adapted.]}
 
 \begin{figure}[h!]
     \centering
@@ -95,7 +95,7 @@ Like NWB, DTB (or more specifically, DTB-Droog, the DTB roads product) is a Dutc
 
 \textit{[Subsection to be written.]}
 
-\textit{[Text below copied from P2; to be adapted.]}
+\textit{[Content below copied from P2; to be adapted.]}
 
 Due to its volume, it will not be possible to develop and test the implementation without cropping AHN3 input point cloud tiles. Even after the implementation of the segmentation workflow, the size of the testing point clouds will need to be manageable, to facilitate efficient debugging. At the same time, they will need to be representative enough to provide an insight into the computational complexity and visual performance of the algorithm. I have already produced a range of testing datasets by selecting various lengths of NWB centrelines at interesting road features, and keeping only those Lidar points which are within a 150-metre buffer distance from the selected road centrelines. Table \ref{tab:inventory} provides an inventory of these. The tile identifier in the first column refers to those used in \cite{ahn3_download}. The resulting datasets fit into memory easily, even when extracted to LAS.
 

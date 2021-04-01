@@ -74,7 +74,7 @@ NDW themselves produced a non-commercial prototype implementation, which can ach
 \subsection{RHDHV commercial toolbox}
 \label{sub:commercialproduct}
 
-\subsubsection{Commercial methods}
+\subsubsection{Overview of commercial methods}
 
 \textit{[Subsubsection to be written.]}
 
@@ -109,11 +109,11 @@ From a scientific point of view, there are numerous potential issues suggested b
 
 Care will be taken to examine how the same challenges as we expect to face regarding output accuracy and 3D road interactions are handled by the commercial implementation – in fact, some of my research questions are based specifically on challanges reported by the developers of the commercial implementation, and the known shortcomings of their final product. Our preliminary analysis of the implementation indicates that for instance, it uses input data with non-validated accuracy for motorways, and simple bilinear interpolation in poorly interpolated, Lidar-based raster DTMs for provincial roads. Furthermore, it only handles 3D interactions explicitly for motorways and even for these, it does so via a series of assumptions that do not hold in general, necessitating the use of various fallback mechanisms. This comparison may provide an insight into some aspects of 3D geospatial data processing that are frequently overlooked, or oversimplified in commercial implementations.
 
-\section{Overview of planned methods}
+\section{Overview of academic methods}
 \label{sec:methodsoverview}
 
 \subsection{Proposed processing pipeline}
-\label{sub:pipeline}
+\label{sub:pipelineoverview}
 
 \textit{[Subsection to be written.]}
 
@@ -184,7 +184,7 @@ Given the trial-and-error nature of implementing these additional DTB-based work
 
 \textit{[Subsection to be written.]}
 
-\textit{[Text below copied from P2; to be adapted.]}
+\textit{[Content below copied from P2; to be adapted.]}
 
 Avoiding the creation of sudden jumps where NBRSs are stitched together may require special attention. In view of the above workflow, we may observe that \textit{in areas surrounding intersections}, the CDT of each NBRS terminating there (or crossing it) will be constructed from roughly the same set of Lidar points (the road points forming the real-life intersection). This is supported by the fact that the CDT construction step is mostly independent of the preceding cross-section-based workflow and the active contour approximation in the sense that it works directly from the Lidar data. However, the proposed segmentation workflow inhibits the creation of identical CDTs at intersections because the edge-based selection procedure may not select the \textit{exact} same Lidar points for each NBRS that terminates at or crosses the intersection. This means that the same intersection vertex may be given different elevation values in different NBRSs, giving rise to ambiguity. 
 
@@ -195,9 +195,9 @@ Unfortunately, since the above procedure is specialised to reconstructing 3D roa
 \subsection{Accuracy assessment of processing steps}
 \label{sub:accuracyoverview}
 
-\textit{[Subsubsection to be written.]}
+\textit{[Subsection to be written.]}
 
-\textit{[Text below copied from P2; to be adapted.]}
+\textit{[Content below copied from P2; to be adapted.]}
 
 For the accuracy assessment part of the project, I propose the following secondary workflow:
 
@@ -221,18 +221,19 @@ For the accuracy assessment part of the project, I propose the following seconda
     \end{enumerate}
 \end{enumerate}
 
-\subsubsection{Comparison with commercial results}
+\subsection{Comparison with commercial results}
+\label{sub:comparisonoverview}
 
-\textit{[Subsubsection to be written.]}
+\textit{[Subsection to be written.]}
 
-\textit{[Text below copied from P2; to be adapted.]}
+\textit{[Content below copied from P2; to be adapted.]}
 
 Testing the accuracy of the commercial implementation will take place via two different approaches. The ideal approach, which would be to enable the computation of the formal accuracy inside the commercial application by injecting additional code, are made difficult, likely impossible, by two factors. Firstly, their code is written in \textit{ArcPy}, hence the first step would be to port their entire codebase into the open-source framework that my implementation will be built in, or at least the main algorithms from it. Furthermore, this approach could never yield accuracy values for R-road elevations, because RHDHV rely on DTB for these roads, which does not have a formal accuracy description in its documentation. As a result, attempting this approach is not well justified.
 
 Hence, my first method will involve merely examining general properties of the output, such as smoothness, density of outliers and missing values. It will also involve a visual assessment of their results, including comparisons with the AHN3 point cloud and my own results, particularly in difficult environments. The second approach will involve deriving errors and RMSE values \textit{relative} to my own results. Making this comparison will indicate where the commercial results diverge from the ranges of plausible values, as specified by the uncertainty ranges in my output. Where their output falls outside these ranges of uncertainty – which could be examined visually by plotting the differences on NWB centrelines 2D – I will closely examine the two results in the context of differences in the methodologies and local features in the data sources, and attempt to explain the disagreement scientifically.
 
 \section{Detailed methods}
-\label{sec:methodsdetailed}
+\label{sec:methods}
 
 \textit{[Section intro to be written.]}
 
