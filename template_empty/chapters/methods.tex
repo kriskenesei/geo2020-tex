@@ -222,6 +222,13 @@ The first step of the pipeline is to create 2D profiles from the input road netw
 
 The first algorithm, which I call the "geometric algorithm", uses geometry only and thus generalises fairly easily; it could be used with any dataset comparable with NWB. The second algorithm I call the "semantic algorithm", because it uses data from NWB's attribute table to try to assemble NBRS in a way, that only roads with identical roles (ramp, motorway lane, etc.) get added to the same NBRS. This algorithm generalises less easily, but it demonstrates that in any such implementation, semantic information can provide important insight into network properties that would be difficult (even impossible) the recognise based solely on geometric information. Both algorithms are illustrated by Figure \ref{fig:nbrsgenerationflow}, and further textual descriptions are provided below.
 
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{template_empty/figs/nbrs_generation.pdf}
+    \caption{Flowchart-style illustration of the NBRS generation step of the pipeline.}
+    \label{fig:nbrsgenerationflow}
+\end{figure}
+
 \subsubsection{Geometric algorithm}
 
 This algorithm first creates a navigation structure from the input wegvakken. Each wegvak is a valid LineString, i.e. a connected series of line segments, which can be a few metres long, or even tens of metres long. From here on in this section, I will refer to wegvakken as LineString objects to make the description more general. The navigation structure is essentially a database that records which LineStrings of the road network start and end in which intersections. As this algorithm is not allowed to use the pre-made NWB intersections from the attribute table, intersections are defined by their coordinates (to one decimal). The navigation structure is based on hashing, hence it has good performance. The procedure consists of examining both ends of each input LineString and either creating a new intersection with it (if one does not exist at that location yet), or adding a reference to it in the intersection that is already found in the navigation structure. This is shown on the left in Figure \ref{fig:nbrsgenerationflow}.
@@ -246,6 +253,13 @@ I encountered three distinct issues while I was developing this part of the soft
 \label{sub:m_elevationestimation}
 
 The elevation estimation stage of the pipeline consists of two operations. The first operation is to associate each NBRS vertex with a preliminary elevation estimate based solely on nearby Lidar points, and the second a refinement step to eliminate occlusion-related artefacts. The procedure is illustrated by the flowchart in Figure \ref{fig:elevationestimationflow}.
+
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{template_empty/figs/elevation_estimation.pdf}
+    \caption{Flowchart-style illustration of the elevation estimation step of the pipeline.}
+    \label{fig:elevationestimationflow}
+\end{figure}
 
 \subsubsection{Initial elevation estimation}
 
@@ -277,6 +291,13 @@ A second challenge was to find a good benchmark of what to consider outliers aft
 \label{sub:m_lidarsegmentation}
 
 The Lidar segmentation workflow is more complex than the two I described above, and some of the intricacies are omitted in the relevant flowchart (Figure \ref{fig:lidarsegmentationflow}) to keep its complexity manageable. I will attempt to fill in some of these details here in the text, referencing where approximately in the flowchart they occur.
+
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{template_empty/figs/lidar_segmentation.pdf}
+    \caption{Flowchart-style illustration of the Lidar segmentation step of the pipeline.}
+    \label{fig:lidarsegmentationflow}
+\end{figure}
 
 \subsubsection{Preparation and plane fitting}
 
@@ -325,6 +346,13 @@ To solve all these issues, I extended this part of the implementation with metho
 
 The generation of preliminary edges is based on identifying edge points at discrete intervals in the road centreline (on each vertex, including ones created during vertex densification). The procedure takes place on the level of NBRS parts, and it is illustrated in Figure \ref{fig:edgeapproximationflow}.
 
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{template_empty/figs/edge_estimation.pdf}
+    \caption{Flowchart-style illustration of the edge approximation step of the pipeline.}
+    \label{fig:edgeapproximationflow}
+\end{figure}
+
 \subsubsection{Constructing edge point candidates}
 
 First, the subcloud of each NBRS part is used to create a 2D KD-tree. 2D suffices here, because it is a reasonable assumption to make at this point that the subclouds of NBRS parts no longer have a significant number of points that would not describe a 2.5D surface (e.g. reflections from occluding objects). On each vertex of the NBRS part, a cross-section is then constructed. Cross-sections are built roughly orthogonal to the centreline locally, their azimuths are based on the mean azimuths of the two line segments that contain the given vertex (except for the first and last vertices, which are simply based on their single parent segment's azimuth). The cross-sections are densified considerably and their densified vertices' are then flattened into a single list and used in a bulk KD-tree query. Lidar points very close to the vertices are thus fetched, and their median elevation is saved as the elevation of the given vertex. This step works on a small, sub-metre scale, meaning that using the native density of AHN3 (no thinning applied) is particularly important from here on.
@@ -351,6 +379,13 @@ A further challenge corresponded to the point in development when I decided to m
 \label{sub:m_activecontours}
 
 The optimisation of preliminary edges is based on constructing one attractor map for each NBRS part, and running active contour optimisation to attract the preliminary edges to certain features in the attractor maps. The procedure is illustrated in Figure \ref{fig:edgeoptimisationflow}.
+
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{template_empty/figs/edge_optimisation.pdf}
+    \caption{Flowchart-style illustration of the active contour optimisation step of the pipeline.}
+    \label{fig:edgeoptimisationflow}
+\end{figure}
 
 \subsubsection{Attractor map generation}
 
@@ -387,6 +422,13 @@ As I emphasised in the previous section, various aspects of active contour optim
 
 The outermost iteration loops over NBRS, and NBRS parts are iterated one level below. In Figure \ref{fig:tinconstructionflow} this is explicitly indicated as iterating over NBRS IDs and NBRS part IDs respectively. In contrast with previous steps in the pipeline, the centrelines themselves are no longer used, hence the change in notation. 
 
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{template_empty/figs/tin_construction.pdf}
+    \caption{Flowchart-style overview of the TIN construction step of the pipeline.}
+    \label{fig:tinconstructionflow}
+\end{figure}
+
 \subsubsection{Preparation for TIN initialisation}
 
 Based on the parametrisation, the outermost boundary within which points will be considered for insertion (including TIN extension) is constructed as a polygon, and points falling outside of its interior are excluded from further consideration. Then, either the preliminary edges or the optimised edges are fetched for the given NBRS part. Since they are almost identical structurally, they can be treated the same way for the most part. They are used for two tasks: firstly, to construct a line halfway between the two edges to form the basis of seeding the TIN initialisation procedure, and secondly, to select points that fall within the edges as insertion candidates for the TIN initialisation step. This step is labelled "Grow the initial TIN surface" in Figure \ref{fig:tinconstructionflow}, marked as a pre-defined procedure because the underlying procedure is fairly complex. To keep the complexity of the flowchart manageable, both the TIN initialisation step, and the TIN extension step of this step are illustrated in a separate diagram, which is shown in Figure \ref{fig:tinconstructiondetailsflow}.
@@ -417,6 +459,13 @@ Each iteration first reconstructs the TIN yielded by the previous iteration, and
 
 Once TIN extension has finished, the final TIN is reconstructed and is saved. Thus, one TIN object per NBRS part is saved, and these are not merged or joined together into a single TIN in any way. My implementation offers the possibility to write these TINs to disk, each one in a separate OBJ file. The algorithm automatically filters out triangles with areas and circumferences large enough to indicate that they cannot be relevant to the road surface.
 
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{template_empty/figs/tin_construction_details.pdf}
+    \caption{Flowchart-style illustration of the details of the TIN construction step of the pipeline.}
+    \label{fig:tinconstructiondetailsflow}
+\end{figure}
+
 \subsubsection{Challenges encountered}
 
 As implementing such a complex algorithm in this pipeline step was not originally intended, the biggest challenge here was to come up with a good solution within the timeframe reserved for the project. In terms of the methods themselves, I spent the most amount of time and effort on developing a solution that allows the road surface to grow into regions not covered by the preliminary or optimised edges. While in all cases, the surface generated by TIN initialisation is adequate to generate 3D-NWB, my desired was to not only model the central, traffic-occupied part of the road, but to grow it to the real-life edges of the paved surface as best as possible.
@@ -442,11 +491,18 @@ The next step is to perform vertex snapping at intersections. TIN surfaces close
 
 Due to NWB's coarse georeferencing (often only one decimal or no decimals), checking 2D matches of coordinates is not enough. Each time a match is found, vertical distance is also examined prior to snapping, to avoid blunders that could be caused by snapping together vertices that are at perfectly matching 2D coordinates, but which in fact belong to roads that are in a non-intersecting 3D relationship (one passes aobve the other).
 
-The last step of the procedure is to infill gaps that were left by failed interpolation. Such gaps may be present due to small-scale inaccuracies in the preliminary or optimised edges, or due to the lack of primary \textit{and} secondary data at the same time. In such blind spots, NBRS are generally split into multiple parts, but this step again treats the entire NBRS as a single 2D profile. Vertices found between NBRS parts have no underlying TINs and no elevations as a result. These gaps are filled using simple interpolation, and instead of indicating their origin as either AHN3 or DTB, it is recorded to be the result of such interpolation.
+The last step of the procedure is to infill gaps left by failed interpolation. Such gaps may be present due to small-scale inaccuracies in the preliminary or optimised edges, or due to the lack of primary \textit{and} secondary data at the same time. In such blind spots, NBRS are generally split into multiple parts, but this step again treats the entire NBRS as a single 2D profile. Vertices found between NBRS parts have no underlying TINs and no elevations as a result. These gaps are filled using simple interpolation, and instead of indicating their origin as either AHN3 or DTB, it is recorded to be the result of such interpolation.
 
 \subsubsection{Outputting 3D-NWB}
 
 The last step of the pipeline converts the internal road centreline data structure of the program (NBRS parts and NBRS) back into the data structure used by the input data, which are the LineStrings that are called wegvakken in NWB. The geometry of each input LineString is overwritten with the new geometry created using the original 2D coordinates, and the newly generated final elevations. Like at the end of preliminary elevation estimation (see Section \ref{sub:m_elevationestimation}), care is taken to respect the original orientations of wegvakken, which means that when splitting back NBRS into them, some need to be reversed back into their original orientation before being written to the output. The origins of the vertices are not written to this file, as it is not a type of data that can be stored in the attribute table of a shapefile (an array), but it can be viewed inside the program.
+
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{template_empty/figs/elevation_interpolation.pdf}
+    \caption{Flowchart-style illustration of the elevation interpolation step of the pipeline.}
+    \label{fig:elevationinterpolationflow}
+\end{figure}
 
 \subsubsection{Challenges encountered}
 
