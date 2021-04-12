@@ -22,7 +22,7 @@ Many relevant research papers have been located and examined as part of the lite
 \textit{[Content below copied from P2; to be adapted.]}
 
 \begin{wrapfigure}{r}{0.46\textwidth}
-    \includegraphics[width=0.95\linewidth]{p2/figs/hodgson_breshanan_2004_01.png} 
+    \includegraphics[width=0.95\linewidth]{final_report/figs/hodgson_breshanan_2004_01.png} 
     \caption{Sketch diagram showing the effects of horizontal error on vertical accuracy in the context of sloped surfaces. Any uncertainty in the lateral position of the point of reflection will be scaled by the tangent of the slope angle, denoted by $\alpha$ (\cite{hodgson_breshanan_2004}).}
     \label{fig:elevationaccuracy}
 \end{wrapfigure}
@@ -62,7 +62,7 @@ In terms of point cloud feature extraction techniques relevant to roads, I have 
 A further popular set of strategies rely on road curb detection. \cite{vosselman_zhou_2009}, \cite{zhang_2010}, and \cite{yang_etal_2013} are examples of such research. \cite{vosselman_zhou_2009} presents a method in which a DTM is generated, points close to it are selected in the point cloud, and small, curb-like jumps in elevation are algorithmically detected. The curb points are selected, and a feature extraction method (RANSAC in this case) is used to construct 3D lines from them. Gaps in the lines are closed algorithmically, and B-splines are fitted to optimise the shapes of the road edges. In \cite{zhang_2010}, road cross-sections are inspected in 1D, and the points representing the road surface, the curbs and non-road surfaces are identified. In \cite{yang_etal_2013} an approach is presented in which first cross-sections are identified, ground points are filtered in 1D, and curbs are then identified in the 1D series of ground points.
 
 \begin{wrapfigure}{l}{0.5\textwidth}
-    \includegraphics[width=\linewidth]{p2/figs/clode_etal_2007_01.png} 
+    \includegraphics[width=\linewidth]{final_report/figs/clode_etal_2007_01.png} 
     \caption{Illustration of the results of PCD convolution. The vector magnitude in any given pixel quantifies the support that exists there for the presence of a road centreline, so it is effectively a centreline detector (\cite{clode_etal_2007}).}
     \label{fig:phasecodeddisk}
 \end{wrapfigure}
@@ -77,7 +77,7 @@ There are many more papers dealing with this task without using external vector 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.75\linewidth]{p2/figs/boyko_funkahuser_2011_01.png} 
+    \includegraphics[width=0.75\linewidth]{final_report/figs/boyko_funkahuser_2011_01.png} 
     \caption{Illustration of the procedure used in \cite{boyko_funkhauser_2011}, taken from their paper. In the attractor map, darker colours represent stronger attraction, resulting in the active contour converging to them in the optimisation procedure. The GVF map is a vector map that contributes to favourable active contour convergence and is not described any further here. The initial contour is based on the road centreline (from external vector data).}
     \label{fig:activecontouroptimisation}
 \end{figure}
@@ -96,7 +96,7 @@ This last category contains research that used similar input data to mine (inclu
 One landmark research, \cite{boyko_funkhauser_2011}, describes a method in which their input polylines are used to label road points in an ALS point cloud. They first associate the input lines with elevations by fitting spline curves through nearby Lidar points. Suitable Lidar points are selected based on minimising an error function that includes terms related to the distance from the location of interpolation, and to elevation variance. The resulting network is guaranteed to be continuous and smooth because the densified input polylines are used as a spline control points. They then partition the point cloud on disk, based on fitting small support planes along the 3D-converted lines and fetching points that are close to them (solving both the memory and the 2.5D violations related to overlapping roads). They then construct a map penalising points away from road edges based on one term depending on the distance from the road centreline, and another based on a curb detection algorithm (these are so-called \textit{attractor maps}). Lastly, they apply an active contour (snake) optimisation technique that yields the road edges in 3D, and then label points between the two edges as road points. An illustration is shown in Figure \ref{fig:activecontouroptimisation}.
 
 \begin{wrapfigure}{r}{0.5\textwidth}
-    \includegraphics[width=\linewidth]{p2/figs/oudeElberink_vosselman_2006_03.png} 
+    \includegraphics[width=\linewidth]{final_report/figs/oudeElberink_vosselman_2006_03.png} 
     \caption{Examples of 3D-converted multi-level road vector geometry showing artefacts that are typical in the context of Lidar point cloud to 3D vector geometry conversion. Most notably, in multi-level configurations of roads, only the one with the highest elevation is converted to 3D (\cite{oudeElberink_vosselman_2006}).}
     \label{fig:conversionartefacts}
 \end{wrapfigure}
@@ -149,7 +149,7 @@ For P-roads (for which DTB data does not generally exist), the workflow is conce
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\linewidth]{p2/figs/rhdhv_combined.png}
+    \includegraphics[width=\linewidth]{final_report/figs/rhdhv_combined.png}
     \caption{Illustrations of RHDHV's commercial implementation. \textbf{Left:} The cross-sections that are constructed on NWB vertices are shown as black lines. Green circles denote those vertices where the cross section could be properly intersected with DTB \textit{verflijnen} (blue circles) and thus be given an elevation value. White circles denote where the procedure failed, and AHN raster-based interpolation was necessary. This render illustrates that in sharp bends (where the cross-section might not intersect DTB orthogonally) and close to intersections, this workflow often fails, and that P-roads are not processed in this way (they have DTB edges in this particular location only because they are close to R-roads). \textbf{Right:} AHN-based interpolation is used for P-roads, and as a fallback mechanism where DTB-based interpolation fails. The rasters are overlain with NWB to yield elevation values, and as the DSM rasters contain holes, they are patched in by pre-interpolating them before this step. In this illustration, the holes are left in to show that two types of holes generally occur: small-scale ones due to objects such as street furniture, vehicles and vegetation, and large ones that are typically due to occlusion from overlapping buildings or bridges (as in this case). The test build shown here uses AHN2 rasters.}
     \label{fig:rhdhv}
 \end{figure}
