@@ -10,9 +10,9 @@
 
 Implementing a scaling solution did not form part of this project, although all parts of the implementation were designed in a way that a binary production version of it would have manageable computational complexity and could be embedded in a scaling framework with a relatively small amount of effort.
 
-Scaling in this project concerns primarily the need to subdivide the input data in a way that the software can queue up portions of it for parallel computation and never run out of memory while processing a set number of these portions. These portions could be, for instance, based on tiling, i.e. overlaying a 2D raster on the extents of the data and e 
+Scaling in this project concerns primarily the need to subdivide the input data in a way that the software can queue up portions of it for parallel computation and never run out of memory while processing a set number of these portions. These portions could be, for instance, based on tiling, i.e. overlaying a 2D raster on the extents of the data and examining which cell certain features fall into. 
 
-As scaling was not part of this project, this task was carried out manually prior to the main processing steps, which is the process that created the testing datasets introduced in Section [REF]. This procedure consisted of cropping the input vector datasets into tiles, and keeping only those Lidar points which which fall within a set maximum distance from the road network centrelines. Furthermore, points not classed as ground or bridge points are discarded, which is explained in more depth in Section [REF].
+As scaling was not part of this project, the task of creating such manageable subsets of the data was carried out manually prior to starting development on the main processing steps. This procedure consisted of cropping the input vector datasets into tiles, and keeping only those Lidar points which which fall within a set maximum distance from the road network centrelines. Furthermore, points not classed as ground or bridge points are discarded, which is explained in more depth in Section [REF].
 
 \subsection{Testing datasets}
 \label{sub:testingdata}
