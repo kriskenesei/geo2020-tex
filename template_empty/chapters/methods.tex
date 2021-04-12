@@ -149,7 +149,7 @@ As a brief summary, the pipeline takes NWB, decomposes it into subsets solvable 
 I used concepts and ideas from related work (see Chapter \ref{chap:rw}) extensively when designing the original pipeline, and the final implementation retains many of these. For instance, the point cloud segmentation step was inspired largely by \cite{oudeElberink_vosselman_2009} and \cite{boyko_funkhauser_2011}. The cross-section based workflow was, among others, inspired by \cite{yang_etal_2013} and the commercial implementation. The use of 2.5D-based modelling methods to represent features extracted from the point cloud comes from \cite{oudeElberink_vosselman_2006}. The active contour-based workflow was inspired by \cite{boyko_funkhauser_2011} and \cite{gopfert_etal_2011}. In a way, my work can also be interpreted as a study of the effectiveness of relevant methods commonly found in the literature, a topic that is further discussed in Section [REF].
 
 \subsection{Generalisation of pipeline}
-\label{sub:generalisation}
+\label{sub:m_generalisation}
 
 In this report I commonly refer to DTB as a \textit{support dataset}. This is in part due to it always having been secondary to AHN3 because its spatial coverage is vastly inferior to AHN3 and it could not, by itself, fulfil the role AHN3 was given in this project. AHN3 contains enough data to make it possible to run the pipeline in the complete absence of DTB. DTB merely improves the results of the point segmentation step and extends the TINs into areas not covered by AHN3 (preventing them from being split into parts in the process).
 

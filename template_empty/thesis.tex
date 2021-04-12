@@ -55,6 +55,11 @@
 }
 \makeatother
 
+\NewDocumentCommand{\codeword}{v}{%
+    \texttt{\textcolor{black}{#1}}%
+}
+\lstset{language=C,keywordstyle={\bfseries \color{blue}}}
+
 \input{mysettings}
 
 \setcapindent{1em} %-- for captions of Figures
