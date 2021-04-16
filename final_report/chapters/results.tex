@@ -59,7 +59,7 @@ The results below are presented in the same section structure as the detailed me
 \subsection{Splitting NWB into NBRS}
 \label{sub:r_nbrsgeneration}
 
-Each line colour in Figure \ref{fig:lidarsegmentation0} belongs to a specific NBRS, meaning that wegvakken that belong to the same NBRS are coloured the same. The figure illustrates that as a result of the NBRS generation step, the cropped road network becomes semantically enriched with identifiers linking certain LineStrings together based on semantic or geometric conditions, depending on which algorithm was used.
+Each line colour in Figure \ref{fig:lidarsegmentation0} belongs to a specific NBRS, meaning that wegvakken that belong to the same NBRS are coloured the same. The figure illustrates that as a result of the NBRS generation step, the cropped road network becomes semantically enriched with identifiers linking certain LineStrings together, based on semantic or geometric conditions depending on which algorithm was used. The colours are generally inconsistent between the two visualisations because although the same colour scheme was used to prepare them, the two algorithms distribute the NBRS IDs themselves differently.
 
 \subsubsection{Problems due to NWB intersection angles}
 
@@ -67,7 +67,7 @@ The figure also illustrates the fundamental differences that exist between the r
 
 \subsubsection{Example of issues with geometric algorithm}
 
-In places where the above intersection angle related problem exists, choosing the straightest continuation across an intersection when building an NBRS does not necessarily represent the optimal choice, because the angles are artificial. This can be observed in Figure \ref{fig:lidarsegmentation0} where I numbered some of the NBRS on the geometric results. While the geometric algorithm obviously made the right choice based on the pairwise angles between the individual road segments concerned, attribute table data told the semantic algorithm that the role and road number of certain parts of NBRS 0 and 2 are the same as that of NBRS 1, which resulted in these parts of NBRS 0 and 2 merging via NBRS 1. The "discarded" ends of NBRS 0 and 2 then formed two unique NBRS on their own. In the overall large-scale context in this figure, the semantic algorithm evidently made the correct choice, even though this introduces some small, abrupt internal angles into the NBRS.
+In places where the above intersection angle related problem exists, choosing the straightest continuation across an intersection when building an NBRS does not necessarily represent the optimal choice, because the angles are artificial. This can be observed in the top half of Figure \ref{fig:lidarsegmentation0}, where I numbered some of the NBRS on the geometric results. While the geometric algorithm obviously made the right choice based on the pairwise angles between the individual road segments concerned, attribute table data told the semantic algorithm that the role and road number of certain parts of NBRS 0 and 2 are the same as that of NBRS 1, which resulted in these parts of NBRS 0 and 2 connecting via NBRS 1. The "discarded" ends of NBRS 0 and 2 then became two unique NBRS by themselves. In the overall large-scale context in this figure, the semantic algorithm evidently made the correct choice, even though this introduces some small, abrupt internal angles into the NBRS.
 
 \subsubsection{Example of issues with semantic algorithm}
 
