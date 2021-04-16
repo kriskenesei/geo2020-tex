@@ -115,7 +115,7 @@ The query radius used in the KD-tree queries in my final configuration is 1 metr
 
 \subsubsection{Effectiveness of refinement step}
 
-The benefits of the refinement step are made evident by the shape of the 3D centreline shown on the left in Figure \ref{fig:elevationestimation2}. The road passing over the other causes occlusion, meaning that Lidar data is unavailable for the surface of the lower road for a short distance. Before the refinement step, the centreline of the lower road thus becomes snapped to the elevation of the one above. The outliers introduced due to this are then easily identified and eliminated by the refinement step, and new values are interpolated based on the polynomial model that was fitted on the NBRS.
+The effects of the refinement step can be observed in the shape of the \textit{lower} set of 3D centrelines shown on the left in Figure \ref{fig:elevationestimation2}. The road passing over the other causes occlusion, meaning that Lidar data is unavailable for the surface of the lower road for a short distance. Before the refinement step, the centrelines of the lower set of roads (motorway lanes) thus became snapped to the elevation of the one above. The resulting outliers were then easily identified and eliminated by the refinement step, and new values were interpolated based on the polynomial model that was fitted on the NBRS.
 
 For my final outputs, I used a degree of 12 for the polynomials, and set the outlier filtering threshold to 0.2 times the standard deviation of the data-model errors in the given polynomial fit. I found that in general these work best with the testing datasets. Decreasing the vertex densification threshold and increasing the polynomial degree allows one to use lower filtering thresholds, and 0.2 works well with my final parametrisation. Standard deviations below 0.4 metres are artificially icreased to 0.4 metres to avoid modifying most elevations in roads whose conformance with the model was found to be near-perfect. More information about the detailed processing (and thus, the exact way in which these parameters are used) in Section \ref{sub:m_elevationestimation}.
 
@@ -125,7 +125,7 @@ The above issue also causes further problems where the vertical curvature of roa
 
 \subsubsection{Using the implementation}
 
-The below code snippet shows the code I used to generate my final results.
+The below code snippet shows the code that I used to generate my final results.
 
 \begin{lstlisting}
 roads.densify(5)
