@@ -182,7 +182,7 @@ In the class itself, the results of this step are not stored in a separate varia
 \begin{figure}[]
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/lidarsegmentation0.png}
-    \caption{Visualisations comparing preliminary 3D conversion results with AHN3 point cloud.}
+    \caption{Visualisations illustrating the results of Lidar segmentation.}
     \label{fig:lidarsegmentation0}
 \end{figure}
 
@@ -198,6 +198,13 @@ The visualisation on the left in Figure \ref{fig:lidarsegmentation0} shows the K
 
 \subsubsection{DTB's usefulness}
 
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/lidarsegmentation1.png}
+    \caption{Visualisations illustrating the disagreement between AHN3 and DTB.}
+    \label{fig:lidarsegmentation1}
+\end{figure}
+
 The final version of my code works regardless of the presence of long occluded regions, even without DTB coverage. However, DTB is still used wherever available and useful. Not only can DTB help the algorithm keep its plane fits stable through regions of occlusion (thereby producing a more accurate subcloud from AHN3), it also represents the only source of data in regions where AHN3 is completely missing. Without these data points, later parts of the pipeline would need to interpolate elevations based solely on information from \textit{outside} of the gaps, leading to a drastic drop in confidence.
 
 Unlike in most locations, DTB has good coverage in the particular motorway interchanges shown in Figures \ref{fig:lidarsegmentation0} and \ref{fig:lidarsegmentation1}, especially Knoppunt Ridderkerk. Each of the visualisations in these figures contain examples of how DTB-based "assistance" manifests itself in the output. Where subclouds contain Lidar gaps filled with points in a linear arrangement, one can be certain that DTB was called on to re-fit planes and supply points to the output. On the left in Figure \ref{fig:lidarsegmentation0}, these linear sets of points appear in the bottom set of roads wherever the cumulative presence of all 3 overlying roads cast "shadows" on it, creating no-data zones of various shapes. Each level of the stack of roads has such a feature, except for the one on the top, which is not occluded by any objects.
@@ -209,6 +216,13 @@ I initially suspected the primary reason for this generally 0.2-1 metre differen
 This issue highlights the wider issue of the temporal discrepancy between all our datasets, which is further discussed in Sections \ref{sub:r_tinconstruction} and \ref{sub:r_interpolation} in the context of how it affects our results, and in [REF] in the context of large-scale differences between NWB and all other datasets due to NWB always being far more up-to-date than all the rest.
 
 \subsubsection{Splitting NBRS into parts}
+
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/lidarsegmentation2.png}
+    \caption{Visualisation illustrating the handling of gaps in AHN3 coverage during Lidar segmentation.}
+    \label{fig:lidarsegmentation2}
+\end{figure}
 
 On the left in Figure \ref{fig:lidarsegmentation2}, a region with neither AHN3, nor DTB coverage is shown. In this location, the NBRS was split into two parts and in the figure, this is illustrated by the fact that I could highlight the subcloud on one side of the gap separately. The matching colour of the points show that they still belong to the same NBRS, but the program stores a separate subcloud for each NBRS part, meaning that they are loaded as a separate MultiPoint object in the 3D viewer I used to generate these figures.
 
@@ -248,6 +262,13 @@ In the class itself, the resulting subclouds can be accessed via \codeword{.nbrs
 \subsection{Edge approximation}
 \label{sub:r_edgeapproximation}
 
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/edgeapproximation0.png}
+    \caption{Visualisation illustrating the results of preliminary edge approximation.}
+    \label{fig:edgeapproximation0}
+\end{figure}
+
 Visualisations showing the results of the edge approximation step are shown in Figure \ref{fig:edgeapproximation0}. The black lines correspond to NWB centrelines, while the closely spaced, orthogonal lines are the cross-sections that are attempted to be created on each vertex (including those resulting from densification). The lines connecting the ends of the cross-sections on each side of each centreline are the preliminary edges that are the main product of this processing step. The vertical dimension is once again exaggerated five times, to make elevation differences better visible.
 
 \subsubsection{General description of results}
@@ -267,6 +288,13 @@ While the maximum limit may exclude meaningful road surface areas in the case of
 A circumstance that necessitates the use of a lower value for the maximum width is the main problem with NWB's georeferencing: if NWB itself is shifted towards the edge of a road locally, generated cross-sections will be corrupted there by off-road elevations. Using larger values for the maximum width will only make this problem worse. In the absence of this problem, the value could be increased by a few metres based on my experience with accurate parts of NWB. The feature that the line fits can be fitted only on the central portion of cross-sections was developed specifically to mitigate the effects of this issue, and in my final configuration the central 40\% of the cross-sections is used for this.
 
 \subsubsection{Failed edge detection}
+
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/edgeapproximation0.png}
+    \caption{Visualisation illustrating the results of preliminary edge approximation.}
+    \label{fig:edgeapproximation0}
+\end{figure}
 
 While in well-exposed, straight roads this does not generally happen, there are lengths of roads where finding edge points will fail repeatedly. In such places, the algorithm does not save the cross-section, and also does not add edge points to the preliminary edge LineStrings. One the left in Figure \ref{fig:edgeapproximation0}, this can be clearly observed, as it occurs frequently in occluded areas. In There are various reasons why this might happen, which I will discuss below.
 
