@@ -45,7 +45,7 @@ The research \cite{gross_thoennessen_2006} shows that point neighbourhood inform
 
 Other methods relying purely on the Lidar points themselves exist, but like \cite{zhang_2010}, they are typically intended for real-time MLS applications - such as the fully convolutional neural network-based solution in \cite{caltagirone_etal_2017}. The literature review in \cite{yang_etal_2013} offers an excellent overview of such additional methods, but they will not be described here any further, as I found them not to be relevant to this project.
 
-\begin{figure}[h]
+\begin{figure}
     \centering
     \includegraphics[width=0.75\linewidth]{final_report/figs/boyko_funkahuser_2011_01.png} 
     \caption{Illustration of the contour optimisation procedure used in \cite{boyko_funkhauser_2011}.}
@@ -178,7 +178,7 @@ In the sections below, I will present the result of assessing the general proper
 \subsection{Nationaal Wegenbestand – NWB}
 \label{sub:nwb}
 
-\begin{figure}[h]
+\begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/nwb_sample_02.png} 
     \caption{An example render of NWB. The road segments (\textit{(wegvakken)}) are colour-coded to indicate the owner (\textit{(wegbeheerdersoort)}).}
@@ -297,7 +297,7 @@ First, where NWB vertices are too sparse, vertex densification takes place; i.e.
 
 For P-roads (where DTB data does not generally exist), the workflow is conceptually similar to the one in the prototype, with the notable difference of using AHN3 DTM rasters rather than the point cloud. Because AHN3 DTM rasters are badly affected by both large holes and small groups of missing pixels (due to the fixed-parameter IDW interpolation that was used to generate them), RHDHV could only make use of them by filling in the gaps of the raster using linear interpolation in a 3D TIN created from extruded raster pixel centres. They then simply interpolated elevations for NWB from the raster using bilinear interpolation. Intermediate results of this procedure are shown on the right in \ref{fig:rhdhv}. It shows a raster being overlain with NWB to yield elevation values. The raster still contains the holes that AHN3 rasters contain by default; these are filled in before interpolating elevations for NWB but are shown here for demonstration purposes. Two types of holes generally occur: small-scale ones due to objects such as street furniture, vehicles and vegetation, and large ones that are typically due to large-scale occlusion due to buildings or bridges (as in this case). The test build shown here used AHN2 rasters, but their production implementation uses AHN3.
 
-\begin{figure}[h]
+\begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/rhdhv_combined.png}
     \caption{Illustrations of RHDHV's commercial implementation.}
