@@ -326,9 +326,9 @@ The second line writes the results to disk. Both the edges and the cross-section
 
 \begin{figure}[]
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/active.png}
-    \caption{Visualisations illustrating challenging edge approximation scenarios.}
-    \label{fig:edgeapproximation1}
+    \includegraphics[width=0.9\linewidth]{final_report/figs/activecontouroptimisation0.png}
+    \caption{Visualisations illustrating various degrees of active contour optimisation success.}
+    \label{fig:activecontouroptimisation0}
 \end{figure}
 
 As Figures \ref{fig:activecontouroptimisation0} and \ref{fig:activecontouroptimisation1} show, all planned parts of this pipeline step output the expected results, albeit with occasional artefacts and a mediocre overall quality. The contours are smooth, they generally reflect the shape of the roads accurately, and only occasionally suffer from major blunders. However, even small deviations beyond the edge of the roads mean that based solely on these contours, off-road Lidar reflections would be classified as road points and thus be inserted in the TIN model in the next step. Unfortunately, such deviations - even larger ones - occur frequently, as the close-up images in Figure \ref{fig:activecontouroptimisation1} demonstrate. With the help of the results, this section will focus on explaining why exactly it is difficult to guarantee that this workflow functions reliably, as this was the reason for a major revision of the design of the preliminary edge detection and TIN construction steps, which I already explained in Section \ref{sub:m_edgeapproximation}.
