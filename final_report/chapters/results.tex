@@ -134,7 +134,7 @@ The are two main aspects of the output that require our attention: how well the 
 \begin{figure}[]
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/elevationestimation2.png}
-    \caption{Visualisations comparing preliminary 3D conversion results with AHN3 point cloud.}
+    \caption{Visualisations comparing preliminary 3D conversion results with the AHN3 point cloud.}
     \label{fig:elevationestimation2}
 \end{figure}
 
@@ -181,9 +181,9 @@ In the class itself, the results of this step are not stored in a separate varia
 
 \begin{figure}[]
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/elevationestimation2.png}
+    \includegraphics[width=0.9\linewidth]{final_report/figs/lidarsegmentation0.png}
     \caption{Visualisations comparing preliminary 3D conversion results with AHN3 point cloud.}
-    \label{fig:elevationestimation2}
+    \label{fig:lidarsegmentation0}
 \end{figure}
 
 Figure \ref{fig:lidarsegmentation0} shows some visualisations of the results of Lidar segmentation. Like in figures depicting NBRS alone (such as e.g. Figure \ref{sub:m_elevationestimation}), I used colours to dinstinguish between NBRS. In this figure, I coloured those Lidar points the same, which belong to the subcloud of the same NBRS. On the right in the figure, the centrelines are also shown (in black, to help distinguish them from their subclouds). For subclouds which are positioned far from each other, a clear separation is observable. However, ones that are close to one another often overlap, such as in various places in the centre of the visualisation on the left in Figure \ref{fig:lidarsegmentation0}. This is the result of there not being much space between the roads themselves that the underlying NBRS represent. The overlapping parts of such subclouds may contain duplicate points (in other words, points may be part of multiple subclouds). Out of these "duplicate" points, the visualisation only shows the ones that were loaded last, hence some subclouds may appear thinner in the visualisation than they are in reality.
