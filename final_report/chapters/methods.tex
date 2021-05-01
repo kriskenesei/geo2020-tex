@@ -60,13 +60,13 @@ As a brief summary of the general idea, the pipeline takes NWB, decomposes it in
 \begin{enumerate}
     \item \textbf{NBRS generation}
     \begin{enumerate}
-        \item \textbf{Goal:} create optimal 2D profiles from the building blocks of NWB.
+        \item \textbf{Goal:} assemble optimal 2D profiles from the building blocks of NWB.
         \item \textbf{Approach:}
         \begin{enumerate}
-            \item Assemble \textit{Non-Branching Road Segments}, henceforth referred to as \textit{NBRS} (in both plural and singular). To do so, look for series of NWB wegvakken (LineString objects) that represent the same road and join them into optimised 2D profiles - NBRS.
-            \item Perform the assembly of NBRS in a way that maximises their length (optimal for lengthwise 2D operations such as polynomial fitting), minimising internal angles at the same time. Prevent self-intersection, so that each NBRS can be modelled in 2.5D.
+            \item Assemble \textit{Non-Branching Road Segments}, henceforth referred to as \textit{NBRS} (in both plural and singular) from NWB geometry. To do so, look for series of NWB wegvakken (LineString objects) that represent the same road and join them into optimised 2D profiles - NBRS.
+            \item Perform the assembly of NBRS in a way that maximises their length (optimal for lengthwise 2D operations such as polynomial fitting), minimising internal angles at the same time. Disallow self-intersection, so that each NBRS can be modelled in 2.5D.
         \end{enumerate}
-        \item \textbf{Purpose:} this step is necessary, because in addition to working with small-scale (short wavelength) features in the road network, we wish to be able to inspect trends that take place over longer distances in the network. The building blocks of NWB (wegvakken) are generally short, sometimes only a few metres long, hence assembling them into NBRS provides a better starting point for subsequent steps of this pipeline.
+        \item \textbf{Purpose:} this step is necessary, because in addition to working with small-scale (short wavelength) features in the road network, we wish to be able to inspect trends that take place over longer distances in the network. The building blocks of NWB (wegvakken) can sometimes be short, occasionally only a few metres long. Hence, assembling them into NBRS provides a better starting point for later steps.
         \item \textbf{Changes:} from the outset, I expected that simple methods based on progressing along 2D profiles, as well as modelling 2D profiles as a whole, would be useful for this project, and that a data structure serving this dual purpose would be necessary. Hence, NBRS have always been part of my plans and their exact specifications did not change much during development.
     \end{enumerate}
     \item \textbf{Preliminary elevation estimation}
@@ -74,11 +74,11 @@ As a brief summary of the general idea, the pipeline takes NWB, decomposes it in
         \item \textbf{Goal:} create a rough, preliminary 3D version of NWB.
         \item \textbf{Approach:}
         \begin{enumerate}
-            \item Based on nearby Lidar points, associate NBRS vertices with preliminary elevation approximates, thereby performing a crude 3D conversion of NWB.
-            \item Perform polynomial fitting on the 2D profiles that NBRS represent. Identify vertices that are outliers with respect to the general shape of the NBRS and interpolate values for them.
+            \item Based on the median elevation of nearby Lidar points, associate NBRS vertices with preliminary elevation approximates, thereby performing a crude 3D conversion of NWB.
+            \item Perform polynomial fitting on the 2D profiles that NBRS represent. Identify vertices that are outliers with respect to the general shape of the NBRS and interpolate values for them linearly.
         \end{enumerate}
         \item \textbf{Purpose:} this step is necessitated by the next step, point cloud segmentation. While it is possible to perform it without first performing a rough 3D conversion, I found it to be much more effective when the approximate 3D locations of NBRS are already known by that point.
-        \item \textbf{Changes:} this step represents and addition relative to the original plans. I started suspecting the benefits of performing this preliminary conversion during the implementation stage, and thus added it to the pipeline design.
+        \item \textbf{Changes:} this step represents and addition relative to the original plans. I started suspecting its benefits during the implementation stage, and subsequently added it to the pipeline design.
     \end{enumerate}
     \item \textbf{Point cloud segmentation}
     \begin{enumerate}
