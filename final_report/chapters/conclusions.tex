@@ -161,7 +161,7 @@ However, the system design leaves the door open to developing a production softw
 I suspect that introducing the enforcement of such a maximum sampling density earlier on, perhaps during the Lidar segmentation step, could bump the performance even more, because it would affect more processing steps - one merely needs to find the minimum sampling density, at which all parts of the pipeline still work reliably.
 
 \subsection{Conditionally accepting preliminary elevations as final}
-\label{sub:improvementssupportdataset}
+\label{sub:preliminaryelevationsasfinal}
 
 Part of the high computational complexity of my implementation may not be justified for all roads, assuming that one only wishes to convert NWB to a 3D dataset. Assuming that the 2.5D surface models are not needed by the reusers for any purpose other than to interpolate elevations for NWB, then it may be a good idea to configure the preliminary elevation estimation algorithm in a way that it intelligently recognises where its output is already accurate enough and in such cases, skips all subsequent pipeline steps.
 

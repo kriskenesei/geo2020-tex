@@ -36,7 +36,7 @@ Carrying out the \textit{accuracy-related analysis} was the last stage of the pr
 
 The last stage of the project will last a few weeks between the P4 presentation and the P5 presentation. Both \textit{the implementations and the present report itself will be improved and finalised} during this time.
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/methodology.pdf}
     \caption{Flowchart-style illustration of the top-level methodology of my proposed dissertation research.}
@@ -217,7 +217,7 @@ The first step of the pipeline is to create 2D profiles from the input road netw
 
 The first algorithm, which I call the "geometric algorithm", uses geometry only and thus generalises fairly easily; it could be used with any dataset comparable with NWB. The second algorithm I call the "semantic algorithm", because it uses data from NWB's attribute table to try to assemble NBRS in a way, that only roads with identical roles (ramp, motorway lane, etc.) get added to the same NBRS. This algorithm generalises less easily, but it demonstrates that in any such implementation, semantic information can provide important insight into network properties that would be difficult (even impossible) the recognise based solely on geometric information. Both algorithms are illustrated by Figure \ref{fig:nbrsgenerationflow}, and further textual descriptions are provided below.
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/nbrs_generation.pdf}
     \caption{Flowchart-style illustration of the NBRS generation step of the pipeline.}
@@ -249,7 +249,7 @@ I encountered three distinct issues while I was developing this part of the soft
 
 The elevation estimation stage of the pipeline consists of two operations. The first operation is to associate each NBRS vertex with a preliminary elevation estimate based solely on nearby Lidar points, and the second a refinement step to eliminate occlusion-related artefacts. The procedure is illustrated by the flowchart in Figure \ref{fig:elevationestimationflow}.
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/elevation_estimation.pdf}
     \caption{Flowchart-style illustration of the elevation estimation step of the pipeline.}
@@ -289,7 +289,7 @@ A second challenge was to find a good benchmark of what to consider outliers aft
 
 The Lidar segmentation workflow is more complex than the two I described above, and some of the intricacies are omitted in the relevant flowchart (Figure \ref{fig:lidarsegmentationflow}) to keep its complexity manageable. I will attempt to fill in some of these details here in the text, referencing where approximately in the flowchart they occur.
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/lidar_segmentation.pdf}
     \caption{Flowchart-style illustration of the Lidar segmentation step of the pipeline.}
@@ -343,7 +343,7 @@ To solve all these issues, I extended this part of the implementation with metho
 
 The generation of preliminary edges is based on identifying edge points at discrete intervals in the road centreline (on each vertex, including ones created during vertex densification). The procedure takes place on the level of NBRS parts, and it is illustrated in Figure \ref{fig:edgeapproximationflow}.
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/edge_estimation.pdf}
     \caption{Flowchart-style illustration of the edge approximation step of the pipeline.}
@@ -377,7 +377,7 @@ A further challenge corresponded to the point in development when I decided to m
 
 The optimisation of preliminary edges is based on constructing one attractor map for each NBRS part, and running active contour optimisation to attract the preliminary edges to certain features in the attractor maps. The procedure is illustrated in Figure \ref{fig:edgeoptimisationflow}.
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/edge_optimisation.pdf}
     \caption{Flowchart-style illustration of the active contour optimisation step of the pipeline.}
@@ -419,7 +419,7 @@ As I emphasised in the previous section, various aspects of active contour optim
 
 The outermost iteration loops over NBRS, and NBRS parts are iterated one level below. In Figure \ref{fig:tinconstructionflow} this is explicitly indicated as iterating over NBRS IDs and NBRS part IDs respectively. In contrast with previous steps in the pipeline, the centrelines themselves are no longer used, hence the change in notation. 
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/tin_construction.pdf}
     \caption{Flowchart-style overview of the TIN construction step of the pipeline.}
@@ -456,7 +456,7 @@ Each iteration first reconstructs the TIN yielded by the previous iteration, and
 
 Once TIN extension has finished, the final TIN is reconstructed and is saved. Thus, one TIN object per NBRS part is saved, and these are not merged or joined together into a single TIN in any way. My implementation offers the possibility to write these TINs to disk, each one in a separate OBJ file. The algorithm automatically filters out triangles with areas and circumferences large enough to indicate that they cannot be relevant to the road surface.
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/tin_construction_details.pdf}
     \caption{Flowchart-style illustration of the details of the TIN construction step of the pipeline.}
@@ -515,7 +515,7 @@ where $x_{pt}$ and $y_{pt}$ denote the X and Y coordinates of the location of in
 
 The last step of the pipeline converts the internal road centreline data structure of the program (NBRS parts and NBRS) back into the data structure used by the input data, which are the LineStrings that are called wegvakken in NWB. In effect, the 2D geometry of each input LineString is overwritten with the new 3D geometry created using the original 2D coordinates, and the newly generated final elevations. Unlike at the end of preliminary elevation estimation (see Section \ref{sub:m_elevationestimation}), the original orientations of wegvakken is automatically respected irrespected of some of them having been internally flipped, because the elevations are mapped from the dictionaries (based on 2D coordinates) directly into the geometries. The origins of the vertices and the accuracy estimation data are not written into this file, as arrays are a type of data that cannot be stored in the attribute table of a Shapefile. This data can be viewed inside the program, or written to disk as CSV files.
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/elevation_interpolation.pdf}
     \caption{Flowchart-style illustration of the elevation interpolation step of the pipeline.}
@@ -585,7 +585,7 @@ To evaluate how complete the generated TIN road surfaces are relative to the tru
 To make the comparison, I plotted some of the TINs my implementation can export against the relevant BGT roads in 2D and assessed the agreement between them visually. Some of these comparisons and the discussion thereof is found in Section \ref{sub:accuracytin}.
 
 \section{Comparison with commercial results}
-\label{sec:comparison}
+\label{sec:m_comparison}
 
 From the previous section, we know that the academic results have an output standard elevation error that is either on par with that of the input, or better - with the exception of areas detected as having been too poorly sampled to be given an output accuracy value this way. A simple method to evaluate the overall quality and accuracy of the commercial results is made possible by this. Examining variations in the disagreement between the elevations predicted by the academic and commercial results reveals where the commercial results significantly violate the range of possible values that are set by the academic results and their local standard errors. In other words, where the academic elevation estimates have associated standard error values, we can use them as a reference, against which the commercial results can be benchmarked, both visually (on comparison plots) and quantitatively.
 

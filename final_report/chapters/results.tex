@@ -14,7 +14,7 @@ The last part of the chapter contains a section in which the results of quantify
 \subsection{Manual pre-processing}
 \label{sub:manualpreprocessing}
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/manualpreprocessing.png}
     \caption{Visualisations illustrating the results of manual pre-processing.}
@@ -68,7 +68,7 @@ The results below are presented in the same section structure as the detailed me
 
 Each line colour in Figure \ref{fig:nbrsgeneration0} belongs to a specific NBRS, meaning that wegvakken belonging to the same NBRS are coloured the same. The figure illustrates that as a result of the NBRS generation step, the cropped road network becomes semantically enriched with identifiers linking certain LineStrings together, based on semantic or geometric conditions depending on which algorithm was used. The colours are generally inconsistent between the results of the two algorithms (top and bottom part of figure), as although the same colour scheme was used to prepare them, the two algorithms distribute the NBRS IDs differently.
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/nbrsgeneration0.png}
     \caption{Visualisations illustrating the results of NBRS generation.}
@@ -103,7 +103,7 @@ In the code snippet above, \codeword{nwb_fpath} refers to a variable containing 
 \subsection{Elevation estimation}
 \label{sub:r_elevationestimation}
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/elevationestimation0.png}
     \caption{Visualisations illustrating the preliminary elevation estimation results.}
@@ -114,7 +114,7 @@ Figure \ref{fig:elevationestimation0} shows the results of this step in two 3D v
 
 \subsubsection{Vertex densification}
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/elevationestimation1.png}
     \caption{Visualisations illustrating the vertex densification feature.}
@@ -131,7 +131,7 @@ The are two main aspects of the output that require our attention: how well the 
 
 \subsubsection{Effectiveness of 3D conversion}
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/elevationestimation2.png}
     \caption{Visualisations comparing preliminary 3D conversion results with the AHN3 point cloud.}
@@ -179,7 +179,7 @@ In the class itself, the results of this step are not stored in a separate varia
 \subsection{Lidar segmentation}
 \label{sub:r_lidarsegmentation}
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/lidarsegmentation0.png}
     \caption{Visualisations illustrating the results of Lidar segmentation.}
@@ -198,7 +198,7 @@ The visualisation on the left in Figure \ref{fig:lidarsegmentation0} shows the K
 
 \subsubsection{DTB's usefulness}
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/lidarsegmentation1.png}
     \caption{Visualisations illustrating the disagreement between AHN3 and DTB.}
@@ -217,7 +217,7 @@ This issue highlights the wider issue of the temporal discrepancy between all ou
 
 \subsubsection{Splitting NBRS into parts}
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/lidarsegmentation2.png}
     \caption{Visualisation illustrating the handling of gaps in AHN3 coverage during Lidar segmentation.}
@@ -262,7 +262,7 @@ In the class itself, the resulting subclouds can be accessed via \codeword{.nbrs
 \subsection{Edge approximation}
 \label{sub:r_edgeapproximation}
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/edgeapproximation0.png}
     \caption{Visualisations illustrating the results of preliminary edge approximation.}
@@ -289,7 +289,7 @@ A circumstance that necessitates the use of a lower value for the maximum width 
 
 \subsubsection{Failed edge detection}
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/edgeapproximation1.png}
     \caption{Visualisations illustrating challenging edge approximation scenarios.}
@@ -324,7 +324,7 @@ The second line writes the results to disk. Both the edges and the cross-section
 \subsection{Active contour optimisation}
 \label{sub:r_activecontours}
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/activecontouroptimisation0.png}
     \caption{Visualisations illustrating various degrees of active contour optimisation success.}
@@ -341,7 +341,7 @@ The optimised contours are shown overlain on the attractor maps on the right in 
 
 \subsubsection{Patterns of failure}
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/activecontouroptimisation1.png}
     \caption{Visualisations comparing optimised edges to the underlying attractor maps.}
@@ -395,7 +395,7 @@ In the class, the maps can be found in the variable \codeword{.nbrs_maps[nbrs_id
 \subsection{TIN construction}
 \label{sub:r_tinconstruction}
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/tinconstruction0.png}
     \caption{Visualisations illustrating the results of TIN initialisation and extension.}
@@ -424,7 +424,7 @@ For the TIN initialisation step, I used an elevation discrepancy threshold of 10
 
 \subsubsection{TIN extension}
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/tinconstruction1.png}
     \caption{Visualisations providing an overview of constructed TINs and illustrating TIN artefacts.}
@@ -502,7 +502,7 @@ The second method invocation writes the TINs to disk, one OBJ file for each NBRS
 \subsection{Interpolation in TIN and snapping}
 \label{sub:r_interpolation}
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/elevationinterpolation0.png}
     \caption{Visualisations comparing final 3D conversion results to preliminary conversion, subclouds, and preliminary edges.}
@@ -543,7 +543,7 @@ It is also important to note here that while the preliminary edges may be missin
 
 \subsubsection{Comparison with TIN models}
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/elevationinterpolation1.png}
     \caption{Visualisations comparing final 3D conversion results to the underlying TIN models.}
@@ -586,7 +586,7 @@ I will first focus on the results of computing local sampling densities and the 
 \subsection{Empirical accuracy assessment}
 \label{sub:accuracyempirical}
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/empiricalaccuracy0.png}
     \caption{Charts demonstrating the outcome of the empirical accuracy assessment process.}
@@ -608,7 +608,7 @@ Although this analysis suggests that any errors in the output will be small and 
 \subsection{Formal accuracy assessment}
 \label{sub:accuracyformal}
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/formalaccuracy0.pdf}
     \caption{Charts illustrating the formal accuracy assessment results on two wegvakken.}
@@ -619,11 +619,11 @@ The charts in Figure \ref{fig:formalaccuracy0} show interpolation error profiles
 
 The top part of Figure \ref{fig:formalaccuracy1} shows the 3D geometry of the subclouds and centrelines of the same two wegvakken. Wegvak \#288259033 has a shape which is representative of the steepest slopes and sharpest bends one can expect from the Dutch road network; it connects a ground-level motorway lane with another one running orthogonal to it, directly above on a bridge. Wegvak 600127973 is the ground-based motorway lane that it connects. It lies entirely flat on the ground, with little to no variation in its elevation. I picked it because its shape is the opposite of that of \#288259033, and because it had been split into two parts due to a 15-20 m long data gap which is visible in the figure. The gap also lacks DTB coverage. The bottom image in Figure \ref{fig:formalaccuracy1} shows the corresponding TINs, and it is visible in this figure that NWB veers to the outer edge of the steep, curved wegvak, almost reaching it. The relatively thin width of the TIN and its rugged outer edge is a result of this; the preliminary edges were constructed partially off-road due to NWB's poor georeferencing.
 
-I added sampling density plots on the right in Figure \ref{fig:formalaccuracy0}. The first important observation to make about these charts is that the data gap in sampling density between 100 and 200 m along the profile in #600127973 is due to the data gap I mentioned above; here the density is 3 points per m\textsuperscript{2} or less - which is the threshold below which the cut-out happens, i.e. accuracy is not computed - visible in the chart on the left in the same figure. The sharp drops in density around the gap illustrate that the neighbourhood queries already indicate the presence of the gap right before and after reaching the centreline vertices that fall into it. The two wegvakken #288259033 and #600127973 have mean sampling densities of 24 and 21 points per m\textsuperscript{2} respectively - well above the nominal accuracy of the dataset, primarily owing to the flatness of the road surfaces.
+I added sampling density plots on the right in Figure \ref{fig:formalaccuracy0}. The first important observation to make about these charts is that the data gap in sampling density between 100 and 200 m along the profile in \#600127973 is due to the data gap I mentioned above; here the density is 3 points per m\textsuperscript{2} or less - which is the threshold below which the cut-out happens, i.e. accuracy is not computed - visible in the chart on the left in the same figure. The sharp drops in density around the gap illustrate that the neighbourhood queries already indicate the presence of the gap right before and after reaching the centreline vertices that fall into it. The two wegvakken \#288259033 and \#600127973 have mean sampling densities of 24 and 21 points per m\textsuperscript{2} respectively - well above the nominal accuracy of the dataset, primarily owing to the flatness of the road surfaces.
 
 The second important observation is that while local sampling density fluctuates by as much as 80-90\%, it never reaches the minimum threshold in places other than no-data zones and where only DTB data is available (the latter is not separately illustrated here). The fluctuation is due to the inhomogeneous sampling rate of AHN3, it is already present in the raw point cloud, and is simply a factor of how many times a given area was scanner by the aircraft's laser sensors. The figure was generated from my final results, which all use a thinning factor of 2 - meaning that the values seen in the charts are half of the maximum available. Increasing the thinning factor further may result in the sampling rate dropping below the threshold in certain regions, hence it is not recommended. The results shown in these two charts are representative of all testing tiles; significant deviations from what I described above and what is shown in the figure were not observed elsewhere either.
 
-The third, and last important observation is that neither the recorded sampling rates, not the theoretical accuracy values are indicative of locations where NWB's 2D georeferencing is particularly poor. While NWB's location is far from the real centrelines in #288259033, it is not off the road, and as a result the interpolated elevations will still be correct, or at least they will definitely correspond to some part of the road surface. Where NWB is off the road surface, the resulting anomaly is best observed in the elevation profiles, not in the accuracy or density profiles - as far as theory is concerned, the elevation is the \textit{correct elevation} at the \textit{incorrect NWB location}.
+The third, and last important observation is that neither the recorded sampling rates, not the theoretical accuracy values are indicative of locations where NWB's 2D georeferencing is particularly poor. While NWB's location is far from the real centrelines in \#288259033, it is not off the road, and as a result the interpolated elevations will still be correct, or at least they will definitely correspond to some part of the road surface. Where NWB is off the road surface, the resulting anomaly is best observed in the elevation profiles, not in the accuracy or density profiles - as far as theory is concerned, the elevation is the \textit{correct elevation} at the \textit{incorrect NWB location}.
 
 Figure \ref{fig:formalaccuracy1} also illustrates the point that even in places where NWB's georeferencing is problematic, my implementation ensures that the TIN will still exist in the immediate vicinity of NWB vertices as long as there are Lidar points there, in the underlying subclouds.
 
@@ -632,7 +632,7 @@ The mean error and sampling density of the entire testing dataset are 5 centimet
 \subsection{Output completeness}
 \label{sub:completeness}
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/formalaccuracy1.pdf}
     \caption{Visualisations showing the subclouds, TINs and 3D-NWB centrelines in the area concerned by Figure \ref{fig:formalaccuracy0}.}
@@ -648,7 +648,7 @@ DTB's density is in turn, in our particular case, controlled by the densificatio
 \subsection{TIN completeness}
 \label{sub:tincompleteness}
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/bgtcomparison.png}
     \caption{2D Visualisations comparing BGT road edges with the TINs, with NWB centrelines and with Luchtfoto 2020 satellite imagery.}
@@ -672,7 +672,7 @@ Figure \ref{fig:bgtcomparison0} is also illustrative in terms of showing just ho
 
 In the sections above, I focused on assessing the accuracy and completeness of specific wegvakken in one testing dataset. In Table \ref{tab:accuracytabulated} below, I present mean error, sampling density and accurate output vertex ratio values for \textit{all} my testing datasets.
 
-\begin{table}[]
+\begin{table}
     \begin{tabular}{@{}llllllllllll@{}}
         \toprule
         \multicolumn{1}{c}{}                             & 20BN1 & 25BZ2 & 25DN2 & 32BN1 & 32FZ2 & 32HZ2 & 33CN2 & 37EZ1 & 37HN2 & 38GZ1 & 39CZ1 \\ \midrule
@@ -696,9 +696,9 @@ In the same row, there is another value that stands out. The rest of the ratios 
 The values in the bottom row of the table are sometimes slightly lower than I would have expected. For instance 85\% for the 37HN2 (\textit{"Knoppunt Ridderkerk"}) dataset seemed to me to be too low, because the underlying TINs are dense, almost all gaps have good DTB coverage, and NWB almost never misses the TINs. The reason why these values are somewhat low is because the point density in those parts of TINs which were constructed from DTB often does not reach the minimum, above which accuracy is estimated. For instance, where only a single DTB line is available, this sampling density is almost never reached. Filtering out these locations is optimal, because, for instance, a single DTB line can hardly be considered a good basis for constructing a TIN. However, the process also appears to sometimes filter out vertices that were interpolated in locations where although DTB was "sparse", it still managed to characterise the road surface quite well. This suggests that it would be better if the decisions regarding where to trust DTB - the support dataset - were not based on the same type of evaluation (vertex density in TIN), and were instead based on the geometric layout of the DTB lines, themselves. While this would indeed improve the results of this filtering step, it would also mean that it would become specialised to DTB, and may not work with other types of support datasets (DTB is, for the most part, treated as point data in my pipeline). This is elaborated in more detail in Section \ref{sec:futurework}.
 
 \section{Comparison with commercial implementation}
-\label{sec:comparison}
+\label{sec:r_comparison}
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/commercialcomparison0.pdf}
     \caption{Charts illustrating the results of comparing the academic and commercial results on two wegvakken from dataset "Knoppunt Deil".}
@@ -724,7 +724,7 @@ While it might first appear to the reader that the agreement for provincial road
 
 This artefact is created by the combination of the above missing features in the commercial software. At this location, the provincial road from which the wegvak is taken, passes underneath a cluster of bridges. At this location, the AHN3 rasters simply record the elevation of the surfaces on these bridges, hence this is what appears in the commercial outputs incorrectly. This represents an approximately 5 m systematic overestimation of elevations over just under a 100 metres of distance along this road. My results, on the other hand, underestimate the elevations in this zone by about 30 to 40 centimetres. This is not an issue with the academic methods or implementation, it is due to DTB being outdated locally. For this particular set of provincial roads, DTB exists because of their proximity to motorways - in general, provincial roads do not have DTB coverage. My implementation recognised this, and made use of the DTB data accordingly. The DTB data was close enough to the predicted elevation of the road for my implementation to deem them reliable. However, inspecting them on this 2D elevation profile reveals that DTB is, locally, itself underestimating the elevation of the road. This can be explained by the temporal difference between AHN3 and DTB locally.
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/commercialcomparison1.pdf}
     \caption{Charts illustrating the results of comparing the academic and commercial results on two wegvakken from dataset "Gorinchem".}
@@ -739,7 +739,7 @@ However, this assumption likely did not consider the fact that while updates are
 
 In summary, it appears that relative to the commercial implementation, there is a clear set of areas where academic solution performs better. Notably, these are the smarter use of the available input data, and the better handling of occluded zones (although the latter is somewhat related to the former). We may also add to this list a better evaluation and quantification of output accuracy, as proof of such an analysis (or at least the assumptions made that justified omitting such an analysis) is missing from their results. There is an area, however, in which the relationship is reversed: the commercial implementation can be run on the whole country's dataset, using a user-friendly UI, and with a far lower computational complexity than that of the academic implementation. This is a manifestation of the main difference between the two solutions' paradigms of an ideal implementation: the commercial project focused on developing a straightforward solution that works reliably out-of-the-box, even if corners need to be cut to achieve this. On the other hand the academic project focused on exploring how various scientific approaches can be put to use in such a practical problem, and on scientific correctness and accuracy.
 
-\begin{figure}[]
+\begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/commercialcomparison2.pdf}
     \caption{Charts illustrating the results of comparing the academic and commercial results on two wegvakken from dataset "Knoppunt Ridderkerk".}
@@ -747,11 +747,11 @@ In summary, it appears that relative to the commercial implementation, there is 
 \end{figure}
 
 \subsection{Tabulated RMSE values}
-\label{sub:comparisonexamples}
+\label{sub:comparisontabulated}
 
 In the section above, I focused on detailed comparisons between my results and the commercial results, on the level of specific wegvakken. In addition to this, in the present section I present and discuss tabulated, aggregated comparison values to provide an overview of the similarity between the two sets of results.
 
-\begin{table}[]
+\begin{table}
     \begin{tabular}{@{}llllllllllll@{}}
         \toprule
         \multicolumn{1}{c}{} & 20BN1  & 25BZ2  & 25DN2  & 32BN1  & 32FZ2   & 32HZ2  & 33CN2  & 37EZ1  & 37HN2  & 38GZ1  & 39CZ1  \\ \midrule
