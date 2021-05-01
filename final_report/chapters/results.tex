@@ -724,6 +724,13 @@ While it might first appear to the reader that the agreement for provincial road
 
 This artefact is created by the combination of the above missing features in the commercial software. At this location, the provincial road from which the wegvak is taken, passes underneath a cluster of bridges. At this location, the AHN3 rasters simply record the elevation of the surfaces on these bridges, hence this is what appears in the commercial outputs incorrectly. This represents an approximately 5 m systematic overestimation of elevations over just under a 100 metres of distance along this road. My results, on the other hand, underestimate the elevations in this zone by about 30 to 40 centimetres. This is not an issue with the academic methods or implementation, it is due to DTB being outdated locally. For this particular set of provincial roads, DTB exists because of their proximity to motorways - in general, provincial roads do not have DTB coverage. My implementation recognised this, and made use of the DTB data accordingly. The DTB data was close enough to the predicted elevation of the road for my implementation to deem them reliable. However, inspecting them on this 2D elevation profile reveals that DTB is, locally, itself underestimating the elevation of the road. This can be explained by the temporal difference between AHN3 and DTB locally.
 
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/commercialcomparison1.pdf}
+    \caption{Charts illustrating the results of comparing the academic and commercial results on two wegvakken from dataset "Gorinchem".}
+    \label{fig:commercialcomparison1}
+\end{figure}
+
 \subsubsection{Knoppunt Ridderkerk}
 
 Figure \ref{fig:commercialcomparison2} shows motorway wegvakken taken from the "Knoppunt Ridderkerk" dataset. The reader might recall that I used this dataset as an example of where the temporal differences between DTB and AHN3 give rise to significant disagreement between the road elevations they contain. This last comparison figure serves to illustrate, to just what a degree this affects the output. The incorrect elevations in DTB are the only ones considered by the commercial implementation, which results in the elevation being consistently overestimated by up to half a metre. Agreement between the two results only emerges where my implementation also resorted to using DTB where it encountered regions of missing AHN3 data. The reason behind this disagreement is the unconditional assumption in the commercial implementation that DTB is more accurate than AHN3, especially from a temporal updates perspective - DTB is updated far more frequently than AHN3 is.
@@ -731,6 +738,13 @@ Figure \ref{fig:commercialcomparison2} shows motorway wegvakken taken from the "
 However, this assumption likely did not consider the fact that while updates are made to DTB regularly, they only concern roads that underwent refurbishment, upgrades or other modifications, and roads that were newly built. Otherwise, the position of DTB's line features is not re-measured regularly, and as a result, many parts of the dataset are from well before the millennium. These incorrect elevations represent a further disparity between NDW's requirements and the commercial implementation.
 
 In summary, it appears that relative to the commercial implementation, there is a clear set of areas where academic solution performs better. Notably, these are the smarter use of the available input data, and the better handling of occluded zones (although the latter is somewhat related to the former). We may also add to this list a better evaluation and quantification of output accuracy, as proof of such an analysis (or at least the assumptions made that justified omitting such an analysis) is missing from their results. There is an area, however, in which the relationship is reversed: the commercial implementation can be run on the whole country's dataset, using a user-friendly UI, and with a far lower computational complexity than that of the academic implementation. This is a manifestation of the main difference between the two solutions' paradigms of an ideal implementation: the commercial project focused on developing a straightforward solution that works reliably out-of-the-box, even if corners need to be cut to achieve this. On the other hand the academic project focused on exploring how various scientific approaches can be put to use in such a practical problem, and on scientific correctness and accuracy.
+
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/commercialcomparison2.pdf}
+    \caption{Charts illustrating the results of comparing the academic and commercial results on two wegvakken from dataset "Gorinchem".}
+    \label{fig:commercialcomparison2}
+\end{figure}
 
 \subsection{Tabulated RMSE values}
 \label{sub:comparisonexamples}
