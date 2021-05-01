@@ -341,6 +341,13 @@ The optimised contours are shown overlain on the attractor maps on the right in 
 
 \subsubsection{Patterns of failure}
 
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/activecontouroptimisation1.png}
+    \caption{Visualisations comparing optimised edges to the underlying attractor maps.}
+    \label{fig:activecontouroptimisation1}
+\end{figure}
+
 One important pattern is that the contours are sensitive to small-scale features in the preliminary edges. A few outlier edge points (an short, abrupt expansion of the preliminary edges, for instance) can introduce large bulges into the optimised edges. Similarly, where the preliminary edges shrink (for instance due to the influence of stationary vehicles), the optimised contours will tend to do so too, but on a much larger scale. In general, small "horizontal outliers" in the preliminary edges tend to become vastly exaggerated during optimisation.
 
 Another pattern, which I already mentioned in \ref{sub:m_activecontours}, is that where preliminary edges fall outside the bright part of attractor maps, the the optimisation procedure will often fail to draw them back to the primary break in smoothness. The off-road parts contain various other high-contrast features due to the unevenness of the underlying real-life surfaces, and the edges will often be drawn to some of these instead of the edge of the road. This is in part due to the large weight the optimisation algorithm gives to the \textit{proximity} of the edges. Due to this, deliberately underestimating the road width does not represent a solution: if the preliminary edges are too far inwards from the break in smoothness, they will simply stay in their original position during optimisation, rather than be drawn to it. This behaviour cannot be changed simply via the parametrisation - I already give nearly full weight to edge detection in my final configuration, over attraction to brightness or darkness. I also experimented with the other trivial approach, i.e. deliberately underestimating the preliminary road width and giving more weight to attraction to darkness in addition to edge detection. Unfortunately, the results of this approach are even more unpredictable.
@@ -388,6 +395,13 @@ In the class, the maps can be found in the variable \codeword{.nbrs_maps[nbrs_id
 \subsection{TIN construction}
 \label{sub:r_tinconstruction}
 
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/tinconstruction0.png}
+    \caption{Visualisations illustrating the results of TIN initialisation and extension.}
+    \label{fig:tinconstruction0}
+\end{figure}
+
 Like all other parts of my final implementation, the TIN construction step also produces results mostly according to my expectations. By adjusting my methods to the circumstance of not being able to produce accurate enough optimised edges, I created a different implementation than originally intended, but one which is still robust and accurate. Figures \ref{fig:tinconstruction0} and \ref{fig:tinconstruction1} show examples of the resulting models compared with the preliminary edges and preliminary elevations. The images in Figure \ref{fig:tinconstruction0} show an initial TIN surface, and the same TIN after TIN extension. In these figures (and the underlying procedure), the preliminary edges represent the bounds halfway between which the initial surface is seeded, and within which the initial TIN surface is allowed to grow. The upper, large-scale image in Figure \ref{fig:tinconstruction1} show and overview of all TIN surfaces in the \textit{"Knoppunt Deil"} dataset, and the bottom two images show small-scale examples of typical extension artefacts. The TIN structure is highlighted in one of the TINs in Figure \ref{fig:tinconstruction0}.
 
 \subsubsection{TIN initialisation}
@@ -409,6 +423,13 @@ The above issue is most prominent where the edges are off the road due to the un
 For the TIN initialisation step, I used an elevation discrepancy threshold of 10 centimetres, an angle threshold of 0.12 radians (about 7 degrees) in my final configuration. For the radial point queries that occur at the locations of point insertions (to fill the buffer for the next iteration), I used a radius of 1 metre. In all study areas, and especially where NWB lies correctly on the road surface in 2D, my approach produces smooth 3D surfaces in which, as Figure \ref{fig:tinconstruction0} shows, most of the variation is solely due to noise in the Lidar data. Off-road features are only inserted in significant numbers, where the above conditions are satisfied (a relatively smooth transition characterises the edge of the road), and where the underlying preliminary or optimised road edges were also significantly shifted outside of the road surface.
 
 \subsubsection{TIN extension}
+
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/tinconstruction1.png}
+    \caption{Visualisations providing an overview of constructed TINs and illustrating TIN artefacts.}
+    \label{fig:tinconstruction1}
+\end{figure}
 
 Figure \ref{fig:tinconstruction0} shows the visual appearance of one particular NBRS part before and after applying TIN extension. The effectiveness of this step relative to its planned purpose is not uniform across all areas. Most road geometries allow it to perform well, but in certain places it may only serve to further exaggerate pre-existing artefacts.
 
@@ -481,6 +502,13 @@ The second method invocation writes the TINs to disk, one OBJ file for each NBRS
 \subsection{Interpolation in TIN and snapping}
 \label{sub:r_interpolation}
 
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/elevationinterpolation0.png}
+    \caption{Visualisations comparing final 3D conversion results to preliminary conversion, subclouds, and preliminary edges.}
+    \label{fig:elevationinterpolation0}
+\end{figure}
+
 Figures \ref{fig:elevationinterpolation0} and \ref{fig:elevationinterpolation1} show examples of the results of interpolating elevations for NWB in the TINs generated in the previous step (including the use of the snapping feature that enforces continuity)). Visual inspection of the results reveals that the methods used to generate them are robust and effective under almost all circumstances, including where complex 3D relationships and extensive presence of other types of occlusion are encountered. The example visualisations shown here contain comparisons between the final elevation profiles and various intermediate results, namely the preliminary elevations, subclouds and preliminary edges in Figure \ref{fig:elevationinterpolation0}, and the TIN models in Figure \ref{fig:elevationinterpolation1}).
 
 The following few paragraphs will discuss various aspects of the output 3D road networks. Generally, the results are in line with my expectations both in terms of overall completeness and quality. I do not attempt to characterise the accuracy of the results in this section, for a quantitative (rather than qualitative) analysis, please refer to \ref{sec:accuracy}.
@@ -514,6 +542,13 @@ While the two outputs are not directly comparable, the exceptionally good match 
 It is also important to note here that while the preliminary edges may be missing vertices in some places (indicated by the cross-sections also being absent), this is not the case in any of my final 3D-NWB results. As long as the centreline is found between the edges and on the real-life surface of the road, the TIN-based elevations will be computed at these locations too. It is only in the case of a large-scale failure (many edge vertices failing to be generated in a row), that edges may become "oversimplified" locally, diverging from the road surface and going straight to where the next edge vertices could be generated - which may be tens of metres away. In such cases, the TIN will not be generated locally, and the elevations in the final 3D-NWB profiles will be interpolated rather than extracted from an underlying TIN. With my final parametrisation, this does not happen in any of my testing datasets. However, the possibility remains that there are rare road configurations in NWB which may trigger this behaviour.
 
 \subsubsection{Comparison with TIN models}
+
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/elevationinterpolation1.png}
+    \caption{Visualisations comparing final 3D conversion results to preliminary conversion, subclouds, and preliminary edges.}
+    \label{fig:elevationinterpolation0}
+\end{figure}
 
 Example comparisons between the final output and the TINs is shown in Figure \ref{fig:elevationinterpolation1}. While we know from the concept of interpolation in the TIN that the output vertices are all guaranteed to lie on the surface as long as the surface exists there locally, this figure verifies this behaviour. The paragraph above gives an example of one scenario in which the TIN might not exist locally, here I will give a more straightforward example: between NBRS parts where no AHN3 \textit{or} DTB coverage is available, the TIN will not exist and values will be interpolated for the output. A location with this property is shown on the bottom right in Figure \ref{fig:elevationinterpolation1}. An example where NWB gets close to the edge of the TIN is also shown on the bottom left - this is representative of the typical severity of the NWB georeferencing issue in sharp bends.
 
