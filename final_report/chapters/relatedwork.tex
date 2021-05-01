@@ -195,6 +195,8 @@ Adding to the uncertainty is the fact that both the topological and the geograph
 
 In interpreting the 5 m accuracy, it is important to note that the NWB lines represent road centrelines, but not of the whole paved surface. The centrelines in NWB approximate the centre of the traffic-occupied parts the roads, excluding hard shoulders and other paved surfaces connected to the road. It is also important, that NWB often does not contain vertices for more than 200 m based on my inspection (where roads are relatively straight), and even in sharp bends for up to 20-30 m at a time. Especially in bends, this circumstance, combined with the official error figure, means that NWB often leaves the traffic occupied road surfaces, and sometimes even the paved areas. I confirmed this problem by comparing NWB with DTB, AHN3 and satellite imagery (the Luchtfoto 2020 from Kadaster).
 
+One such comparison is shown in Figure \ref{fig:ahnnwb}. The visualisations show the same location as Figures \ref{fig:ahnbridges} and \ref{fig:ahnsigns} do. Here, ground points are coloured blue, and NWB centrelines are shown in white. As they have no elevation, they appear below AHN3 points and are consequently masked out partially by them. I shifted them to match AHN3's mean elevation locally, to make them better comparable. Comparisons such as these reveal that NWB gets close to the edges of the paved surfaces quite often, and sometimes even leaves their surface. In sharp bends, this is made worse by the angularity introduced by the coarse lengthwise discretisation of NWB, for instance in the location pointed out by the green arrow.
+
 Although the above nominal accuracy and its description are certainly not good enough for compliance with the new noise regulations, the 3D conversion of NWB is not concerned with improving it – in fact, it is a requirement of the project not to displace NWB horizontally. Hence, we may say that the intended outcome of the 3D conversion is to devise a method that can produce accurate elevations for NWB \textit{assuming} that its accuracy complies with the requirements set by the new noise regulations - 20 centimetres at 95\% confidence. To achieve this compliance in practice, lateral refinement is being carried out in a separate project by matching NWB roads with their counterparts in other, more accurate datasets. Specifically, DTB is being used for this purpose, as well as another open data dataset called Basisregistratie Grootschalige Topografie (BGT). As these datasets are already theoretically compliant with the accuracy requirements, correcting NWB geometries based on them will foreseeably solve the lateral accuracy problems of NWB. However, at the time of writing of this report, the BGT-based correction has only been released for municipality-owned roads (category G for Gemeente - not relevant to us), while the DTB-based corrections for motorways are still being finalised. Consequently both the commercial and the scientific 3D-NWB project still rely on NWB data that lacks this correction (\cite{nwb_gecorrigeerd}).
 
 Regardless of improving NWB’s lateral accuracy not being within the scope of this project, it is important to be aware of it, because of its implications when overlaying NWB with AHN3 and DTB in the processing part of this research. The problems caused by it and the necessary workarounds are discussed in-depth in the relevant sections of the next chapters.
@@ -231,7 +233,7 @@ Class 26 also contains other types of objects, for instance large motorway signs
 \begin{figure}[h!]
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/ahn_sample_04_a.png} 
-    \caption{This render is from the same location and data as Figures \ref{fig:ahnbridges} and \ref{fig:ahnsigns}. Here, ground points are coloured blue, and NWB centrelines are shown in white. As they have no elevation, they appear below AHN3 points and are consequently masked out partially by them. In general, the visual agreement between AHN3 and NWB appears to be good. The most noticeable deviations from the AHN3-defined centrelines of roads occur where they are intensely curved, and where motorway ramps merge into motorway lanes. The reason for the prior appears to mostly be the angularity introduced by the finite discretisation of curves in NWB, for instance in the location pointed out by the green arrow. The succession on three bridges in the bottom of the image do not have an associated NWB centreline because they are railway bridges. The same would be observed for roads not yet registered in NWB (i.e. newly roads).}
+    \caption{Render comparing AHN3 with the relevant 2D NWB centrelines.}
     \label{fig:ahnnwb}
 \end{figure}
 
@@ -248,10 +250,6 @@ The Lidar tiles are released in the binary LAZ format (compressed LAS, or LASzip
 
 \subsection{Digitaal Topografisch Bestand – DTB}
 \label{sub:dtb}
-
-\textit{[Subsection to be written.]}
-
-\textit{[Content below copied from P2; to be adapted.]}
 
 \begin{figure}[h!]
     \centering

@@ -534,7 +534,7 @@ As I explained in Section \ref{sub:accuracyoverview} above, the estimation of ou
 \subsection{Detecting regions with poor sampling}
 \label{sub:m_accuracypoorsampling}
 
-\subsubcsection{Details of sampling-related assumption}
+\subsubsection{Details of sampling-related assumption}
 
 The circumstance that local sampling density \textit{below a threshold value} does not affect interpolation accuracy is proven by previous work in this field, as mentioned in my literature review results. Of particular importance for us is \cite{guo_etal_2010}, which provides the most amount of detail on this topic. Neither this work, nor any other work to my knowledge derives an explicit mathematical formula that expresses a relationship between local sampling density and output accuracy below the threshold level, but this is not strictly necessary for my research, for a specific reason.
 
@@ -542,7 +542,7 @@ AHN3 has a nominal mean point posting distance of around 30 to 40 centimetres, w
 
 At such exceptionally dense baseline sampling rates, typical small-scale variations in local sampling density are of no consequence regarding the overall output accuracy. This is simply because these variations will not bring down the local point density to anywhere near to the threshold below which output accuracy would start do deteriorate. 
 
-\subsucsection{Picking an appropriate threshold}
+\subsubsection{Picking an appropriate threshold}
 
 The thresholds I used are based on the results of \cite{guo_etal_2010}. They concluded that in the case of general terrain (not roads specifically) modelled by a raster DTM at a 0.5 m resolution, RMSE with respect to control points does not significantly decrease below 0.2 points per grid cell. In other words, 0.2 points per 0.25 m\textsuperscript{2} appears to be sufficient, or equivalently, 0.8 points per 1 m\textsuperscript{2}. This is in sharp contrast with AHN3's density of 6 to 10 points per 1 m\textsuperscript{2}, especially if we consider that we are only interested in flat surfaces, whereas the results in \cite{guo_etal_2010} are based on areas with a considerable amount of surface ruggedness and used Lidar data with inferior accuracy compared to AHN3.
 
@@ -550,7 +550,7 @@ The extra points may be useful for detecting small-scale features (such as e.g. 
 
 To make sure I use a conservative value, I opted to stay somewhat above the threshold that follows from the above thought process. At each NWB vertex, I examine the number of TIN vertices that fall within 3 metres of it, and if it is less than 3 points, then flag the output accuracy at that point to be unreliable. This corresponds to a a threshold of 3 points per 1 m\textsuperscript{2}. Notably, this threshold deems it reasonable to regard most elevations reliable, which were interpolated inside (wholly or partially) medium-sized gaps resulting from vehicles or other stationary objects on the roads, as well as some that are found in regions where only DTB coverage is available.
 
-\subsubcsection{Types of areas violating the assumption}
+\subsubsection{Types of areas violating the assumption}
 
 The local sampling density must drop by more than 60-70\% to reach the above minimum threshold. This means that it only happens in extreme events, such as e.g. occlusion with no DTB coverage. As we lack a mathematical formulation describing the exact nature of the influence below the threshold sampling rate, the best we can do is mark the accuracy of vertices falling into such areas as \textit{"unknown"} in the output.
 
