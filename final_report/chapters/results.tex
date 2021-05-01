@@ -586,6 +586,13 @@ I will first focus on the results of computing local sampling densities and the 
 \subsection{Empirical accuracy assessment}
 \label{sub:accuracyempirical}
 
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/empiricalaccuracy0.png}
+    \caption{Charts demonstrating the outcome of the empirical accuracy assessment process.}
+    \label{fig:empiricalaccuracy0}
+\end{figure}
+
 As I briefly mentioned in Section \ref{sub:accuracyoverview}, I first attempted to assess accuracy based on an empirical approach. Before performing the necessary steps, I was yet unaware of how the combination of factors that define output accuracy interact in our particular case. Most importantly, I was yet to discover that a range of assumptions regarding ground filtering accuracy, influence of surface ruggedness and sampling density can be made. In fact, it was this failed attempt that directed my attention to the fact that in our particular case, there are very few external factors that influence accuracy.
 
 My hypothesis was that the primary influence on accuracy has to be sampling density and interpolation error, because imperfect ground filtering and surface ruggedness already appeared to me as irrelevant to our pipeline. To be able to verify the hypothesis and compute empirical errors based on it, I constructed an error model, and derived errors for each output vertex from it. I constructed the model by removing samples (vertices) from the output TINs, interpolating their values via the TIN-linear method, and computing the difference between the removed Lidar sample, and the interpolated elevation (in essence, a jackknife approach). I fit a cubic polynomial on the part of the scatter where we have enough data, and derived NWB accuracy values from it.
@@ -600,6 +607,13 @@ Although this analysis suggests that any errors in the output will be small and 
 
 \subsection{Formal accuracy assessment}
 \label{sub:accuracyformal}
+
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/formalaccuracy0.pdf}
+    \caption{Charts showing the interpolation error and local sampling density profiles of two wegvakken.}
+    \label{fig:formalaccuracy0}
+\end{figure}
 
 The charts in Figure \ref{fig:formalaccuracy0} show interpolation error profiles from 2 wegvakken from our chosen testing dataset. From the lack of a trend in the errors, and their small magnitudes overall, we may deduce that the output accuracy is sufficiently high with respect to the 20-centimetre requirement. Any differences due to the TIN-linear interpolation represent an \textit{increase} in accuracy relative to the 15 cm elevation accuracy of AHN3. The two wegvakken shown in the figure exhibit theoretical interpolation elevation errors in a range of about 4 centimetres to 7 cnetimetres, with mean errors of 5 centimetres for both. The variation is always randomly distributed, as the positions of NWB vertices relative to the containing triangles' vertices are also lack correlation (which is what controls the value $M$ that determines how much the accuracy is improved). In theory, the only factor that could introduce correlation into these profiles would be roads with very steeply sloping surfaces, but no roads in this dataset (or any of my datasets) reach a slope steep enough to affect the errors significantly, and introduce correlation into them.
 
@@ -617,6 +631,13 @@ The mean error and sampling density of the entire testing dataset are 5 centimet
 
 \subsection{Output completeness}
 \label{sub:completeness}
+
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/formalaccuracy1.pdf}
+    \caption{Visualisations showing the subclouds, TINs and 3D-NWB centrelines in the area concerned by Figure \ref{fig:formalaccuracy0}.}
+    \label{fig:formalaccuracy1}
+\end{figure}
 
 Only one aspect of the results fluctuates significantly both inside and between testing datasets: how often the algorithm encounters no-data zones and has to thus interpolate elevations linearly, and/or deem output accuracy unreliable as a result. This has two main controlling factors: how accurate the preliminary elevations are, and how complete DTB is locally. The prior is important (and is itself, in a way, a controlling factor of the latter), because if the preliminary elevations are inaccurate (due to a poor polynomial fit, in most cases), then even if DTB exists locally, it will not be found. The latter itself varies from place to place, but one correlation is particularly important to note: DTB almost never exists for provincial roads (P-roads), hence Lidar data gaps in such roads will \textit{almost always} result in linear interpolation.
 
