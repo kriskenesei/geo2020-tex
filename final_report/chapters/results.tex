@@ -611,7 +611,7 @@ Although this analysis suggests that any errors in the output will be small and 
 \begin{figure}[]
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/formalaccuracy0.pdf}
-    \caption{Charts showing the interpolation error and local sampling density profiles of two wegvakken.}
+    \caption{Charts illustrating the formal accuracy assessment results on two wegvakken.}
     \label{fig:formalaccuracy0}
 \end{figure}
 
@@ -647,6 +647,13 @@ DTB's density is in turn, in our particular case, controlled by the densificatio
 
 \subsection{TIN completeness}
 \label{sub:tincompleteness}
+
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/bgtcomparison.png}
+    \caption{2D Visualisations comparing BGT road edges with the TINs, with NWB centrelines and with Luchtfoto 2020 satellite imagery.}
+    \label{fig:bgtcomparison}
+\end{figure}
 
 As I mentioned in the methods section, I evaluated the completeness of the TIN road surface models via a comparison with BGT polygons. Figure \ref{fig:bgtcomparison0} below shows the results of one such comparison, which I deem representative of the relationship overall. The top part of the figure shows some of the TINs overlain on the outlines of the BGT geometries, which allows one to see how well the TIN agrees with these reference geometries. The bottom half of the figure, in turn, compares the BGT geometries to the NWB centrelines and to satellite imagery - to verify how well BGT itself agrees with what we can consider an accurate representation of the visual appearance of these roads. The satellite imagery is from the 2020 edition of Kadaster's Luchtfoto dataset, available as open data like all other datasets used in this research.
 
@@ -690,6 +697,13 @@ The values in the bottom row of the table are sometimes slightly lower than I wo
 
 \section{Comparison with commercial implementation}
 \label{sec:comparison}
+
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/commercialcomparison0.pdf}
+    \caption{Charts illustrating the results of comparing the academic and commercial results on two wegvakken from dataset "Knoppunt Deil".}
+    \label{fig:commercialcomparison0}
+\end{figure}
 
 Like in the accuracy assessment above, I picked some specific wegvakken that are particularly representative of the overall results of this comparison. However, here I did not restrict the selection to be from the \textit{"Knoppunt Deil"} dataset. The reason for this is that the similarity between the results is very different across my set of testing datasets. Where the agreement is good, the commercial results and the academic ones can be similar to a degree where it is difficult to tell them apart in a 3D visualisation, unless the Z axis is grossly exaggerated. The 2D charts in Figures \ref{fig:commercialcomparison0}, \ref{fig:commercialcomparison1} and \ref{fig:commercialcomparison2} on the other hand, reliably show the nature of both the small-scale and large-scale differences that are typically observed when comparing the two datasets. For this reason, I opted to rely solely on 2D visualisations in this section. I also present tabulated mean RMSE for all testing datasets in Section \ref{sub:comparisontabulated}.
 
