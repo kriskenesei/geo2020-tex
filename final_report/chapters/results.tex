@@ -634,7 +634,7 @@ The mean error and sampling density of the entire testing dataset are 5 centimet
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/formalaccuracy1.pdf}
+    \includegraphics[width=0.9\linewidth]{final_report/figs/formalaccuracy1.png}
     \caption{Visualisations showing the subclouds, TINs and 3D-NWB centrelines in the area concerned by Figure \ref{fig:formalaccuracy0}.}
     \label{fig:formalaccuracy1}
 \end{figure}
@@ -655,17 +655,17 @@ DTB's density is in turn, in our particular case, controlled by the densificatio
     \label{fig:bgtcomparison}
 \end{figure}
 
-As I mentioned in the methods section, I evaluated the completeness of the TIN road surface models via a comparison with BGT polygons. Figure \ref{fig:bgtcomparison0} below shows the results of one such comparison, which I deem representative of the relationship overall. The top part of the figure shows some of the TINs overlain on the outlines of the BGT geometries, which allows one to see how well the TIN agrees with these reference geometries. The bottom half of the figure, in turn, compares the BGT geometries to the NWB centrelines and to satellite imagery - to verify how well BGT itself agrees with what we can consider an accurate representation of the visual appearance of these roads. The satellite imagery is from the 2020 edition of Kadaster's Luchtfoto dataset, available as open data like all other datasets used in this research.
+As I mentioned in the methods section, I evaluated the completeness of the TIN road surface models via a comparison with BGT polygons. Figure \ref{fig:bgtcomparison} below shows the results of one such comparison, which I deem representative of the relationship overall. The top part of the figure shows some of the TINs overlain on the outlines of the BGT geometries, which allows one to see how well the TIN agrees with these reference geometries. The bottom half of the figure, in turn, compares the BGT geometries to the NWB centrelines and to satellite imagery - to verify how well BGT itself agrees with what we can consider an accurate representation of the visual appearance of these roads. The satellite imagery is from the 2020 edition of Kadaster's Luchtfoto dataset, available as open data like all other datasets used in this research.
 
 One might notice that NWB agrees quite poorly with both the satellite imagery and the BGT polygons in some places. This is the result of two factors combined: NWB approximates the centre of the traffic-occupied road surfaces, and NWB's georeferencing is inaccurate in general. If the traffic-occupied surface is on one edge of the full paved surface, NWB's poor georeferencing is more likely to cause it to be close to, or beyond the real edge of the paved surface.
 
 BGT, on the other hand, appears to be an accurate 2D representation of the true extents of these road surfaces, in most of the areas I examined as part of my quality assessment efforts. Its extents do not, however, correspond to that which I can \textit{typically} model reliably using the pipeline I developed. Ideally, the surface model should cover the entire paved area, but as I described in Section \ref{sub:m_edgeapproximation}, I found using a maximum road width to be the only viable means to ensure that my approach works in most cases. The TIN extensions that are part of the TIN construction step (Section \ref{sub:m_tinconstruction}) mitigate this issue to a certain extent, but they do not eliminate it entirely. Allowing the TIN extension very far beyond the preliminary/optimised edges increases the chances of extending the roads into unwanted areas, as well as significantly increases runtimes.
 
-Motorways with hard shoulders, which are shown in the centre of Figure \ref{fig:bgtcomparison0}, are particularly because the hard shoulder (and potential extra lanes) extends their width far beyond that, which could be reasonably expected from municipal roads and dual carriageways - which is what my parametrisation prioritises. A solution to this issue could be to use configurations based on road type, but this is not an area that my research explored.
+Motorways with hard shoulders, which are shown in the centre of Figure \ref{fig:bgtcomparison}, are particularly because the hard shoulder (and potential extra lanes) extends their width far beyond that, which could be reasonably expected from municipal roads and dual carriageways - which is what my parametrisation prioritises. A solution to this issue could be to use configurations based on road type, but this is not an area that my research explored.
 
 The TIN models in the top part of the figure show that the TINs are in good agreement with the BGT geometries. The same issues which I described in Section \ref{sub:r_tinconstruction} are also manifested here, for instance the on-ramp model in the top of the image contains some off-road points where both NWB and BGT appear to veer too far from their ideal positions. In general, based on examining all my results, I estimated that the TIN surfaces cover approximately 95\% of the traffic-occupied surfaces found in my testing datasets, and about 75\% of the total paved surfaces as shown by BGT.
 
-Figure \ref{fig:bgtcomparison0} is also illustrative in terms of showing just how detailed these TIN models are, even with an input thinning factor of 2 for AHN3. On the scale shown in this image, it becomes intuitively perceptible that the road surfaces are being oversampled by inserting so many points into the TINs.
+Figure \ref{fig:bgtcomparison} is also illustrative in terms of showing just how detailed these TIN models are, even with an input thinning factor of 2 for AHN3. On the scale shown in this image, it becomes intuitively perceptible that the road surfaces are being oversampled by inserting so many points into the TINs.
 
 \subsection{Tabulated values}
 \label{sub:accuracytabulated}
