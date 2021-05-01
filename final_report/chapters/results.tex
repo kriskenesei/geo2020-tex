@@ -546,8 +546,8 @@ It is also important to note here that while the preliminary edges may be missin
 \begin{figure}[]
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/elevationinterpolation1.png}
-    \caption{Visualisations comparing final 3D conversion results to preliminary conversion, subclouds, and preliminary edges.}
-    \label{fig:elevationinterpolation0}
+    \caption{Visualisations comparing final 3D conversion results to the underlying TIN models.}
+    \label{fig:elevationinterpolation1}
 \end{figure}
 
 Example comparisons between the final output and the TINs is shown in Figure \ref{fig:elevationinterpolation1}. While we know from the concept of interpolation in the TIN that the output vertices are all guaranteed to lie on the surface as long as the surface exists there locally, this figure verifies this behaviour. The paragraph above gives an example of one scenario in which the TIN might not exist locally, here I will give a more straightforward example: between NBRS parts where no AHN3 \textit{or} DTB coverage is available, the TIN will not exist and values will be interpolated for the output. A location with this property is shown on the bottom right in Figure \ref{fig:elevationinterpolation1}. An example where NWB gets close to the edge of the TIN is also shown on the bottom left - this is representative of the typical severity of the NWB georeferencing issue in sharp bends.
