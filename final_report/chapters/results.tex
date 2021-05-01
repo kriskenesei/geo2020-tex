@@ -17,7 +17,7 @@ The last part of the chapter contains a section in which the results of quantify
 \begin{figure}[]
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/manualpreprocessing.png}
-    \caption{Screenshots illustrating the results of manual pre-processing.}
+    \caption{Visualisations illustrating the results of manual pre-processing.}
     \label{fig:manualpreprocessing}
 \end{figure}
 
@@ -71,7 +71,7 @@ Each line colour in Figure \ref{fig:nbrsgeneration0} belongs to a specific NBRS,
 \begin{figure}[]
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/nbrsgeneration0.png}
-    \caption{Screenshots illustrating the results of NBRS generation.}
+    \caption{Visualisations illustrating the results of NBRS generation.}
     \label{fig:nbrsgeneration0}
 \end{figure}
 
@@ -103,9 +103,23 @@ In the code snippet above, \codeword{nwb_fpath} refers to a variable containing 
 \subsection{Elevation estimation}
 \label{sub:r_elevationestimation}
 
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/elevationestimation0.png}
+    \caption{Visualisations illustrating the preliminary elevation estimation results.}
+    \label{fig:elevationestimation0}
+\end{figure}
+
 Figure \ref{fig:elevationestimation0} shows the results of this step in two 3D visualisations. The NWB centrelines are shown once again in random colours based on which NBRS they belong to, but now they are shown at their estimated elevations. The vertical dimension in this visualisation (and most other 3D visualisations of this chapter) are exaggerated 5-fold, so that changes in elevation are better visible. The figure contains two visualisations, so that more features are made visible that I discuss in the next paragraphs, and to allow the reader to examine the same results from multiple viewing angles.
 
 \subsubsection{Vertex densification}
+
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/elevationestimation1.png}
+    \caption{Visualisations illustrating the vertex densification feature.}
+    \label{fig:elevationestimation1}
+\end{figure}
 
 The vertices have already been densified at this point, I used a threshold of 5 metres for the final outputs shown here. This means that no individual line segment in the 3D road network is longer than 5 metres. I found this threshold value to offer a compromise between longer processing times and more refined results, and to work well with subsequent processing steps. The polynomial fitting step of the elevation estimation procedure already made use of the additional vertices, hence we may say that while the horizontal dimensions were merely oversampled, the vertical dimension benefited from the vertex densification in the sense that it is far more detailed than it would be without the added vertices (as also mentioned in Section \ref{sub:m_elevationestimation}). An example visualisation of what happens to a specific NBRS during vertex densification is shown in Figure \ref{fig:elevationestimation1}.
 
@@ -116,6 +130,13 @@ Instead of focusing on details, I will only comment on the general quality of th
 The are two main aspects of the output that require our attention: how well the 3D centrelines conform with the real-life road surface (effectiveness of the 3D conversion), and how succesfully outliers are being eliminated (effectiveness of the refinement step). The former can be assessed via a visual comparison with the underlying AHN3 point clouds, while the latter can be examined by looking for artefacts at locations where occlusion happens. Figure \ref{fig:elevationestimation2} shows two further 3D visualisations that contain examples of the features that are relevant for this assessment.
 
 \subsubsection{Effectiveness of 3D conversion}
+
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/elevationestimation2.png}
+    \caption{Visualisations comparing preliminary 3D conversion results with AHN3 point cloud.}
+    \label{fig:elevationestimation2}
+\end{figure}
 
 The top visualisation in Figure \ref{fig:elevationestimation2} illustrates that in the case of flat lengths of roads, centrelines are generally positioned very close to the Lidar-defined road surface (within a few centimetres in general). Outliers are atypical in well-exposed areas, corresponding to the lack of outliers in AHN3 itself (and its ground classification). The procedure is fast, runtimes for the testing datasets are generally in the range of 5 to 30 seconds on a mediocre computer.
 
@@ -157,6 +178,13 @@ In the class itself, the results of this step are not stored in a separate varia
 
 \subsection{Lidar segmentation}
 \label{sub:r_lidarsegmentation}
+
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/elevationestimation2.png}
+    \caption{Visualisations comparing preliminary 3D conversion results with AHN3 point cloud.}
+    \label{fig:elevationestimation2}
+\end{figure}
 
 Figure \ref{fig:lidarsegmentation0} shows some visualisations of the results of Lidar segmentation. Like in figures depicting NBRS alone (such as e.g. Figure \ref{sub:m_elevationestimation}), I used colours to dinstinguish between NBRS. In this figure, I coloured those Lidar points the same, which belong to the subcloud of the same NBRS. On the right in the figure, the centrelines are also shown (in black, to help distinguish them from their subclouds). For subclouds which are positioned far from each other, a clear separation is observable. However, ones that are close to one another often overlap, such as in various places in the centre of the visualisation on the left in Figure \ref{fig:lidarsegmentation0}. This is the result of there not being much space between the roads themselves that the underlying NBRS represent. The overlapping parts of such subclouds may contain duplicate points (in other words, points may be part of multiple subclouds). Out of these "duplicate" points, the visualisation only shows the ones that were loaded last, hence some subclouds may appear thinner in the visualisation than they are in reality.
 
