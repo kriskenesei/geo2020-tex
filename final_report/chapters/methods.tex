@@ -55,7 +55,7 @@ While the exact aims of the project materialised during the first two stages lis
 
 The design of the pipeline is the result of a combined understanding of concepts described in related work, my own knowledge and experience relating to the geomatics discipline, as well as inspiration from the methods of the commercial implementation. The proposed workflow was built with a strong focus on finding answers to the research questions. Furthermore, it is also the result of a process of iterative refinement. In most cases, this only concerns the technical details of the algorithms implementing the pipeline steps, but in some cases I also made major changes to certain aspects of the general approach. Hence, in the structured overview below, I added a list item per pipeline step specifically to describe what changes, if any, were made to the given step.
 
-As a brief summary of the general idea, the pipeline takes NWB, decomposes it into roads whose surface can be modelled by 2.5D methods, and applies a set of mostly geomatics operations to produce the 2.5D road surface models that the elevations are then derived from to produce 3D-NWB. Accuracy-related considerations are not yet described in this section, these are first discussed in Section \ref{sub:accuracyoverview} below.
+As a brief summary of the general idea, the pipeline takes NWB, decomposes it into roads whose surface can be modelled by 2.5D methods, and applies a set of mostly geomatics operations to produce the 2.5D road surface models that the elevations are then derived from to produce 3D-NWB. Accuracy-related considerations are not yet described in this section, these are first discussed in Section \ref{sub:accuracyoverview} below. A visual illustration of the main pipeline steps is shown in Figure \ref{fig:workflowsteps}, showing only the 
 
 \begin{enumerate}
     \item \textbf{NBRS generation}
@@ -102,7 +102,7 @@ As a brief summary of the general idea, the pipeline takes NWB, decomposes it in
         \item \textbf{Purpose:} the sole purpose of this step was going to be to provide edge estimates for active contour optimisation. After I made the decision to make active contour optimisation optional in the pipeline (due to its ineffectiveness), preliminary edges also became optionally needed for later steps, in place of the optimised contours.
         \item \textbf{Changes:} Due to the optional use of preliminary edges in TIN construction (in case optimisation is skipped), I needed to improve their quality significantly. This entailed the implementation of significant refinements to the underlying algorithm, as well as the constraints enforcement steps that I mentioned above.
     \end{enumerate}
-    \item \textbf{Active contour optimisation (optional)}
+    \item \textbf{Active contour optimisation \textit{(optional)}}
     \begin{enumerate}
         \item \textbf{Goal:} refine the preliminary edges based on road surface smoothness as described by Lidar.
         \item \textbf{Approach:}
