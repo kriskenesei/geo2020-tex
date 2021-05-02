@@ -8,7 +8,7 @@ This first section of this chapter presents a description of the methodology of 
 \section{Methodological framework}
 \label{sec:methodology}
 
-This section contains a written account of the key stages into which the execution of this research can be divided. Each subsection describes one such stage, discussing the specific tasks performed during each stage as well as what has changed relative to my original plans. The methodology is also visually illustrated on a flowchart in Figure \ref{fig:methodflow}.
+This section contains a written account of the key stages into which the execution of this research can be divided. Each subsection describes one such stage, discussing the specific tasks performed during each stage as well as what has changed relative to my original plans. The methodology is also visually illustrated on a flowchart in Figure \ref{fig:methodologyflow}.
 
 \subsection{Preparation}
 \label{sub:preparation}
@@ -40,7 +40,7 @@ The last stage of the project will last a few weeks between the P4 presentation 
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/methodology.pdf}
     \caption{Flowchart-style illustration of the top-level methodology of my dissertation research.}
-    \label{fig:methodflow}
+    \label{fig:methodologyflow}
 \end{figure}
 
 \section{Overview of methods}
@@ -55,13 +55,13 @@ While the exact aims of the project materialised during the first two stages lis
 
 The design of the pipeline is the result of a combined understanding of concepts described in related work, my own knowledge and experience relating to the geomatics discipline, as well as inspiration from the methods of the commercial implementation. The proposed workflow was built with a strong focus on finding answers to the research questions. Furthermore, it is also the result of a process of iterative refinement. In most cases, this only concerns the technical details of the algorithms implementing the pipeline steps, but in some cases I also made major changes to certain aspects of the general approach. Hence, in the structured overview below, I added a list item per pipeline step specifically to describe what changes, if any, were made to the given step.
 
-As a brief summary of the general idea, the pipeline takes NWB, decomposes it into roads whose surface can be modelled by 2.5D methods, and applies a set of mostly geomatics operations to produce the 2.5D road surface models that the elevations are then derived from to produce 3D-NWB. Accuracy-related considerations are not yet described in this section, these are first discussed in Section \ref{sub:accuracyoverview} below. A visual illustration of the main pipeline steps is shown in Figure \ref{fig:workflowsteps}, showing only the titles of each workflow step in the order in which they are executed.
+As a brief summary of the general idea, the pipeline takes NWB, decomposes it into roads whose surface can be modelled by 2.5D methods, and applies a set of mostly geomatics operations to produce the 2.5D road surface models that the elevations are then derived from to produce 3D-NWB. Accuracy-related considerations are not yet described in this section, these are first discussed in Section \ref{sub:accuracyoverview} below. A visual illustration of the main pipeline steps is shown in Figure \ref{fig:workflow}, showing only the titles of each workflow step in the order in which they are executed.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/methodology.pdf}
+    \includegraphics[width=0.9\linewidth]{final_report/figs/workflow_steps.pdf}
     \caption{Illustration of the top-level steps and output of my processing pipeline.}
-    \label{fig:methodflow}
+    \label{fig:workflow}
 \end{figure}
 
 \begin{enumerate}
