@@ -209,7 +209,7 @@ In another words, in this proof-of-concept implementation, DTB merely \textit{si
 
 In areas with a complete lack of measurements, NWB elevations are interpolated \textit{linearly} inside the NBRS, based on the TIN-interpolated elevations that already exist by that point. This generally occurs under large occluding features (such as bridges), but also, less commonly, in the case of short road segments that are very poorly georeferenced in NWB, as well as occasionally in places where large vehicles or dense vegetation resulted in smaller gaps of data in both AHN3 and DTB. In more general terms, it occurs everywhere where it was not possible to interpolate a value in an underlying TIN, because none existed locally.
 
-A typical, practical example is as follows: the Lidar segmentation workflow encounters a bridge. Only one DTB line exists locally, and the vertice
+A typical, practical example is as follows: the Lidar segmentation workflow encounters a bridge. Only one DTB line exists locally, and its vertices (and densified vertices) are added to the subcloud. The road is straight, so even thought the prelimi
 
 The output accuracy of these points is also not estimated. The primary reason for this decision is that the local sampling density is effectively zero. Since we do not estimate the accuracy in places with low sampling densities, it is well justified to also not do it where there sampling is even worse. In such places, formal accuracy can be safely assumed to be worse than that which is required by NDW and the noise regulations.
 
