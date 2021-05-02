@@ -209,16 +209,18 @@ In another words, in this proof-of-concept implementation, DTB merely \textit{si
 
 In areas with a complete lack of measurements, NWB elevations are interpolated \textit{linearly} inside the NBRS, based on the TIN-interpolated elevations that already exist by that point. This generally occurs under large occluding features (such as bridges), but also, less commonly, in the case of short road segments that are very poorly georeferenced in NWB, as well as occasionally in places where large vehicles or dense vegetation resulted in smaller gaps of data in both AHN3 and DTB. In more general terms, it occurs everywhere where it was not possible to interpolate a value in an underlying TIN, because none existed locally.
 
-A typical, practical example is as follows: the Lidar segmentation workflow encounters a bridge. Only one DTB line exists locally, and its vertices (and densified vertices) are added to the subcloud. The road is straight, so even thought the prelimi
+A typical, practical example is as follows: the Lidar segmentation workflow encounters a bridge with no AHN3 or DTB coverage underneath. It splits the NBRS into parts, one extending to the last NWB vertex before the bridge, and the other starting at the first NWB vertex after it. TINs are constructed for the two NBRS parts, but not in the space between them, i.e. underneath the bridge. The vertices in-between the two NBRS parts (most likely 5-10 of them depending on the width of the bridge) will receive elevations that are linearly interpolated based on the closest elevations interpolated in the TINs of the two NBRS parts.
 
 The output accuracy of these points is also not estimated. The primary reason for this decision is that the local sampling density is effectively zero. Since we do not estimate the accuracy in places with low sampling densities, it is well justified to also not do it where there sampling is even worse. In such places, formal accuracy can be safely assumed to be worse than that which is required by NDW and the noise regulations.
+
+To summarise, elevations marked as having been linearly interpolated always have undefined accuracy. However, undefined accuracy may also correspond to elevations that were interpolated from a TIN, but where the local TIN vertex density (Lidar sampling density) was too low to trust the value.
 
 \section{Detailed methods}
 \label{sec:methods}
 
-Previous sections of this chapter described the methods underlying the pipeline steps in general terms. This section will go into more detail about the underlying processing algorithms. The level of detail will be greater than in previous sections, but not to the point where every step in the code is explained. Features of the implementation that are of a very technical nature are not included, and the reader is referred to the open-source code if they find themselves interested in further details.
+Previous sections of this chapter described the methods underlying the pipeline steps in general terms. This section will go into more detail about the underlying processing algorithms. The level of detail will be greater than in previous sections, but not to the point where every step in the code is explained. Features of the implementation that are of a very technical nature are not included - the reader is referred to the open-source code and its documentation if they find themselves interested in learning about further details.
 
-The focus of each subsection below is to explain (with the help of flowcharts) how each pipeline step works, and to discuss major challenges that I encountered during development - as well as how these affected the course of development. Some of these can be interpreted as further details about the top-level changes already mentioned in Section \ref{sub:pipelineoverview} above.
+The focus of each subsection below is to explain, with the help of accurate flowcharts, how each pipeline step works, and to discuss major challenges encountered during development and how they affected the course of development. Most of these can be interpreted as further details about the top-level changes relative to the P2 plans that I already described in Section \ref{sub:pipelineoverview} above.
 
 \subsection{Splitting NWB into NBRS}
 \label{sub:m_nbrsgeneration}
