@@ -207,9 +207,11 @@ In another words, in this proof-of-concept implementation, DTB merely \textit{si
 
 \subsubsection{Linear interpolation accuracy}
 
-In areas with a complete lack of measurements, NWB elevations are interpolated linearly inside the NBRS, based on the TIN-interpolated elevations that already exist at that point. This generally means areas under large occluding features, but also (very rarely) short road segments that are so poorly referenced in NWB that they are clearly located off the road surface where , in regions where no ground or bridge AHN3 points are located.
+In areas with a complete lack of measurements, NWB elevations are interpolated \textit{linearly} inside the NBRS, based on the TIN-interpolated elevations that already exist by that point. This generally occurs under large occluding features (such as bridges), but also, less commonly, in the case of short road segments that are very poorly georeferenced in NWB, as well as occasionally in places where large vehicles or dense vegetation resulted in smaller gaps of data in both AHN3 and DTB. In more general terms, it occurs everywhere where it was not possible to interpolate a value in an underlying TIN, because none existed locally.
 
-The output accuracy of these points is also not estimated. The primary reason for this decision is that they correspond mainly to long, occluded road sections where there is no data. The local sampling density is effectively zero, which is even worse than that which is encountered in large triangles. Since we do not estimate the accuracy in very large triangles, it is well justified to also not do it where there sampling is even worse than there. The secondary reason is, that theoretically propagating accuracy through the polynomial fitting method from the computed elevations (which were themselves \textit{derived} elevations) would be complex, to the extent where the benefits certainly do not justify the development of an accuracy estimation method. Formal accuracy can be safely assumed to be worse in such zones, locally, than that which is required by NDW.
+A typical, practical example is as follows: the Lidar segmentation workflow encounters a bridge. Only one DTB line exists locally, and the vertice
+
+The output accuracy of these points is also not estimated. The primary reason for this decision is that the local sampling density is effectively zero. Since we do not estimate the accuracy in places with low sampling densities, it is well justified to also not do it where there sampling is even worse. In such places, formal accuracy can be safely assumed to be worse than that which is required by NDW and the noise regulations.
 
 \section{Detailed methods}
 \label{sec:methods}
