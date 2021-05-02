@@ -8,7 +8,7 @@ This first section of this chapter presents a description of the methodology of 
 \section{Methodological framework}
 \label{sec:methodology}
 
-This section contains a written account of the key stages into which the execution of this research can be divided. Each subsection describes one such stage, discussing the specific tasks performed during each stage as well as what has changed relative to my original plans. The methodology is also visually illustrated on a flowchart in Figure \ref{fig:methodflow}.
+This section contains a written account of the key stages into which the execution of this research can be divided. Each subsection describes one such stage, discussing the specific tasks performed during each stage as well as what has changed relative to my original plans. The methodology is also visually illustrated on a flowchart in Figure \ref{fig:methodologyflow}.
 
 \subsection{Preparation}
 \label{sub:preparation}
@@ -39,8 +39,8 @@ The last stage of the project will last a few weeks between the P4 presentation 
 \begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/methodology.pdf}
-    \caption{Flowchart-style illustration of the top-level methodology of my proposed dissertation research.}
-    \label{fig:methodflow}
+    \caption{Flowchart-style illustration of the top-level methodology of my dissertation research.}
+    \label{fig:methodologyflow}
 \end{figure}
 
 \section{Overview of methods}
@@ -55,7 +55,14 @@ While the exact aims of the project materialised during the first two stages lis
 
 The design of the pipeline is the result of a combined understanding of concepts described in related work, my own knowledge and experience relating to the geomatics discipline, as well as inspiration from the methods of the commercial implementation. The proposed workflow was built with a strong focus on finding answers to the research questions. Furthermore, it is also the result of a process of iterative refinement. In most cases, this only concerns the technical details of the algorithms implementing the pipeline steps, but in some cases I also made major changes to certain aspects of the general approach. Hence, in the structured overview below, I added a list item per pipeline step specifically to describe what changes, if any, were made to the given step.
 
-As a brief summary of the general idea, the pipeline takes NWB, decomposes it into roads whose surface can be modelled by 2.5D methods, and applies a set of mostly geomatics operations to produce the 2.5D road surface models that the elevations are then derived from to produce 3D-NWB. Accuracy-related considerations are not yet described in this section, these are first discussed in Section \ref{sub:accuracyoverview} below.
+As a brief summary of the general idea, the pipeline takes NWB, decomposes it into roads whose surface can be modelled by 2.5D methods, and applies a set of mostly geomatics operations to produce the 2.5D road surface models that the elevations are then derived from to produce 3D-NWB. Accuracy-related considerations are not yet described in this section, these are first discussed in Section \ref{sub:accuracyoverview} below. A visual illustration of the main pipeline steps is shown in Figure \ref{fig:workflow}, showing only the titles of each workflow step in the order in which they are executed.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/workflow_steps.pdf}
+    \caption{Illustration of the top-level steps and output of my processing pipeline.}
+    \label{fig:workflow}
+\end{figure}
 
 \begin{enumerate}
     \item \textbf{NBRS generation}
@@ -102,7 +109,7 @@ As a brief summary of the general idea, the pipeline takes NWB, decomposes it in
         \item \textbf{Purpose:} the sole purpose of this step was going to be to provide edge estimates for active contour optimisation. After I made the decision to make active contour optimisation optional in the pipeline (due to its ineffectiveness), preliminary edges also became optionally needed for later steps, in place of the optimised contours.
         \item \textbf{Changes:} Due to the optional use of preliminary edges in TIN construction (in case optimisation is skipped), I needed to improve their quality significantly. This entailed the implementation of significant refinements to the underlying algorithm, as well as the constraints enforcement steps that I mentioned above.
     \end{enumerate}
-    \item \textbf{Active contour optimisation (optional)}
+    \item \textbf{Active contour optimisation \textit{(optional)}}
     \begin{enumerate}
         \item \textbf{Goal:} refine the preliminary edges based on road surface smoothness as described by Lidar.
         \item \textbf{Approach:}
@@ -141,7 +148,7 @@ As a brief summary of the general idea, the pipeline takes NWB, decomposes it in
     \end{enumerate}
 \end{enumerate}
 
-I used concepts and ideas from related work (see Chapter \ref{chap:rw}) extensively when designing the original pipeline, and the final implementation retains many of these. For instance, the point cloud segmentation step was inspired largely by \cite{oudeElberink_vosselman_2009} and \cite{boyko_funkhauser_2011}. The cross-section based workflow was, among others, inspired by \cite{yang_etal_2013} and the commercial implementation. The use of 2.5D-based modelling methods to represent features extracted from the point cloud comes from \cite{oudeElberink_vosselman_2006}. The active contour-based workflow was inspired by \cite{boyko_funkhauser_2011} and \cite{gopfert_etal_2011}. In a way, my work can also be interpreted as a study of the effectiveness of relevant methods commonly found in the literature, a topic that is further discussed in Section [REF].
+I was inspired by concepts and ideas from related work (see Chapter \ref{chap:rw}) while designing the original pipeline, and the final implementation retains many of these similarities. For instance, the point cloud segmentation step was inspired largely by \cite{oudeElberink_vosselman_2009} and \cite{boyko_funkhauser_2011}. The cross-section based edge detection workflow was inspired by curb detection-related work, such as \cite{yang_etal_2013} and the methods of the commercial implementation. The use of 2.5D-based modelling methods to represent surfaces extracted from the point cloud comes from \cite{oudeElberink_vosselman_2006}. The active contour-based workflow was inspired by \cite{boyko_funkhauser_2011} and \cite{gopfert_etal_2011}. In a way, my work can also be interpreted as a study of the effectiveness of relevant methods commonly found in the literature.
 
 \subsection{Generalisation of pipeline}
 \label{sub:m_generalisation}
