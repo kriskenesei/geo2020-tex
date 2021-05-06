@@ -129,7 +129,7 @@ Figure \ref{fig:elevationestimation0} shows the results of this step in two 3D v
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/elevationestimation1.png}
+    \includegraphics[width=\linewidth]{final_report/figs/elevationestimation1.png}
     \caption{Visualisations illustrating the vertex densification feature.}
     \label{fig:elevationestimation1}
 \end{figure}
@@ -148,7 +148,7 @@ The are two main aspects of the output that require our attention: how well the 
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/elevationestimation2.png}
+    \includegraphics[width=\linewidth]{final_report/figs/elevationestimation2.png}
     \caption{Visualisations comparing preliminary 3D conversion results with the AHN3 point cloud.}
     \label{fig:elevationestimation2}
 \end{figure}
@@ -196,7 +196,7 @@ In the class itself, the results of this step are not stored in a separate varia
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/lidarsegmentation0.png}
+    \includegraphics[width=\linewidth]{final_report/figs/lidarsegmentation0.png}
     \caption{Visualisations illustrating the results of Lidar segmentation.}
     \label{fig:lidarsegmentation0}
 \end{figure}
@@ -238,7 +238,7 @@ This issue draws our attention to the general issue of temporal discrepancies be
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/lidarsegmentation2.png}
+    \includegraphics[width=\linewidth]{final_report/figs/lidarsegmentation2.png}
     \caption{Visualisation illustrating the handling of gaps in AHN3 coverage during Lidar segmentation.}
     \label{fig:lidarsegmentation2}
 \end{figure}
@@ -283,13 +283,6 @@ In the class itself, the resulting subclouds can be accessed via \codeword{.nbrs
 \subsection{Edge approximation}
 \label{sub:r_edgeapproximation}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/edgeapproximation0.png}
-    \caption{Visualisations illustrating the results of preliminary edge approximation.}
-    \label{fig:edgeapproximation0}
-\end{figure}
-
 Visualisations showing the results of the edge approximation step are shown in Figure \ref{fig:edgeapproximation0}. The black lines correspond to NWB centrelines, while the closely spaced, orthogonal lines are the cross-sections that are attempted to be created on each centreline vertex. The lines connecting the ends of the cross-sections on each side of each centreline are the preliminary edges that are the main product of this processing step. As in all 3D visualisations in this chapter, the vertical dimension is once again exaggerated five times to make vertical changes better visible.
 
 \subsubsection{General description of results}
@@ -299,6 +292,13 @@ The output of this step is mostly satisfactory, no road layouts apart from tunne
 In the two visualisations on left in Figure \ref{fig:edgeapproximation0}, I visualised the preliminary edges only. The top image looks down on \textit{Knoppunt Ridderkerk} from above, while the one below shows the same roads from the side. On the right in the figure, I show a visualisation in which a pair of preliminary edges and the underlying cross-sections can be compared with the subcloud that was used to generate them. In most cases, cross-sections and preliminary edges lie flat on road surfaces, and even where noticeable blunders are observed, they correspond to underestimating or overestimating the road surface extents by about 2 metres maximum.
 
 While the overall quality is good and the results are certainly usable in terms of the requirements of the next two pipeline steps, there are a few properties and limitations of these results that are worth discussing.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{final_report/figs/edgeapproximation0.png}
+    \caption{Visualisations illustrating the results of preliminary edge approximation.}
+    \label{fig:edgeapproximation0}
+\end{figure}
 
 \subsubsection{On road width bounds}
 
@@ -318,7 +318,7 @@ I implemented a workaround that mitigates the effects of this issue. The line fi
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/edgeapproximation1.png}
+    \includegraphics[width=\linewidth]{final_report/figs/edgeapproximation1.png}
     \caption{Visualisations illustrating challenging edge approximation scenarios.}
     \label{fig:edgeapproximation1}
 \end{figure}
@@ -384,7 +384,7 @@ The optimised contours are shown overlain on the attractor maps on the right in 
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/activecontouroptimisation1.png}
+    \includegraphics[width=\linewidth]{final_report/figs/activecontouroptimisation1.png}
     \caption{Visualisations comparing optimised edges to the underlying attractor maps.}
     \label{fig:activecontouroptimisation1}
 \end{figure}
@@ -447,7 +447,7 @@ In the class, the maps can be found in the variable \codeword{.nbrs_maps[nbrs_id
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/tinconstruction0.png}
+    \includegraphics[width=\linewidth]{final_report/figs/tinconstruction0.png}
     \caption{Visualisations illustrating the results of TIN initialisation and extension.}
     \label{fig:tinconstruction0}
 \end{figure}
@@ -470,13 +470,6 @@ In all study areas, and especially where NWB lies correctly on the road surface 
 
 \subsubsection{TIN extension}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/tinconstruction1.png}
-    \caption{Visualisations providing an overview of constructed TINs and illustrating TIN artefacts.}
-    \label{fig:tinconstruction1}
-\end{figure}
-
 Figure \ref{fig:tinconstruction0} shows the visual appearance of one particular NBRS part before and after applying TIN extension, in a location where it works nearly perfectly. The effectiveness of this step relative to its planned purpose is not uniform across all areas. Most road geometries allow it to perform well, but in certain places it may only serve to further exaggerate pre-existing artefacts.
 
 TIN extension considers additional "rings" of points progressing away from the road's centre and moving towards the edges - even beyond them, if desired. For the final results I used 5 steps, each extending the boundary by half a metre via buffering, and subtracting it from the polygon formed by the previous boundary to obtain the ring-shaped region of interest. Only those points are considered for insertion, which fall into the given region of interest in each iteration. The first iteration starts at a boundary half a metre from the seed geometry, hence 5 steps of 0.5-metres each expand the maximum distance from the centre to 3 metres, meaning that the largest boundary will be 6 metres from the centre of the road. One may notice that this is still smaller than the maximum road width I allowed in the preliminary edge approximation step (7 metres). There are two reasons for this; firstly, in my final results I primarily used TIN extension to extend initial TIN surfaces \textit{within} the width of the preliminary edges. Secondly, wherever the width of the preliminary edges goes below the maximum (which happens quite often), this still represents an extension beyond those boundaries.
@@ -490,6 +483,13 @@ Since the extension procedure considers points beyond the preliminary or optimis
 Therefore, the algorithm uses stricter thresholds for the conditional insertions than the TIN initialisation step. In my final configuration, the values are 3 centimetres for the elevation discrepancy threshold (elevation above underlying triangle), and 0.04 radians (about 2 degrees) for the angle threshold. The radius of the buffer-filling queries was also reduced to 0.8 metres.
 
 While such a conservative parametrisation certainly avoids the addition of clearly defined outliers, I found it to offer only a partial solution to the above issues. After some careful inspection, I concluded that in almost all cases, pre-existing "bridge points" from the TIN initialisation step appear to be the culprits. They eliminate the gradients that would otherwise stop the extension from growing in a particular direction. Furthermore, it appears that the transition from road to off-road surfaces may occasionally take place on such a fine scale that not even these thresholds can prevent the surface growing towards them, even where TIN initialisation did not introduce such bridges.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/tinconstruction1.png}
+    \caption{Visualisations providing an overview of constructed TINs and illustrating TIN artefacts.}
+    \label{fig:tinconstruction1}
+\end{figure}
 
 \subsubsection{On using small thresholds}
 
@@ -550,7 +550,7 @@ The second method invocation writes the TINs to disk, one OBJ file for each NBRS
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/elevationinterpolation0.png}
+    \includegraphics[width=\linewidth]{final_report/figs/elevationinterpolation0.png}
     \caption{Visualisations comparing final 3D conversion results to preliminary conversion, subclouds, and preliminary edges.}
     \label{fig:elevationinterpolation0}
 \end{figure}
@@ -589,14 +589,14 @@ While the two outputs are not directly comparable, the exceptionally good match 
 
 It is also important to note here that while the preliminary edges may be missing vertices in some places (indicated by the cross-sections also being absent), this is not the case in any of my final 3D-NWB results. As long as the centreline is found between the edges, a TIN will be constructed locally and TIN-based elevations will be computed. As I already described previously, this is only violated in places where many cross-sections are skipped in a row, which is rare in my results.
 
-\subsubsection{Comparison with TIN models}
-
 \begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/elevationinterpolation1.png}
     \caption{Visualisations comparing final 3D conversion results to the underlying TIN models.}
     \label{fig:elevationinterpolation1}
 \end{figure}
+
+\subsubsection{Comparison with TIN models}
 
 Example comparisons between the final output and the TINs are shown in Figure \ref{fig:elevationinterpolation1}. An interesting aspect of this comparison is that the final 3D-converted centrelines are often found slightly above or below the model (less than a centimetre, typically). This is best evidenced in the output by the intermittent disappearance of the 3D centrelines beneath the TIN triangles. This is the result of the georeferencing of NWB being coarse \textit{relative to the TINs} even after applying vertex densification. NBRS parts only have vertices approximately every 5 metres, whereas AHN3 has up to 20 to 40 points per m\textsuperscript{2}. This disparity simply indicates that if we wanted to, we could sample the TIN at smaller intervals to increase the output's vertical resolution. However, NDW officially requires elevations only to be estimated at the original NWB vertices, which can be several times further apart even than my densified vertices. In other words, these TINs offer far more detail than that which would be minimally required for the conversion, as expected from such a high-resolution surface model.
 
@@ -632,7 +632,7 @@ I will first focus on the results of computing local sampling densities and form
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/empiricalaccuracy0.png}
+    \includegraphics[width=\linewidth]{final_report/figs/empiricalaccuracy0.png}
     \caption{Charts demonstrating the outcome of the empirical accuracy assessment process.}
     \label{fig:empiricalaccuracy0}
 \end{figure}
@@ -654,7 +654,7 @@ Although this analysis suggests that any errors in the output will be small and 
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/formalaccuracy0.pdf}
+    \includegraphics[width=\linewidth]{final_report/figs/formalaccuracy0.pdf}
     \caption{Charts illustrating the formal accuracy assessment results on two wegvakken.}
     \label{fig:formalaccuracy0}
 \end{figure}
@@ -676,7 +676,7 @@ The mean error and sampling density of the entire testing dataset are 5 cm and 1
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/formalaccuracy1.png}
+    \includegraphics[width=\linewidth]{final_report/figs/formalaccuracy1.png}
     \caption{Visualisations showing the subclouds, TINs and 3D-NWB centrelines in the area concerned by Figure \ref{fig:formalaccuracy0}.}
     \label{fig:formalaccuracy1}
 \end{figure}
@@ -696,7 +696,7 @@ Linear interpolation is rare outside of AHN3 data gaps (including those due to o
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/bgtcomparison.png}
+    \includegraphics[width=\linewidth]{final_report/figs/bgtcomparison.png}
     \caption{2D Visualisations comparing BGT road edges with the TINs, with NWB centrelines and with Luchtfoto 2020 satellite imagery.}
     \label{fig:bgtcomparison}
 \end{figure}
@@ -750,7 +750,7 @@ Some of the NWB centrelines overshoot the Lidar testing tile extents by up to 20
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/commercialcomparison0.pdf}
+    \includegraphics[width=\linewidth]{final_report/figs/commercialcomparison0.pdf}
     \caption{Charts illustrating the results of comparing the academic and commercial results on two wegvakken from dataset "Knoppunt Deil".}
     \label{fig:commercialcomparison0}
 \end{figure}
@@ -778,7 +778,7 @@ The DTB data was close enough to the predicted elevation of the road for my impl
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/commercialcomparison1.pdf}
+    \includegraphics[width=\linewidth]{final_report/figs/commercialcomparison1.pdf}
     \caption{Charts illustrating the results of comparing the academic and commercial results on two wegvakken from dataset "Gorinchem".}
     \label{fig:commercialcomparison1}
 \end{figure}
@@ -801,7 +801,7 @@ This is a manifestation of the main difference between the two solutions' paradi
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/commercialcomparison2.pdf}
+    \includegraphics[width=\linewidth]{final_report/figs/commercialcomparison2.pdf}
     \caption{Charts illustrating the results of comparing the academic and commercial results on two wegvakken from dataset "Knoppunt Ridderkerk".}
     \label{fig:commercialcomparison2}
 \end{figure}
