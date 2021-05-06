@@ -283,6 +283,13 @@ NDW themselves produced a prototype implementation, which can achieve a 3D enric
 
 Furthermore, no close-by points could be found for underground roads (i.e. tunnels), and strongly occluded parts of roads. For small gaps, this was resolved partially by writing an algorithm to interpolate linearly inside NWB, using the closest vertices where snapping was successful. For larger gaps, an attempt was made to resolve issues by including information from external sources semi-automatically. Neither issue could be fully resolved via these approaches, hence the results of this project were only used by NDW to gain a better understanding of the problem and the expected challanges. For the development of a reliable digital toolbox they subsequently commissioned a commercial implementation from RHDHV.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.95\linewidth]{final_report/figs/ahn_sample_10.png} 
+    \caption{Renders of DTB all line features (above) and \textit{verflijnen} only (below) overlain with AHN3 in 3D.}
+    \label{fig:dtbahn}
+\end{figure}
+
 \subsection{RHDHV's commercial implementation}
 \label{sub:commercialproduct}
 
@@ -324,13 +331,3 @@ Based on the input assessment, it is also evident that prioritising DTB wherever
 Lastly, the commercial implementation lacks a formal accuracy assessment. Although this is common with comparable commercial products, in this case the output dataset needs to comply with formal accuracy \textit{requirements}. Without a quantitative or at least qualitative accuracy assessment of some form, there is not enough evidence to support the applicability of the commercial results to the noise modelling applications they are intended for.
 
 Since the accuracy of AHN3 rasters is known and simple bilinear interpolation is used to obtain elevations from them, deriving output accuracy would not be difficult wherever their solution uses AHN3. This excludes interpolating in gap-filled pixels, which would need further considerations. In the case of DTB, the evaluation of accuracy may be equally simple, as the underlying computations all boil down to linear interpolation. However, wherever DTB data is old, any accuracy quantification would be meaningless because DTB itself does not comply with its own formal accuracy, due to vertical land motion.
-
-
-
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.95\linewidth]{final_report/figs/ahn_sample_10.png} 
-    \caption{Hello}
-    \label{fig:something}
-\end{figure}
