@@ -273,13 +273,6 @@ Interestingly, the opposite can also be observed, although less commonly, and in
 
 Figure \ref{fig:dtbahn} shows renders of DTB overlain on AHN3 with all DTB features shown (above), and with only \textit{verflijnen} shown (below). Ground points are shown in green. The top render illustrates that other features, such as roadside slopes, canals, ditches, safety rails are represented in DTB. Full-width motorway signs are also occasionally represented (either by lines on the road, or on the structure itself). The bottom render shows that locally, the edge markings are in good agreement with AHN3 visually, and are only occasionally incomplete. This location has the best vertical correspondence with AHN3, and also the best completeness, of all the areas I examined. For illustrations of the \textit{disagreements} between DTB and AHN3, please refer to Figure \ref{fig:lidarsegmentation1} and the associated discussion in Chapter \ref{chap:r}.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.95\linewidth]{final_report/figs/ahn_sample_10.png} 
-    \caption{Renders of DTB all line features (above) and \textit{verflijnen} only (below) overlain with AHN3 in 3D.}
-    \label{fig:dtbahn}
-\end{figure}
-
 \section{Methods of existing implementations}
 \label{sec:methodsexisting}
 
@@ -331,3 +324,13 @@ Based on the input assessment, it is also evident that prioritising DTB wherever
 Lastly, the commercial implementation lacks a formal accuracy assessment. Although this is common with comparable commercial products, in this case the output dataset needs to comply with formal accuracy \textit{requirements}. Without a quantitative or at least qualitative accuracy assessment of some form, there is not enough evidence to support the applicability of the commercial results to the noise modelling applications they are intended for.
 
 Since the accuracy of AHN3 rasters is known and simple bilinear interpolation is used to obtain elevations from them, deriving output accuracy would not be difficult wherever their solution uses AHN3. This excludes interpolating in gap-filled pixels, which would need further considerations. In the case of DTB, the evaluation of accuracy may be equally simple, as the underlying computations all boil down to linear interpolation. However, wherever DTB data is old, any accuracy quantification would be meaningless because DTB itself does not comply with its own formal accuracy, due to vertical land motion.
+
+
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.95\linewidth]{final_report/figs/ahn_sample_10.png} 
+    \caption{Hello}
+    \label{fig:something}
+\end{figure}
