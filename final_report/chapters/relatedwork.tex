@@ -225,7 +225,7 @@ The AHN3 point cloud has been classified semi-automatically with similarly excel
 
 Ground points are primarily interesting to us because they contain the points reflected from land-based roads. This includes roads that were constructed directly on the terrain, as well as roads constructed on altered terrain, such as elevated ground or open trenches. It also contains the points that represent the terrain in the vicinity of the roads. Elevated roads and bridges are not considered ground points and are generally represented by gaps in class 2, which can, in most cases, be filled by using data from class 26, as shown in Figure \ref{fig:ahnbridges}. The white colour corresponds to ground points (class 2), red corresponds to bridges (class 26). All other classes were removed. The shapes of motorway lanes and ramps, as well as bridges are clearly defined. Road constructed on elevated ground is reliably classified as ground, bridges are cleanly split off by the classification. Even under thin bridges, data becomes gradually sparser at the border and becomes extinct directly below the bridge. This render also makes it clear that wherever vehicles were encountered on ground-based roads, the sampling is worse locally. It does not \textit{generally} go entirely extinct however, as most locations have been scanned multiple times. Data gaps are only observed where slow or stationary vehicles wer encountered.
 
-Class 26 also contains other types of objects, for instance large motorway signs arching over road surfaces, as well as the civil engineering structures of elevated roads and bridges (in addition to the road surfaces on them). Reflections from vehicles transgressing bridges are also present in this class. Figure \ref{fig:ahnsigns} shows a render from the same location as \ref{fig:ahnbridges}. The full-width motorway signs are clearly visible above the motorway lanes, coloured red because they originate from class 26. It also shows that the presence of water results in holes (the dark, linear features running parallel with the motorway in this render) in the ground-only point cloud. In this render, it is also visible that in my testing datasets, all points falling outside a 150-metre buffer zone around the NWB centrelines were removed (see more information on this in Section \ref{sub:testingdata})
+Class 26 also contains other types of objects, for instance large motorway signs arching over road surfaces, as well as the civil engineering structures of elevated roads and bridges (in addition to the road surfaces on them). Reflections from vehicles transgressing bridges are also present in this class. Figure \ref{fig:ahnsigns} shows a render from the same location as \ref{fig:ahnnwb} and \ref{fig:ahnbridges}. The full-width motorway signs are clearly visible above the motorway lanes, coloured red because they originate from class 26. It also shows that the presence of water results in holes (the dark, linear features running parallel with the motorway in this render) in the ground-only point cloud. In this render, it is also visible that in my testing datasets, all points falling outside a 150-metre buffer zone around the NWB centrelines were removed (see more information on this in Section \ref{sub:testingdata})
 
 \begin{figure}
     \centering
@@ -252,6 +252,13 @@ Like NWB, DTB (or more specifically, DTB-Droog, the DTB product relevant to road
 
 There are various types of DTB road markings that are of interest to us, the main one being a category called \textit{verflijnen}. These DTB lines represent the painted lines marking the outermost edges of the area open to traffic. This is a lucky correspondence with NWB, as it too, contains the centrelines of the areas of roads that are open to traffic. The other two types I found to be reliably represent road surface elevations are the categories \textit{verfstippellijn} and \textit{blokmarkering}, which are lane separation lines and block marks respectively. The category \textit{lijnverlichting} also appeared to be interesting at first, as it corresponds to road surface lighting features (not street lighting). However, I found it to not be reliably located on road surfaces in practice, hence I excluded it from further consideration.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.95\linewidth]{final_report/figs/dtb_sample_07.png} 
+    \caption{Renders of DTB \textit{verflijnen} overlain with NWB centrelines, illustrating "compatibility issues" and individual DTB issues.}
+    \label{fig:dtbnwb}
+\end{figure}
+
 Figure \ref{fig:dtbnwb} shows a visual comparison with NWB, illustrating various types of significant issues that primarily stem from NWB's crude georeferencing. NWB symbology is identical to that which I used in \ref{fig:nwb}, and blue dashed lines are the DTB lines. Only \textit{verflijnen} are present in DTB in these locations. The image in the top left shows that in practice DTB contains many road markings, rather than just one on either side of NWB. The illustration in the top right shows that NWB motorway ramps often merge with the motorway lanes at unrealistic angles, causing NWB to intersect the DTB edge markings at these locations. The image in the bottom left illustrates that while in some places there are many DTB road edges, in other places they are incomplete or missing entirely. Furthermore, NWB centrelines may also get very close to DTB edges outside of sharp bends and motorway ramps, as indicated by the blue arrow. In the bottom right, the figure shows that NWB discretisation and inaccuracy leads to angular angular lines in sharp bends. NWB often gets close to, or even intersects DTB in such places.
 
 Like NWB (but unlike AHN3), DTB’s production pipeline also concerns several organisations performing various types of sensing, which are then semi-automatically assembled into the complete DTB product. While many DTB features are photogrammetry-derived, road surface markings are mainly from accurate land-based manual surveys or extracted from car-mounted Lidar (MLS) data (\cite{oudeElberink_vosselman_2012}). The documentation of DTB consists of its formal specifications (\cite{dtb_docs}) and a handbook (\cite{dtb_handbook}). The former contains the accuracy-related details, reporting 10 cm vertical and 5 cm horizontal standard deviations, or 20 cm and 10 cm at 95\% confidence to make it comparable with the reported accuracy of NWB and AHN3.
@@ -268,9 +275,9 @@ Figure \ref{fig:dtbahn} shows renders of DTB overlain on AHN3 with all DTB featu
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.95\linewidth]{final_report/figs/dtb_sample_07.png} 
-    \caption{Renders of DTB \textit{verflijnen} overlain with NWB centrelines, illustrating "compatibility issues" and individual DTB issues.}
-    \label{fig:dtbnwb}
+    \includegraphics[width=0.95\linewidth]{final_report/figs/dtb_sample_10.png} 
+    \caption{Renders of DTB all line features (above) and \textit{verflijnen} only (below) overlain with AHN3 in 3D.}
+    \label{fig:dtbahn}
 \end{figure}
 
 \section{Methods of existing implementations}
