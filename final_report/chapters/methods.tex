@@ -38,7 +38,7 @@ The last stage of the project will last a few weeks between the P4 presentation 
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/methodology.pdf}
+    \includegraphics[width=\linewidth]{final_report/figs/methodology.pdf}
     \caption{Flowchart-style illustration of the top-level methodology of my dissertation research.}
     \label{fig:methodologyflow}
 \end{figure}
@@ -232,7 +232,7 @@ The first algorithm, which I call the "geometric algorithm", uses geometry only 
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/nbrs_generation.pdf}
+    \includegraphics[width=\linewidth]{final_report/figs/nbrs_generation.pdf}
     \caption{Flowchart-style illustration of the NBRS generation step of the pipeline.}
     \label{fig:nbrsgenerationflow}
 \end{figure}
@@ -306,7 +306,7 @@ The Lidar segmentation step is more complex than the previous two, and some of t
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/lidar_segmentation.pdf}
+    \includegraphics[width=\linewidth]{final_report/figs/lidar_segmentation.pdf}
     \caption{Flowchart-style illustration of the Lidar segmentation step of the pipeline.}
     \label{fig:lidarsegmentationflow}
 \end{figure}
@@ -366,7 +366,7 @@ The generation of preliminary edges is based on approximating the location of th
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/edge_estimation.pdf}
+    \includegraphics[width=\linewidth]{final_report/figs/edge_estimation.pdf}
     \caption{Flowchart-style illustration of the edge approximation step of the pipeline.}
     \label{fig:edgeapproximationflow}
 \end{figure}
@@ -404,7 +404,7 @@ The optimisation of preliminary edges is based on generating one attractor map f
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/edge_optimisation.pdf}
+    \includegraphics[width=\linewidth]{final_report/figs/edge_optimisation.pdf}
     \caption{Flowchart-style illustration of the active contour optimisation step of the pipeline.}
     \label{fig:edgeoptimisationflow}
 \end{figure}
@@ -448,7 +448,7 @@ The outermost iteration loops over NBRS, and NBRS parts are iterated one level b
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/tin_construction.pdf}
+    \includegraphics[width=\linewidth]{final_report/figs/tin_construction.pdf}
     \caption{Flowchart-style overview of the TIN construction step of the pipeline.}
     \label{fig:tinconstructionflow}
 \end{figure}
@@ -479,6 +479,13 @@ While the final implementation of this step is not too complex, it is in fact th
 
 A further important performance consideration was to efficiently find Lidar points falling within the insertion boundaries prior to starting the insertions. I found that testing the points one-by-one using \textit{shapely} takes an unacceptable toll on performance, hence I modified this procedure to work as a bulk task via the \codeword{path} module of \textit{matplotlib}, which is capable of finding points within a polygon formed of a single ring of coordinates with much lower computational complexity.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{final_report/figs/tin_construction_details.pdf}
+    \caption{Flowchart-style illustration of the details of TIN initialisation and construction.}
+    \label{fig:tinconstructiondetailsflow}
+\end{figure}
+
 \subsubsection{TIN extension}
 
 The extension of the TIN takes place in an iterative manner. The implementation accepts arguments that set the amount by which the boundary should be buffered in each iteration, as well as the number of extension iterations (steps). The starting boundary is \textit{not} the same as the one used during the initialisation of the TIN. There, the preliminary or optimised edges were used, but here the first iteration's boundary is buffered from the seed line (the line halfway between the preliminary or optimised edges). This allows the algorithm to take another look at the points between the edges in case in missed any good candidates during initialisation, while also allowing it to consider points outside the edges in later iterations.
@@ -489,13 +496,6 @@ Each iteration first reconstructs the TIN yielded by the previous iteration, and
 
 Once TIN extension has finished, the final TIN is reconstructed and is saved. Thus, one TIN object per NBRS part is saved, and these are not merged or joined together into a single TIN in any way.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/tin_construction_details.pdf}
-    \caption{Flowchart-style illustration of the details of the TIN construction step of the pipeline.}
-    \label{fig:tinconstructiondetailsflow}
-\end{figure}
-
 \subsubsection{Challenges encountered}
 
 As implementing such a complex algorithm in this pipeline step was not originally intended, the biggest challenge here was to come up with a good solution within the timeframe reserved for the project. In terms of the methods themselves, I spent the most amount of time and effort on developing a solution that allows the road surface to grow into regions not covered by the preliminary or optimised edges. While in all cases, the surface generated by TIN initialisation is adequate to generate 3D-NWB, my desire was to not only model the central, traffic-occupied part of the road, but to grow it to the real-life edges of the paved surface as best as possible.
@@ -504,7 +504,7 @@ I initially wished to build the TIN as a single growing operation, but this prov
 
 Performing conditional insertions outside of the convex hull of the pre-existing TIN points was also a challenge. Interpolating in the triangles is not a possibility here, but the importance of assessing the compliance of the tested points with the neighbourhood is ever so important - it depends on these surface growing insertions, whether a TIN might accidentally spread into an off-road area, or not.
 
-\subsection{Interpolation in TIN and snapping}
+\subsection{TIN-based interpolation and vertex snapping}
 \label{sub:m_interpolation}
 
 \subsubsection{Interpolation and origin tracking}
@@ -534,6 +534,13 @@ z_{2}
 
 where $x_{pt}$ and $y_{pt}$ denote the X and Y coordinates of the location of interpolation (inside the triangle), the matrix in terms of $a_{0}$ to $c_{2}$ contains terms dependent on the 2D geometry of the triangle, and where the last vector corresponds to the three elevations of the three vertices of the triangle. Lastly, $z_{p}$ is the interpolated elevation. Please refer to \cite{fan_etal_2014} for the expressions for $a_{0}$ to $c_{2}$.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{final_report/figs/elevation_interpolation.pdf}
+    \caption{Flowchart-style illustration of the elevation interpolation step of the pipeline.}
+    \label{fig:elevationinterpolationflow}
+\end{figure}
+
 \subsubsection{Vertex snapping and gap filling}
 
 The next step is to perform vertex snapping at intersections. TIN surfaces close to intersections are expected to be comprised of roughly the same vertices, hence the assumption is made that snapping intersection vertices together will not introduce abrupt elevation discontinuities. The procedure, performed for each NBRS, consists of taking each vertex one by one, and constructing a hashed data structure mapping their approximate 2D positions (coordinates to one decimal) to their exact elevations. In the underlying iteration, if the approximate 2D position of a point is already found to exist in the hashed storage, its elevation is replaced with the one already mapped to that 2D location (i.e. it is snapped to it). Since self-intersections of NBRS are not possible, such a match necessarily represents a location where one or more other NBRS end or begin - in other words, a real-life intersection.
@@ -547,13 +554,6 @@ These gaps are filled in using linear interpolation, and instead of indicating t
 \subsubsection{Outputting 3D-NWB}
 
 The last step of the pipeline converts the internal road centreline data structure of the program (NBRS parts and NBRS) back into the data structure used by the input data, which are the LineStrings that are called wegvakken in NWB. In effect, the 2D geometry of each input LineString is overwritten with the new 3D geometry created using the original 2D coordinates, and the newly generated final elevations. Unlike at the end of preliminary elevation estimation (see Section \ref{sub:m_elevationestimation}), the original orientations of the wegvakken is automatically respected irrespective of some of them having been internally flipped earlier in the pipeline. This is because the elevations are taken from the hashed data structures linking 2D positions to elevations, not from the flipped internal representations of these geometries.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/elevation_interpolation.pdf}
-    \caption{Flowchart-style illustration of the elevation interpolation step of the pipeline.}
-    \label{fig:elevationinterpolationflow}
-\end{figure}
 
 \subsubsection{Challenges encountered}
 

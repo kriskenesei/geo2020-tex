@@ -248,7 +248,7 @@ The Lidar tiles are released in the binary LAZ format (compressed LAS, or LASzip
 \subsection{Digitaal Topografisch Bestand – DTB}
 \label{sub:dtb}
 
-Like NWB, DTB (or more specifically, DTB-Droog, the DTB product relevant to roads) is a Dutch open data geospatial dataset in the \textit{ESRI Shapefile} format. For the purposes of this project, we only need only those DTB line features, which correspond to street surface markings, hence we can also regard this as a dataset comprised exclusively of MultiLineString objects, making it identical to NWB in its data structure apart from being a 3D dataset. DTB is also managed by RWS and it is concerned only with state-owned roads and roads on state-leased land, which translate almost exclusively to NWB R-roads, that is, motorways. DTB is, hence, not a reliable source of information about provincial roads elevations (NWB P-roads), our other road type of interest.
+Like NWB, DTB (or more specifically, DTB-Droog, the DTB product relevant to roads) is a Dutch open data geospatial dataset in the \textit{ESRI Shapefile} format. For the purposes of this project, we only need only those DTB line features, which correspond to street surface markings, hence we can also regard this as a dataset comprised exclusively of LineString objects, making it identical to NWB in its data structure apart from being a 3D dataset. DTB is also managed by RWS and it is concerned only with state-owned roads and roads on state-leased land, which translate almost exclusively to NWB R-roads, that is, motorways. DTB is, hence, not a reliable source of information about provincial roads elevations (NWB P-roads), our other road type of interest.
 
 There are various types of DTB road markings that are of interest to us, the main one being a category called \textit{verflijnen}. These DTB lines represent the painted lines marking the outermost edges of the area open to traffic. This is a lucky correspondence with NWB, as it too, contains the centrelines of the areas of roads that are open to traffic. The other two types I found to be reliably represent road surface elevations are the categories \textit{verfstippellijn} and \textit{blokmarkering}, which are lane separation lines and block marks respectively. The category \textit{lijnverlichting} also appeared to be interesting at first, as it corresponds to road surface lighting features (not street lighting). However, I found it to not be reliably located on road surfaces in practice, hence I excluded it from further consideration.
 
@@ -273,6 +273,13 @@ Interestingly, the opposite can also be observed, although less commonly, and in
 
 Figure \ref{fig:dtbahn} shows renders of DTB overlain on AHN3 with all DTB features shown (above), and with only \textit{verflijnen} shown (below). Ground points are shown in green. The top render illustrates that other features, such as roadside slopes, canals, ditches, safety rails are represented in DTB. Full-width motorway signs are also occasionally represented (either by lines on the road, or on the structure itself). The bottom render shows that locally, the edge markings are in good agreement with AHN3 visually, and are only occasionally incomplete. This location has the best vertical correspondence with AHN3, and also the best completeness, of all the areas I examined. For illustrations of the \textit{disagreements} between DTB and AHN3, please refer to Figure \ref{fig:lidarsegmentation1} and the associated discussion in Chapter \ref{chap:r}.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{final_report/figs/ahn_sample_10.png} 
+    \caption{Renders of DTB all line features (above) and \textit{verflijnen} only (below) overlain with AHN3 in 3D.}
+    \label{fig:dtbahn}
+\end{figure}
+
 \section{Methods of existing implementations}
 \label{sec:methodsexisting}
 
@@ -282,13 +289,6 @@ Figure \ref{fig:dtbahn} shows renders of DTB overlain on AHN3 with all DTB featu
 NDW themselves produced a prototype implementation, which can achieve a 3D enrichment of NWB with only a few gaps in the produced elevation profiles. Although their workflow does not have a formal documentation, I have been given a verbal description of it, as well as the output. Based on my understanding of these, their primary technique involved snapping close-by AHN3 Lidar points to the line geometries of NWB. Notable problems with the implementation included non-road points being snapped to centrelines, causing road centrelines to be given overestimated elevations, in turn resulting in abrupt spikes in the elevation profiles.
 
 Furthermore, no close-by points could be found for underground roads (i.e. tunnels), and strongly occluded parts of roads. For small gaps, this was resolved partially by writing an algorithm to interpolate linearly inside NWB, using the closest vertices where snapping was successful. For larger gaps, an attempt was made to resolve issues by including information from external sources semi-automatically. Neither issue could be fully resolved via these approaches, hence the results of this project were only used by NDW to gain a better understanding of the problem and the expected challanges. For the development of a reliable digital toolbox they subsequently commissioned a commercial implementation from RHDHV.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{final_report/figs/ahn_sample_10.png} 
-    \caption{Renders of DTB all line features (above) and \textit{verflijnen} only (below) overlain with AHN3 in 3D.}
-    \label{fig:dtbahn}
-\end{figure}
 
 \subsection{RHDHV's commercial implementation}
 \label{sub:commercialproduct}
