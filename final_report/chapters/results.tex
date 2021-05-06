@@ -289,16 +289,16 @@ Visualisations showing the results of the edge approximation step are shown in F
 
 The output of this step is mostly satisfactory, no road layouts apart from tunnels are known to me which would cause the algorithm to fail, or produce unusable results with the final parametrisation. Furthermore, owing to the verification step that takes place before accepting a cross-section (and extending the preliminary edge with its end vertices), the general shape of the edges is also quite well-behaved, and their elevation reflects what one would expect based on the underlying subclouds. In my final configuration, cross-sections have vertices every 10 centimetres (created via densification), and their elevation is derived from points no further than 25 centimetres away. This dense quantisation allows the algorithm to reconstruct road edges on a fine scale.
 
-In the two visualisations on left in Figure \ref{fig:edgeapproximation0}, I visualised the preliminary edges only. The top image looks down on \textit{Knoppunt Ridderkerk} from above, while the one below shows the same roads from the side. On the right in the figure, I show a visualisation in which a pair of preliminary edges and the underlying cross-sections can be compared with the subcloud that was used to generate them. In most cases, cross-sections and preliminary edges lie flat on road surfaces, and even where noticeable blunders are observed, they correspond to underestimating or overestimating the road surface extents by about 2 metres maximum.
-
-While the overall quality is good and the results are certainly usable in terms of the requirements of the next two pipeline steps, there are a few properties and limitations of these results that are worth discussing.
-
 \begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/edgeapproximation0.png}
     \caption{Visualisations illustrating the results of preliminary edge approximation.}
     \label{fig:edgeapproximation0}
 \end{figure}
+
+In the two visualisations on left in Figure \ref{fig:edgeapproximation0}, I visualised the preliminary edges only. The top image looks down on \textit{Knoppunt Ridderkerk} from above, while the one below shows the same roads from the side. On the right in the figure, I show a visualisation in which a pair of preliminary edges and the underlying cross-sections can be compared with the subcloud that was used to generate them. In most cases, cross-sections and preliminary edges lie flat on road surfaces, and even where noticeable blunders are observed, they correspond to underestimating or overestimating the road surface extents by about 2 metres maximum.
+
+While the overall quality is good and the results are certainly usable in terms of the requirements of the next two pipeline steps, there are a few properties and limitations of these results that are worth discussing.
 
 \subsubsection{On road width bounds}
 
@@ -318,7 +318,7 @@ I implemented a workaround that mitigates the effects of this issue. The line fi
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/edgeapproximation1.png}
+    \includegraphics[width=\linewidth]{final_report/figs/edgeapproximation1.png}
     \caption{Visualisations illustrating challenging edge approximation scenarios.}
     \label{fig:edgeapproximation1}
 \end{figure}
@@ -363,13 +363,6 @@ The second line writes the results to disk. Both the edges and the cross-section
 \subsection{Active contour optimisation}
 \label{sub:r_activecontours}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/activecontouroptimisation0.png}
-    \caption{Visualisations illustrating various degrees of active contour optimisation success.}
-    \label{fig:activecontouroptimisation0}
-\end{figure}
-
 As Figures \ref{fig:activecontouroptimisation0} and \ref{fig:activecontouroptimisation1} show, all planned parts of this pipeline step output the expected results, albeit with occasional artefacts and a mediocre overall quality. The contours are smooth, they generally reflect the shape of the roads accurately, and only occasionally suffer from major blunders. However, even small deviations beyond the road edges would cause off-road Lidar reflections to be classified as road points, and thus be inserted in the TIN model in the next step. Unfortunately, such deviations of various sizes occur frequently, as the close-up images in Figure \ref{fig:activecontouroptimisation1} demonstrate. With the help of the results, this section will focus on explaining why exactly it is difficult to guarantee that this workflow functions reliably, as this was the reason for a major revision of the design of the preliminary edge detection and TIN construction steps, which I already mentioned in Section \ref{sub:m_edgeapproximation}.
 
 \subsubsection{Attractor maps}
@@ -382,16 +375,16 @@ The optimised contours are shown overlain on the attractor maps on the right in 
 
 \subsubsection{Patterns of failure}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/activecontouroptimisation1.png}
-    \caption{Visualisations comparing optimised edges to the underlying attractor maps.}
-    \label{fig:activecontouroptimisation1}
-\end{figure}
-
 One important pattern is that the contours are sensitive to small-scale features in the preliminary edges. A few outlier edge points (an short, abrupt expansion of the preliminary edges, for instance) can introduce large bulges into the optimised edges. Similarly, where the preliminary edges shrink (for instance due to the influence of stationary vehicles), the optimised contours will tend to do so too, but on a much larger scale. The severity of the generated artefacts also depends on the local properties of the attractor maps.
 
 Another pattern, which I already mentioned in \ref{sub:m_activecontours}, is that where preliminary edges fall outside the bright part of attractor maps, the the optimisation procedure will often fail to move them back to the primary break in smoothness. The off-road areas may contain other high-contrast features due to the unevenness of the underlying real-life surfaces, and the edges will often be drawn to these instead of the edge of the road. This is in part due to the large weight the optimisation algorithm gives to the \textit{proximity} of the edges.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.85\linewidth]{final_report/figs/activecontouroptimisation0.png}
+    \caption{Visualisations illustrating various degrees of active contour optimisation success.}
+    \label{fig:activecontouroptimisation0}
+\end{figure}
 
 For the same reason, deliberately underestimating the road width (which was done in \cite{boyko_funkhauser_2011}) does not represent a solution here. If the preliminary edges are too far inwards from the break in smoothness, they will simply stay unchanged during optimisation. This behaviour cannot be changed simply via the parametrisation - I already give nearly full weight to edge detection in my final configuration. I also experimented with underestimating the preliminary road widths and giving more weight to attraction to darkness. Unfortunately, the results of this approach are even more unpredictable because the algorithm will frequently move the contours into the dark areas rather than stop at the edges.
 
@@ -408,6 +401,13 @@ The parameter $\beta$ controls the smoothness of the resulting contours, which c
 The parameter \codeword{w_line} controls attraction to dark or bright pixel values. The attractor maps that I described above have a sharp contrast between the brightness of off-road pixels (which are dark), and road pixels (which are bright). However, this contrast is localised to the edges of the roads, and any amount of attraction to either dark or bright areas would draw the contour deeper into that region rather than keep it on their boundary, both in theory and in practice. In my final implementation, it is set to 0.05 to introduce a very small amount of attraction to bright areas, so that the contours are more likely to stay on the inner side of the road edges rather than go past them.
 
 Thus, attraction in my recommended parametrisation is controlled almost entirely by edge detection (parameter \codeword{w_edge}). I set it to 1, meaning that the iterative refinement of the contours will be be governed primarily by attraction to edges, for reasons I already discussed above.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{final_report/figs/activecontouroptimisation1.png}
+    \caption{Visualisations comparing optimised edges to the underlying attractor maps.}
+    \label{fig:activecontouroptimisation1}
+\end{figure}
 
 In terms of iterations, I decided to work solely with a maximum number of iterations (parameter \codeword{max_iterations}) rather than to use condition-based termination. Setting a condition would terminate the optimisation process when the contours no longer move significantly, i.e. it checks when a minimum displacement threshold first becomes violated. Where the attractor maps are perfectly suitable for active contour optimisation, this approach works well. However, letting the contours evolve in such a way where the attractor maps are sub-optimal results in the drastic enlargement of the generated artefacts, as well as an unacceptable increase in computational complexity. This happens, for instance, where edges are not defined well enough, and where Lidar gaps are present. I found iteration limits between 1000 and 5000 to be the most effective.
 
