@@ -30,16 +30,16 @@ As scaling was not part of this project, the task of creating manageable subsets
 
 I derived the area of interest in which to keep Lidar points by buffering the centrelines in the NWB tiles by 150 metres, and passing these geometries on to LASTools to use to \textit{clip} the relevant AHN3 tiles. AHN3 itself comes tiled in the official release (on a much larger scale), and I derived each testing dataset from a single AHN3 tile to keep the manual procedure simple. I also discarded AHN3 points not classed as ground or bridge points at this stage (2 and 26 respectively), as they are not relevant to our methods.
 
-Visualisations are shown in Figure \ref{fig:manualpreprocessing} in which an NWB tile and the Lidar clipping polygon (on the left) is shown alongside the clipped point cloud tile (on the right). The clipping polygon was manually edited to have sharp, linear boundaries and NWB wegvakken (yellow lines) intersecting its interior (red areas) were included in the testing dataset. The resulting occasional overshoots of NWB centrelines (relative to AHN3) allowed me to test how well the procedure performs in areas where AHN3 is completely unavailable for a short distance, but where DTB coverage is present - hence, I kept them. They also caused unforeseen issues in the accuracy assessment, which I will discuss in Section \ref{sub:accuracytabulated}. On the right, the point cloud is shown in its original density, not a derived DTM. Darker areas represent lower elevations, the total elevation range shown in the image is about ten metres.
+Visualisations are shown in Figure \ref{fig:manualpreprocessing} in which an NWB tile and the Lidar clipping polygon (on the left) is shown alongside the clipped point cloud tile (on the right). The clipping polygon was manually edited to have sharp, linear boundaries and NWB \textit{wegvakken} (yellow lines) intersecting its interior (red areas) were included in the testing dataset. The resulting occasional overshoots of NWB centrelines (relative to AHN3) allowed me to test how well the procedure performs in areas where AHN3 is completely unavailable for a short distance, but where DTB coverage is present - hence, I kept them. They also caused unforeseen issues in the accuracy assessment, which I will discuss in Section \ref{sub:accuracytabulated}. On the right, the point cloud is shown in its original density, not a derived DTM. Darker areas represent lower elevations, the total elevation range shown in the image is about ten metres.
 
-I created 11 testing datasets in total, each with its own cropped NWB, DTB and AHN3 files, which are described in the next section. The dataset shown in this figure is Knoppunt Deil (from AHN3 tile \codeword{39CZ1}).
+I created 11 testing datasets in total, each with its own cropped NWB, DTB and AHN3 files, which are described in the next section. The dataset shown in this figure is \textit{Knooppunt Deil} (from AHN3 tile \codeword{39CZ1}).
 
 I picked 150 metres as a buffer distance for point cloud clipping not because I expected road surfaces to be so wide, but because I found that it reduced the volume of points to manageable levels in my testing tiles, while retaining plenty of neighbourhood information which I found to be useful for debugging purposes, and for the assessment of how well my algorithms perform in various environments next to roads - in other words, they provided context for the interpretation of intermediate results. Using a smaller buffer distance would lead to slightly reduced runtimes, but only by a small margin.
 
 \subsection{Description of testing datasets}
 \label{sub:testingdata}
 
-The set of chosen areas needed to be representative of the whole country to provide an insight into the effectiveness and performance of the algorithm in as many scenarios as possible. Furthermore, I also deliberately included areas which I thought would prove especially challenging, such as roads with many stationary vehicles, roads in multi-level 3D relationships (in motorway interchanges), as well as tunnels.
+The set of chosen areas needed to be representative of the whole country to provide an insight into the effectiveness and performance of the algorithm in as many scenarios as possible. Furthermore, I also deliberately included areas which I thought would prove especially challenging, such as roads with many stationary vehicles, roads in multi-level 3D relationships (in motorway junctions), as well as tunnels.
 
 Table \ref{tab:inventory} provides an inventory of these datasets. The tile identifier in the first column refers to those used in \cite{ahn3_download}; each dataset is found within a single AHN3 tile as I mentioned in the last section. The resulting datasets fit into memory easily even on a mediocre computer, and are also small enough to allow intermediate results to be visualised and interpreted quickly.
 
@@ -56,9 +56,9 @@ Veluwe, \codeword{32FZ2} & Straight R-roads surrounded by dense forest and cross
 Apeldoornseweg, \codeword{32HZ2} & P-road in dense forest with canopy frequently occluding the road surface, decreasing point density and occasionally creating gaps. The road has small parallel branches running very close to it, which may make it difficult for the algorithm to distinguish between them. It also has roundabouts. & \raisebox{-0.94\totalheight}{\includegraphics[width=6cm, height=3.5cm]{final_report/figs/ahn_sample_32HZ2_a.png}} \\
 Hoenderloo, \codeword{33CN2} & P-road in extremely dense, continuous forest with canopy frequently occluding the road surface, decreasing point density and occasionally creating gaps. Both lanes are on the same road surface & \raisebox{-0.94\totalheight}{\includegraphics[width=6cm, height=3.5cm]{final_report/figs/ahn_sample_33CN2_a.png}} \\
 Rotterdam Ketheltunnel, \codeword{37EZ1} & This segment of the A4 heading North from Rotterdam has been recently reconstructed in an underground tunnel. In addition, a significant portion of this R-road now runs in a trench towards Delft. AHN3 was imaged during the reconstruction, and hence contains anomalous data about the road surface. & \raisebox{-0.94\totalheight}{\includegraphics[width=6cm, height=3.5cm]{final_report/figs/ahn_sample_37EZ1_a.png}} \\
-Knoppunt Ridderkerk, \codeword{37HN2} & The Ridderkerk interchange is one of the largest of its kind in The Netherlands, in one place containing 4 overlapping R-roads. Furthermore, it contains a high density of R-roads in a small area, many of them very tightly packed. Many of them have very sharp bends. & \raisebox{-0.94\totalheight}{\includegraphics[width=6cm, height=3.5cm]{final_report/figs/ahn_sample_37HN2_a.png}} \\
-Gorinchem, \codeword{38GZ1} & Complex interchange between a P-road and an R-road with small ramps, roundabouts and overlapping geometries. & \raisebox{-0.95\totalheight}{\includegraphics[width=6cm, height=3.5cm]{final_report/figs/ahn_sample_38GZ1_a.png}} \\
-Knoppunt Deil, \codeword{39CZ1} & Less complex, but analogous interchange to the Knoppunt Ridderkerk. & \raisebox{-0.5\totalheight}{\textit{Please refer to Figures \ref{fig:ahnbridges}, \ref{fig:ahnsigns}, \ref{fig:ahnnwb} and \ref{fig:dtbahn}.}} \\
+Knooppunt Ridderkerk, \codeword{37HN2} & The Ridderkerk junction is one of the largest of its kind in The Netherlands, in one place containing 4 overlapping R-roads. Furthermore, it contains a high density of R-roads in a small area, many of them very tightly packed. Many of them have very sharp bends. & \raisebox{-0.94\totalheight}{\includegraphics[width=6cm, height=3.5cm]{final_report/figs/ahn_sample_37HN2_a.png}} \\
+Gorinchem, \codeword{38GZ1} & Complex junction between a P-road and an R-road with small ramps, roundabouts and overlapping geometries. & \raisebox{-0.95\totalheight}{\includegraphics[width=6cm, height=3.5cm]{final_report/figs/ahn_sample_38GZ1_a.png}} \\
+Knooppunt Deil, \codeword{39CZ1} & Less complex, but analogous junction to the Knooppunt Ridderkerk. & \raisebox{-0.5\totalheight}{\textit{Please refer to Figures \ref{fig:ahnbridges}, \ref{fig:ahnsigns}, \ref{fig:ahnnwb} and \ref{fig:dtbahn}.}} \\
 \toprule
 \caption{Inventory of testing datasets \label{tab:inventory}}
 \end{longtable}
@@ -75,7 +75,7 @@ The results below are presented in the same section structure as the detailed me
 \subsection{Splitting NWB into NBRS}
 \label{sub:r_nbrsgeneration}
 
-Each line colour in Figure \ref{fig:nbrsgeneration0} corresponds to a specific NBRS ID, meaning that LineStrings (wegvakken) belonging to the same NBRS are also coloured the same. The figure demonstrates that as a result of the NBRS generation step, the cropped road network becomes semantically enriched with identifiers linking certain LineStrings together, based on semantic or geometric conditions depending on which algorithm was used.
+Each line colour in Figure \ref{fig:nbrsgeneration0} corresponds to a specific NBRS ID, meaning that LineStrings (\textit{wegvakken}) belonging to the same NBRS are also coloured the same. The figure demonstrates that as a result of the NBRS generation step, the cropped road network becomes semantically enriched with identifiers linking certain LineStrings together, based on semantic or geometric conditions depending on which algorithm was used.
 
 The colours are generally inconsistent between the results of the two algorithms (top and bottom parts of the figure). Although the same colour scheme was used to prepare them, the two algorithms distribute the NBRS IDs differently.
 
@@ -94,11 +94,11 @@ In places where the above intersection angle related problem exists, choosing th
 
 \subsubsection{Issues with semantic algorithm}
 
-The green dotted circle in the semantic NBRS generation results points out a place where the role and road number of a ramp changes suddenly, outside of a real-life intersection, which results in the algorithm abruptly starting a new NBRS there. This is indicated by a change of colour from dark to light purple. The break happens in an unfortunate location, in the middle of a multi-level interchange where the continuation of NBRS is crucial so that large-scale trends across the complicated zone may be recognised effectively in later steps. This demonstrates that while the geometric algorithm is sensitive to problems with the georeferencing of the data, the semantic algorithm is sensitive to issues with the attribute table data. Within the testing tiles I examined, the two algorithms offered a comparable amount of benefits and drawbacks.
+The green dotted circle in the semantic NBRS generation results points out a place where the role and road number of a ramp changes suddenly, outside of a real-life intersection, which results in the algorithm abruptly starting a new NBRS there. This is indicated by a change of colour from dark to light purple. The break happens in an unfortunate location, in the middle of a multi-level junction where the continuation of NBRS is crucial so that large-scale trends across the complicated zone may be recognised effectively in later steps. This demonstrates that while the geometric algorithm is sensitive to problems with the georeferencing of the data, the semantic algorithm is sensitive to issues with the attribute table data. Within the testing tiles I examined, the two algorithms offered a comparable amount of benefits and drawbacks.
 
 \subsubsection{Evaluation and choice of algorithm}
 
-Both algorithms produce usable results overall. In general, the resulting chains of wegvakken (LineStrings) satisfy all the original requirements I set for the outputs of this step (minimise internal angles, maximise length, disallow self-intersections and branching). Based on some further testing after implementing the rest of the pipeline, I also verified that the choice of algorithm does not significantly influence the output of subsequent steps.
+Both algorithms produce usable results overall. In general, the resulting chains of \textit{wegvakken} (LineStrings) satisfy all the original requirements I set for the outputs of this step (minimise internal angles, maximise length, disallow self-intersections and branching). Based on some further testing after implementing the rest of the pipeline, I also verified that the choice of algorithm does not significantly influence the output of subsequent steps.
 
 Since the geometric algorithm generalises to arbitrary road networks better than the semantic algorithm (i.e. does not rely on specific properties of NWB), I used it to generate the rest of the results shown and discussed in this report.
 
@@ -106,12 +106,12 @@ Since the geometric algorithm generalises to arbitrary road networks better than
 
 In the software, before NBRS generation can be executed, the \codeword{nbrs_manager} class needs to be initialised with the file path to the cropped NWB file of the desired dataset. Example calls to perform geometric NBRS generation are provided below.
 
-\begin{lstlisting}
+\begin{verbatim}
 roads = nbrs_manager(fpath = nwb_fpath)
 roads.generate_nbrs(algorithm = 'geometric')
-\end{lstlisting}
+\end{verbatim}
 
-In the code snippet above, \codeword{nwb_fpath} refers to a variable containing the file path in the operating system to the cropped NWB file of the desired testing dataset. For instance, the file path could end in \codeword{.../C_39CZ1_nwb.shp}, using the naming convention of the released testing files, the dataset called "Knoppunt Deil" is desired. Switching to \codeword{algorithm = 'geometric'} triggers the use of the semantic algorithm.
+In the code snippet above, \codeword{nwb_fpath} refers to a variable containing the file path in the operating system to the cropped NWB file of the desired testing dataset. For instance, the file path could end in \codeword{.../C_39CZ1_nwb.shp}, using the naming convention of the released testing files, the dataset called \textit{Knooppunt Deil} is desired. Switching to \codeword{algorithm = 'geometric'} triggers the use of the semantic algorithm.
 
 The invocation \codeword{roads.plot_all()} may be executed to plot the results on a 2D diagram using random colours to distinguish between NBRS. At this point, NBRS generation results are saved in class variables only (see \codeword{roads.nbrs_wvkn}), hence running \codeword{roads.write_all()} at this point is \textbf{not} going to write the NBRS IDs into the attribute table. The imported road network is stored in \codeword{roads.nwb} in a GeoDataFrame which also contains the generated NBRS IDs.
 
@@ -148,14 +148,14 @@ The are two main aspects of the output that require our attention: how well the 
 
 \subsubsection{Effectiveness of 3D conversion}
 
+The top visualisation in Figure \ref{fig:elevationestimation2} illustrates that in the case of flat lengths of roads, centrelines are generally positioned very close to the Lidar-defined road surface (within a few centimetres in general). Outliers are atypical in well-exposed areas, corresponding to the lack of outliers in AHN3 itself (and its ground classification). The procedure is fast, runtimes for the testing datasets are generally in the range of 1 to 5 seconds on a mediocre computer.
+
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/elevationestimation2.png}
     \caption{Visualisations comparing preliminary 3D conversion results with the AHN3 point cloud.}
     \label{fig:elevationestimation2}
 \end{figure}
-
-The top visualisation in Figure \ref{fig:elevationestimation2} illustrates that in the case of flat lengths of roads, centrelines are generally positioned very close to the Lidar-defined road surface (within a few centimetres in general). Outliers are atypical in well-exposed areas, corresponding to the lack of outliers in AHN3 itself (and its ground classification). The procedure is fast, runtimes for the testing datasets are generally in the range of 1 to 5 seconds on a mediocre computer.
 
 Thinning the input point cloud aggressively can marginally improve the performance of this step, but it also drastically reduces its effectiveness in areas that are poorly sampled. This in turn may result in artefacts on a scale that also confuse the refinement step. I found that working with no thinning applied, or a maximum thinning factor of 3 (33\% of points kept) at most, works best. My final configuration uses a thinning factor of 2 when it imports the AHN3 data, which is carried over to all subsequent steps that work with it.
 
@@ -181,11 +181,11 @@ Even when using a sufficiently high outlier filtering threshold, the algorithm m
 
 The below code snippet shows the code that I used to generate my final results.
 
-\begin{lstlisting}
+\begin{verbatim}
 roads.densify(thres = 5)
 roads.estimate_elevations(fpath = ahn_fpath, r = 1, thin = 2)
 roads.write_all(fpath = simpleZ_fpath)
-\end{lstlisting}
+\end{verbatim}
 
 The first line performs vertex densification with a threshold of 5 metres. The second line performs the preliminary elevation estimation (and refinement) step, the variable \codeword{ahn_fpath} is assumed to contain a file path to the clipped AHN3 file belonging to the desired testing dataset. For instance, it could be \codeword{.../C_39CZ1_2_26_clipped.las} using the naming convention of the input files I released on GitHub. The tags \codeword{_2_26_clipped} in these file names refer to having kept only points in classes 2 and 26 (ground and bridge points respectively), and having clipped it to the extents of buffered centrelines. The variables \codeword{r} and \codeword{thin} control the query radius and thinning factor respectively, their default values are shown.
 
@@ -198,7 +198,7 @@ In the class itself, the results of this step are not stored in a separate varia
 
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{final_report/figs/lidarsegmentation0.png}
+    \includegraphics[width=0.86\linewidth]{final_report/figs/lidarsegmentation0.png}
     \caption{Visualisations illustrating the results of Lidar segmentation.}
     \label{fig:lidarsegmentation0}
 \end{figure}
@@ -207,20 +207,20 @@ Figure \ref{fig:lidarsegmentation0} shows some visualisations of the results of 
 
 \subsubsection{General description of results}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.86\linewidth]{final_report/figs/lidarsegmentation1.png}
-    \caption{Visualisations illustrating the disagreement between AHN3 and DTB.}
-    \label{fig:lidarsegmentation1}
-\end{figure}
-
 The properties which we are looking for in the resulting subclouds is that they contain as many of the road surface points, and as few of the surrounding unrelated points, as possible - especially with regards to points reflected from occluding objects. Figure \ref{fig:lidarsegmentation0} illustrates quite vividly that indeed, each NBRS's subcloud is clearly related to the underlying real-life road surface and that very few unrelated points are included.
 
 Since this is not yet the stage where conservative thresholds are enforced, it is possible that a small amount of undesired points will be retained. This is mostly happens just before and after regions of occlusion, where the underlying plane fits have already been affected by the occlusion but not enough to be excluded. An example of such a group of points (the bottom part of a wall) is found in the blue subcloud on the right in Figure \ref{fig:lidarsegmentation0}. Reflections from tall vehicles, as well as from roadside guardrails and small signs may also be retained in this step sometimes, which explains the fuzzy appearance of the bridges on the left in the same figure.
 
 This problem arises because the Lidar patches inevitably include off-road points, causing the fitted planes not to lie perfectly on the road surfaces. This in turn means that using very strict point-to-plane thresholds is not advisable, opening the possibility for unrelated points to make it into the subclouds. While iteratively refining the plane fits could reduce the impact of this issue, it would also introduce unnecessary computational complexity. This step of the pipeline does not \textit{need} to to produce perfect results, the small number of artefacts can be handled by later pipeline steps. 
 
-The visualisation on the left in Figure \ref{fig:lidarsegmentation0} shows the Knoppunt Ridderkerk motorway interchange in which many motorway lanes and ramps are present in complex 3D relationships, in one place including an area with 4 overlapping roads. The correctness of the resulting subclouds demonstrates that although some of my approach is procedural and relies on a fixed parametrisation, it is still robust enough to work in the simplest, as well as the most challenging environments.
+The visualisation on the left in Figure \ref{fig:lidarsegmentation0} shows the \textit{Knooppunt Ridderkerk} motorway junction in which many motorway lanes and ramps are present in complex 3D relationships, in one place including an area with 4 overlapping roads. The correctness of the resulting subclouds demonstrates that although some of my approach is procedural and relies on a fixed parametrisation, it is still robust enough to work in the simplest, as well as the most challenging environments.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/lidarsegmentation1.png}
+    \caption{Visualisations illustrating the disagreement between AHN3 and DTB.}
+    \label{fig:lidarsegmentation1}
+\end{figure}
 
 \subsubsection{DTB's usefulness}
 
@@ -228,22 +228,15 @@ As discussed in-depth in Section \ref{sub:m_lidarsegmentation}, the final versio
 
 Furthermore, even in the knowledge that DTB is severely outdated in many places (see Section \ref{sub:dtb}), it is still the only information source we have about roads where AHN3 coverage is missing. Where the break in AHN3 coverage is short and DTB is outdated (or missing), linear interpolation prevails. However, where longer gaps are present and the road's elevation may change inside of them, DTB prevails even if its data its outdated.
 
-Unlike in most locations, DTB has good coverage in the particular motorway interchanges shown in Figures \ref{fig:lidarsegmentation0} and \ref{fig:lidarsegmentation1}, especially in the \textit{Knoppunt Ridderkerk} interchange. Each of the visualisations in these figures contain examples of how DTB-based "assistance" manifests itself in the output. Where subclouds contain Lidar-gaps filled with points in a linear arrangement, one can be certain that DTB was used to re-fit planes and to supply points to the subcloud. On the left in Figure \ref{fig:lidarsegmentation0}, these linear sets of points appear in the lowest motorway lanes and ramps wherever the 3 overlying roads cast "shadows" on it, creating occluded zones of various shapes. Each level of the stack of roads has such a feature, except for the one on the top, which is not occluded by any objects.
+Unlike in most locations, DTB has good coverage in the particular motorway junctions shown in Figures \ref{fig:lidarsegmentation0} and \ref{fig:lidarsegmentation1}, especially in the \textit{Knooppunt Ridderkerk} junction. Each of the visualisations in these figures contain examples of how DTB-based "assistance" manifests itself in the output. Where subclouds contain Lidar-gaps filled with points in a linear arrangement, one can be certain that DTB was used to re-fit planes and to supply points to the subcloud. On the left in Figure \ref{fig:lidarsegmentation0}, these linear sets of points appear in the lowest motorway lanes and ramps wherever the 3 overlying roads cast "shadows" on it, creating occluded zones of various shapes. Each level of the stack of roads has such a feature, except for the one on the top, which is not occluded by any objects.
 
-While this demonstrates that DTB - or any support dataset with road surface elevation measurements - can be helpful in complementing this procedure (which is otherwise based entirely on AHN3), it also highlights one of DTB's weaknesses. While the areas shown in these figures have good DTB coverage, the DTB lines in the \textit{Knoppunt Ridderkerk} dataset are in some cases approximately two decades older than AHN3 (they are up-to-date in \textit{Knoppunt Deil}). Figure \ref{fig:lidarsegmentation1} demonstrates that there are noticeable systematic differences between the road elevations as depicted by AHN3 and DTB.
+While this demonstrates that DTB - or any support dataset with road surface elevation measurements - can be helpful in complementing this procedure (which is otherwise based entirely on AHN3), it also highlights one of DTB's weaknesses. While the areas shown in these figures have good DTB coverage, the DTB lines in the \textit{Knooppunt Ridderkerk} dataset are in some cases approximately two decades older than AHN3 (they are up-to-date in \textit{Knooppunt Deil}). Figure \ref{fig:lidarsegmentation1} demonstrates that there are noticeable systematic differences between the road elevations as depicted by AHN3 and DTB.
 
-In \textit{Knoppunt Ridderkerk}, DTB is above AHN3 consistently, but the \textit{Gorinchem} dataset and several others show DTB \textit{below} AHN3. Moreover, as the top visualisation in Figure \ref{fig:lidarsegmentation1} shows, perfectly and poorly matching DTB and AHN3 data and can often be found side-by-side, with only a few years of difference between the DTB acquisition times. While in Section \ref{sub:dtb} I primarily attributed these problems to the effects of subsidence, a further investigation of the problem is justified based on these results. The reasons for these differences may be more complex than simply just being the result of subsidence.
+In \textit{Knooppunt Ridderkerk}, DTB is above AHN3 consistently, but the \textit{Gorinchem} dataset and several others show DTB \textit{below} AHN3. Moreover, as the top visualisation in Figure \ref{fig:lidarsegmentation1} shows, perfectly and poorly matching DTB and AHN3 data and can often be found side-by-side, with only a few years of difference between the DTB acquisition times. While in Section \ref{sub:dtb} I primarily attributed these problems to the effects of subsidence, a further investigation of the problem is justified based on these results. The reasons for these differences may be more complex than simply just being the result of subsidence.
 
 This issue draws our attention to the general issue of temporal discrepancies between all our datasets - NWB, AHN3, and DTB. This is further discussed in Sections \ref{sub:r_tinconstruction} and \ref{sub:r_interpolation} in the context of how it affects our results. Overall, the results suggest that even if we solely attribute the vertical land motion to subsidence, a 20 cm verical accuracy can only be guaranteed by periodically re-measuring the input elevations in both the primary and the support datasets.
 
 \subsubsection{Splitting NBRS into parts}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.86\linewidth]{final_report/figs/lidarsegmentation2.png}
-    \caption{Visualisation illustrating the handling of gaps in AHN3 coverage during Lidar segmentation.}
-    \label{fig:lidarsegmentation2}
-\end{figure}
 
 On the left in Figure \ref{fig:lidarsegmentation2}, a region with neither AHN3, nor DTB coverage is shown. In this location, the NBRS was split into two parts and in the figure, this is illustrated by the fact that I could highlight the subcloud on one side of the gap separately. The matching colour of the points shows that they still belong to the same NBRS, but the program stores a separate subcloud for each NBRS part, meaning that they are loaded as a separate MultiPoint object in the 3D viewer I used to generate these figures. NBRS splitting also works well in general, it performs as expected.
 
@@ -267,14 +260,21 @@ When pre-selecting the final set of conformant points from the patches, the prog
 
 While the post-processing operations of this pipeline step (breaking into NBRS parts and filtering outliers) also have a few parameters, these are insignificant and are thus omitted from this discussion.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.92\linewidth]{final_report/figs/lidarsegmentation2.png}
+    \caption{Visualisation illustrating the handling of gaps in AHN3 coverage during Lidar segmentation.}
+    \label{fig:lidarsegmentation2}
+\end{figure}
+
 \subsubsection{Using the implementation}
 
 The below code snippet shows the code I used to generate my final results.
 
-\begin{lstlisting}
+\begin{verbatim}
 roads.segment_lidar(fpath = dtb_fpath, r = 10)
 roads.write_subclouds(fpath = subclouds_fpath)
-\end{lstlisting}
+\end{verbatim}
 
 The first line performs the point cloud segmentation itself, with a radius of 10 metres for the KD-tree queries that generate the Lidar patches. The variable \codeword{dtb_fpath} is assumed to contain the file path to the cropped DTB file belonging to the desired testing dataset. The second line writes the resulting subclouds to disk, the argument variable is assumed to contain the file path to the desired output file.
 
@@ -298,7 +298,7 @@ The output of this step is mostly satisfactory, no road layouts apart from tunne
     \label{fig:edgeapproximation0}
 \end{figure}
 
-In the two visualisations on left in Figure \ref{fig:edgeapproximation0}, I visualised the preliminary edges only. The top image looks down on \textit{Knoppunt Ridderkerk} from above, while the one below shows the same roads from the side. On the right in the figure, I show a visualisation in which a pair of preliminary edges and the underlying cross-sections can be compared with the subcloud that was used to generate them. In most cases, cross-sections and preliminary edges lie flat on road surfaces, and even where noticeable blunders are observed, they correspond to underestimating or overestimating the road surface extents by about 2 metres maximum.
+In the two visualisations on left in Figure \ref{fig:edgeapproximation0}, I visualised the preliminary edges only. The top image looks down on \textit{Knooppunt Ridderkerk} from above, while the one below shows the same roads from the side. On the right in the figure, I show a visualisation in which a pair of preliminary edges and the underlying cross-sections can be compared with the subcloud that was used to generate them. In most cases, cross-sections and preliminary edges lie flat on road surfaces, and even where noticeable blunders are observed, they correspond to underestimating or overestimating the road surface extents by about 2 metres maximum.
 
 While the overall quality is good and the results are certainly usable in terms of the requirements of the next two pipeline steps, there are a few properties and limitations of these results that are worth discussing.
 
@@ -345,7 +345,7 @@ Serious problems only arise when the gap appears at the end or the beginning of 
 
 A similar problem arises when a road is occluded in a bend. Depending on the sharpness of the bend and the extent of the occlusion, the preliminary edges may end up directly connecting the last cross-section before the occlusion and the first one after. Taking such a "shortcut" means that DTB points in the data gap will mostly be ignored during TIN generation because they will not fall between the preliminary edges.
 
-I have not observed the above limitations to cause issues with roads that are built on the surface in practice. However, they do mean that my system design is not compatible with tunnels out-of-the-box. Unless the tunnel is completely straight and the relevant NBRS part continues across its full length, the DTB points in the tunnel will be ignored during TIN construction, and therefore the TIN models and the 3D conversion of NWB will be incorrect locally. I tested and verified this issue with the \textit{"Amsterdam Hemhavens"} and \textit{"Amsterdam Zuid"} testing datasets, which both contain tunnels.
+I have not observed the above limitations to cause issues with roads that are built on the surface in practice. However, they do mean that my system design is not compatible with tunnels out-of-the-box. Unless the tunnel is completely straight and the relevant NBRS part continues across its full length, the DTB points in the tunnel will be ignored during TIN construction, and therefore the TIN models and the 3D conversion of NWB will be incorrect locally. I tested and verified this issue with the \textit{Amsterdam Hemhavens} and \textit{Amsterdam Zuid} testing datasets, which both contain tunnels.
 
 As I noted in Section \ref{sub:dtb}, I treat DTB as a "placeholder" for a better supporting dataset (optimally, an MLS dataset). As a result, its vector properties are not used - it is assumed to consist of generic point data. However, treating it properly as a 3D line dataset in AHN3 data gaps would fix the above issues, i.e. it would become possible to generate edge estimates from DTB much like in the commercial implementation. Such an extra feature did not fit into the schedule of my project, hence it is only further discussed in the Future work section in the Conclusions chapter (see Section \ref{sec:futurework}).
 
@@ -353,10 +353,10 @@ As I noted in Section \ref{sub:dtb}, I treat DTB as a "placeholder" for a better
 
 In my example code on GitHub, I use the following two lines to generate and export the preliminary edges:
 
-\begin{lstlisting}
+\begin{verbatim}
 roads.estimate_edges(min_width = 3.5, max_width = 7, thres = 1, perc_to_fit = 0.4)
 roads.write_edges(fpath_edges = edges_fpath, fpath_crosses = crosses_fpath)
-\end{lstlisting}
+\end{verbatim}
 
 The first line generates the preliminary edges. The arguments (all compulsory) set the minimum and maximum road width, the outlier filtering threshold, and the ratio of how much of the cross-sections should be fitted with lines. The first two arguments should be specified in metres. The second argument specifies the number of standard deviations of data-model errors, within which points should be considered inliers, so the current value means one standard deviation. The last argument accepts values between 0 and 1, the current value means that the central 40\% of cross-sections will be used as the basis for the line fits.
 
@@ -366,6 +366,13 @@ The second line writes the results to disk. Both the edges and the cross-section
 \label{sub:r_activecontours}
 
 As Figures \ref{fig:activecontouroptimisation0} and \ref{fig:activecontouroptimisation1} show, all planned parts of this pipeline step output the expected results, albeit with occasional artefacts and a mediocre overall quality. The contours are smooth, they generally reflect the shape of the roads accurately, and only occasionally suffer from major blunders. However, even small deviations beyond the road edges would cause off-road Lidar reflections to be classified as road points, and thus be inserted in the TIN model in the next step. Unfortunately, such deviations of various sizes occur frequently, as the close-up images in Figure \ref{fig:activecontouroptimisation1} demonstrate. With the help of the results, this section will focus on explaining why exactly it is difficult to guarantee that this workflow functions reliably, as this was the reason for a major revision of the design of the preliminary edge detection and TIN construction steps, which I already mentioned in Section \ref{sub:m_edgeapproximation}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.84\linewidth]{final_report/figs/activecontouroptimisation0.png}
+    \caption{Visualisations illustrating various degrees of active contour optimisation success.}
+    \label{fig:activecontouroptimisation0}
+\end{figure}
 
 \subsubsection{Attractor maps}
 
@@ -380,13 +387,6 @@ The optimised contours are shown overlain on the attractor maps on the right in 
 One important pattern is that the contours are sensitive to small-scale features in the preliminary edges. A few outlier edge points (an short, abrupt expansion of the preliminary edges, for instance) can introduce large bulges into the optimised edges. Similarly, where the preliminary edges shrink (for instance due to the influence of stationary vehicles), the optimised contours will tend to do so too, but on a much larger scale. The severity of the generated artefacts also depends on the local properties of the attractor maps.
 
 Another pattern, which I already mentioned in \ref{sub:m_activecontours}, is that where preliminary edges fall outside the bright part of attractor maps, the the optimisation procedure will often fail to move them back to the primary break in smoothness. The off-road areas may contain other high-contrast features due to the unevenness of the underlying real-life surfaces, and the edges will often be drawn to these instead of the edge of the road. This is in part due to the large weight the optimisation algorithm gives to the \textit{proximity} of the edges.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.85\linewidth]{final_report/figs/activecontouroptimisation0.png}
-    \caption{Visualisations illustrating various degrees of active contour optimisation success.}
-    \label{fig:activecontouroptimisation0}
-\end{figure}
 
 For the same reason, deliberately underestimating the road width (which was done in \cite{boyko_funkhauser_2011}) does not represent a solution here. If the preliminary edges are too far inwards from the break in smoothness, they will simply stay unchanged during optimisation. This behaviour cannot be changed simply via the parametrisation - I already give nearly full weight to edge detection in my final configuration. I also experimented with underestimating the preliminary road widths and giving more weight to attraction to darkness. Unfortunately, the results of this approach are even more unpredictable because the algorithm will frequently move the contours into the dark areas rather than stop at the edges.
 
@@ -404,7 +404,7 @@ The parameter \codeword{w_line} controls attraction to dark or bright pixel valu
 
 Thus, attraction in my recommended parametrisation is controlled almost entirely by edge detection (parameter \codeword{w_edge}). I set it to 1, meaning that the iterative refinement of the contours will be be governed primarily by attraction to edges, for reasons I already discussed above.
 
-\begin{figure}[h]
+\begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/activecontouroptimisation1.png}
     \caption{Visualisations comparing optimised edges to the underlying attractor maps.}
@@ -429,14 +429,14 @@ Lesser known, but more sophisticated offshoots of active contour optimisation ex
 
 The following lines of code may be used to run active contour optimisation and export the attractor maps and resulting optimised edges:
 
-\begin{lstlisting}
+\begin{verbatim}
 roads.optimise_edges(size = 0.5,
                      a = 0, b = 0.01, g = 0.005,
                      w_l = 0.05, w_e = 1,
                      max_iter = 1000)
 roads.write_maps(fpath = maps_fpath)
 roads.write_contours(fpath = conts_fpath)
-\end{lstlisting}
+\end{verbatim}
 
 The first argument \codeword{size} in the active contour optimisation method corresponds to the desired pixel size. The rest of the parameters expose some of the active contour optimisation parameters that I found the be useful for making smaller changes to the algorithm's behaviour. The arguments \codeword{a}, \codeword{b} and \codeword{g} correspond to $\alpha$, $\beta$ and $\gamma$ respectively, while \codeword{w_l} and \codeword{w_e} correspond to the two parameters controlling attraction to brightness and edges (\codeword{w_line} \codeword{w_edge} respectively). The last parameter sets the maximum number of iterations.
 
@@ -454,7 +454,7 @@ In the class, the maps can be found in the variable \codeword{.nbrs_maps[nbrs_id
     \label{fig:tinconstruction0}
 \end{figure}
 
-By adjusting my methods to the circumstance of not being able to produce accurate enough optimised edges, I created a different implementation than originally planned, but one which is still robust and accurate. Figures \ref{fig:tinconstruction0} and \ref{fig:tinconstruction1} show examples of the resulting models compared with the preliminary edges and preliminary elevations. The images in Figure \ref{fig:tinconstruction0} show an initial TIN surface, and the same TIN after the extension stage. In these figures, the preliminary edges are shown because the initial TIN surface is seeded halfway between them, and because the TIN is only allowed to grow between them in the initialisation stage. The upper, large-scale image in Figure \ref{fig:tinconstruction1} shows and overview of all TIN surfaces in the \textit{"Knoppunt Deil"} dataset, and the bottom two images show small-scale examples of typical extension artefacts. The TIN structure is highlighted in one of the TINs in Figure \ref{fig:tinconstruction0}.
+By adjusting my methods to the circumstance of not being able to produce accurate enough optimised edges, I created a different implementation than originally planned, but one which is still robust and accurate. Figures \ref{fig:tinconstruction0} and \ref{fig:tinconstruction1} show examples of the resulting models compared with the preliminary edges and preliminary elevations. The images in Figure \ref{fig:tinconstruction0} show an initial TIN surface, and the same TIN after the extension stage. In these figures, the preliminary edges are shown because the initial TIN surface is seeded halfway between them, and because the TIN is only allowed to grow between them in the initialisation stage. The upper, large-scale image in Figure \ref{fig:tinconstruction1} shows and overview of all TIN surfaces in the \textit{Knooppunt Deil} dataset, and the bottom two images show small-scale examples of typical extension artefacts. The TIN structure is highlighted in one of the TINs in Figure \ref{fig:tinconstruction0}.
 
 \subsubsection{TIN initialisation}
 
@@ -486,7 +486,7 @@ Therefore, the algorithm uses stricter thresholds for the conditional insertions
 
 While such a conservative parametrisation certainly avoids the addition of clearly defined outliers, I found it to offer only a partial solution to the above issues. After some careful inspection, I concluded that in almost all cases, pre-existing "bridge points" from the TIN initialisation step appear to be the culprits. They eliminate the gradients that would otherwise stop the extension from growing in a particular direction. Furthermore, it appears that the transition from road to off-road surfaces may occasionally take place on such a fine scale that not even these thresholds can prevent the surface growing towards them, even where TIN initialisation did not introduce such bridges.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/tinconstruction1.png}
     \caption{Visualisations providing an overview of constructed TINs and illustrating TIN artefacts.}
@@ -521,7 +521,7 @@ While using 50\% of the AHN3 point density (via a thinning factor of 2) offered 
 
 Before running the TIN construction procedure, the program is equipped with subclouds, each with Lidar points relevant to a specific NBRS part. Since all prior steps are configured to keep as many of the surface points as possible, it is generally the case that their point density on the road surface is comparable to the thinned point density of the imported AHN3 data. Inserting such a large volume of points into the TIN may not always be practical. For instance, visualising the generated surfaces becomes slow even with modern software, and the stochastic Lidar noise becomes clearly visible (the ripples can be seen very clearly in Figures \ref{fig:tinconstruction0} \ref{fig:tinconstruction1} due to the 5-fold vertical exaggeration). This much detail may also be impractical for applications that deal with modelling processes on the surface itself, and has implications for the accuracy assessment (see Section \ref{sec:accuracy}).
 
-The performance of this step thus depends on the input Lidar thinning. In practice, a thinning factor of 2 means that we are still working with around 10-40 Lidar points per m\textsuperscript{2}, which results in mediocre performance. While my implementation did take performance considerations into account initially (for instance the buffer-filling approach is the result of this), later modifications, such as working with multiple triangles and plane fitting when growing the road surface, resulted in the performance of the final implementation decreasing gradually. In particular, not running TIN extension can improve runtimes drastically, which may be useful for users who are only interested in interpolating NWB elevations.
+The performance of this step thus depends on the input Lidar thinning. In practice, a thinning factor of 2 means that we are still working with around 10-30 Lidar points per m\textsuperscript{2}, which results in mediocre performance. While my implementation did take performance considerations into account initially (for instance the buffer-filling approach is the result of this), later modifications, such as working with multiple triangles and plane fitting when growing the road surface, resulted in the performance of the final implementation decreasing gradually. In particular, not running TIN extension can improve runtimes drastically, which may be useful for users who are only interested in interpolating NWB elevations.
 
 As I will further explain in Section \ref{sec:accuracy}), the system design guarantees that NWB will generally lie on the TIN models in 2D, making it possible to interpolate elevations in it for its vertices. Exceptions to this rule occur in places where preliminary edge estimates or optimised edges disagree with NWB badly. Where this occurs, TIN initialisation will not be able to insert points in the TINs at the 2D location of NWB. With preliminary edges, this may only occur where cross-sections were skipped too many times in a row where the road is not straight, which may happen in various circumstances I have already described in Section \ref{sub:r_edgeapproximation}. With active contour optimisation, this may occur more frequently, depending on the local density of generated artefacts.
 
@@ -535,13 +535,13 @@ These two qualities need to be distinguished not only because of the conceptual 
 
 The following two commands may be used to run TIN construction and export the resulting 3D surface models:
 
-\begin{lstlisting}
+\begin{verbatim}
 roads.build_tin(max_dh_int = 0.1, max_angle_int = 0.12, r_int = 1,
                 max_dh_ext = 0.03, max_angle_ext = 0.04, r_ext = 0.8,
                 ext_steps = 5, ext_dist = 0.5,
                 type_edges = 'preliminary')
 roads.write_tins(fpath = tin_fpath)
-\end{lstlisting}
+\end{verbatim}
 
 The first method invocation performs the TIN construction itself. The first line of arguments corresponds to the elevation and angle thresholds, and the buffer-filling query radius used in TIN initialisation, respectively. The role of the second line of arguments is identical, with the exception that they are used for TIN extension. The next two arguments (\codeword{ext_steps} and \codeword{ext_dist}) specify the number of extension steps to be performed, and the distance by which the query region should be expanded in each step. The first insertion boundary for extension is always a polygon created by buffering the seed LineString by 0.5 metres; the extension starts from this base boundary. If no extension is desired, \codeword{ext_steps} should be set to 0. The last parameter, \codeword{type_edges} can be set either to \codeword{preliminary} or \codeword{optimised}; it controls which type of road edges the user desires to use.
 
@@ -591,7 +591,7 @@ While the two outputs are not directly comparable, the exceptionally good match 
 
 It is also important to note here that while the preliminary edges may be missing vertices in some places (indicated by the cross-sections also being absent), this is not the case in any of my final 3D-NWB results. As long as the centreline is found between the edges, a TIN will be constructed locally and TIN-based elevations will be computed. As I already described previously, this is only violated in places where many cross-sections are skipped in a row, which is rare in my results.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/elevationinterpolation1.png}
     \caption{Visualisations comparing final 3D conversion results to the underlying TIN models.}
@@ -600,7 +600,7 @@ It is also important to note here that while the preliminary edges may be missin
 
 \subsubsection{Comparison with TIN models}
 
-Example comparisons between the final output and the TINs are shown in Figure \ref{fig:elevationinterpolation1}. An interesting aspect of this comparison is that the final 3D-converted centrelines are often found slightly above or below the model (less than a centimetre, typically). This is best evidenced in the output by the intermittent disappearance of the 3D centrelines beneath the TIN triangles. This is the result of the georeferencing of NWB being coarse \textit{relative to the TINs} even after applying vertex densification. NBRS parts only have vertices approximately every 5 metres, whereas AHN3 has up to 20 to 40 points per m\textsuperscript{2}. This disparity simply indicates that if we wanted to, we could sample the TIN at smaller intervals to increase the output's vertical resolution. However, NDW officially requires elevations only to be estimated at the original NWB vertices, which can be several times further apart even than my densified vertices. In other words, these TINs offer far more detail than that which would be minimally required for the conversion, as expected from such a high-resolution surface model.
+Example comparisons between the final output and the TINs are shown in Figure \ref{fig:elevationinterpolation1}. An interesting aspect of this comparison is that the final 3D-converted centrelines are often found slightly above or below the model (less than a centimetre, typically). This is best evidenced in the output by the intermittent disappearance of the 3D centrelines beneath the TIN triangles. This is the result of the georeferencing of NWB being coarse \textit{relative to the TINs} even after applying vertex densification. NBRS parts only have vertices approximately every 5 metres, whereas AHN3 has up to 10 to 30 points per m\textsuperscript{2} after after thinning using a factor of 2. This disparity simply indicates that if we wanted to, we could sample the TIN at smaller intervals to increase the output's vertical resolution. However, NDW officially requires elevations only to be estimated at the original NWB vertices, which can be several times further apart even than my densified vertices. In other words, these TINs offer far more detail than that which would be minimally required for the conversion, as expected from such a high-resolution surface model.
 
 An example where NWB gets close to the edge of the TIN is shown in the bottom left image. This is representative of the typical severity of the NWB georeferencing issue in sharp bends. While it was difficult to overcome numerous processing difficulties related to this problem with NWB, it bears almost no influence on the effectiveness of the TIN interpolation process as long as the TIN exists locally. Where NWB lines are close to road edges, the underlying TIN models will still always describe the surface of the road according to our expectations. They will potentially include off-road points, but from the point of view of the 3D conversion of NWB, this does not matter. Even if NWB is not on the road surface, the TIN will likely be constructed locally and off-road elevations will be interpolated for it.
 
@@ -612,20 +612,20 @@ Where no AHN3 \textit{or} DTB coverage is available, the TIN will not exist and 
 
 The following two commands may be used to run the final elevation interpolation code, and export the resulting 3D-converted version of NWB as a Shapefile:
 
-\begin{lstlisting}
+\begin{verbatim}
 roads.interpolate_elevations()
 roads.write_all(fpath = accurateZ_fpath,
                 to_drop = ['geometry_simpleZ'])
-\end{lstlisting}
+\end{verbatim}
 
 The algorithm does not have a parametrisation, hence the method invocation does not require any arguments. The \codeword{.write_all()} invocation requires a list of GeoDataFrame columns to drop, as the Shapefile can only have one set of geometries in it. The column name in \codeword{['geometry_simpleZ']} corresponds to the preliminary elevation estimates. The original 2D NWB geometries are always dropped automatically, so that column does not need to be manually specified.
 
-In the \codeword{nbrs_manager} class, the final results are added to the class's \codeword{.nwb} variable, as the \codeword{geometry_simpleZ} geometry column of the GeoDataFrame. Since Shapefiles also cannot accept arrays into their attribute tables, the vertex origin indicators (AHN3/DTB/linear interpolation) are also not written into the output file. These can be found in \codeword{.wvk_z_origins[wvk_id]}, a dictionary that needs to be indexed with the wegvak's ID whose vertex origins are desired.
+In the \codeword{nbrs_manager} class, the final results are added to the class's \codeword{.nwb} variable, as the \codeword{geometry_simpleZ} geometry column of the GeoDataFrame. Since Shapefiles also cannot accept arrays into their attribute tables, the vertex origin indicators (AHN3/DTB/linear interpolation) are also not written into the output file. These can be found in \codeword{.wvk_z_origins[wvk_id]}, a dictionary that needs to be indexed with the \textit{wegvak}'s ID whose vertex origins are desired.
 
 \section{Accuracy assessment}
 \label{sec:accuracy}
 
-In this section, I will present the accuracy assessment results focusing on a particular dataset: \textit{"Knoppunt Deil"}. This dataset exhibits most of the unique features that are relevant for this part of the analysis, and it is my hope that such a "case study" approach makes understanding the assessment's results more straightforward. Following the case study, I will present and discuss an overview of the relevant accuracy metrics for all testing datasets, in a tabulated format.
+In this section, I will present the accuracy assessment results focusing on a particular dataset: \textit{Knooppunt Deil}. This dataset exhibits most of the unique features that are relevant for this part of the analysis, and it is my hope that such a "case study" approach makes understanding the assessment's results more straightforward. Following the case study, I will present and discuss an overview of the relevant accuracy metrics for all testing datasets, in a tabulated format.
 
 I will first focus on the results of computing local sampling densities and formal output accuracy values (error propagation results). Then, I will discuss how often the accuracy needs to be deemed unknown and for what reasons. Lastly, the completeness of the output TINs relative to the BGT reference polygons will be examined. Please refer to the relevant sections in Chapter \ref{chap:mm} (\ref{sub:accuracyoverview} and \ref{sec:m_accuracyassessment}) for the background theory and the detailed description regarding the assumptions I made.
 
@@ -643,7 +643,7 @@ As I briefly mentioned in Section \ref{sub:accuracyoverview}, I first attempted 
 
 My initial hypothesis was that the primary influence on accuracy has to be sampling density and interpolation error, because ground filtering errors and surface ruggedness already appeared to me as irrelevant based on my experience with the data and the results. To be able to verify the hypothesis and compute empirical errors based on it, I constructed an error model and derived errors for each output vertex from it. I constructed the model by removing samples (vertices) from the output TINs, interpolating their values via the TIN-linear method, and computing the differences between the removed Lidar samples, and the interpolated elevations (in essence, a jackknife approach). I fit a cubic polynomial on the part of the scatter where we have enough data, and derived NWB accuracy values from it.
 
-While I was doing this, I noticed that all my output errors were extremely small, and all roughly the same. This made me start suspecting the irrelevance of sampling density in our particular scenario, so I plotted the data and the model to verify this new hypothesis. Figure \ref{fig:empiricalaccuracy0} shows an example visualisation created from the empirical accuracy assessment of testing dataset \textit{"Knoppunt Deil"}. The chart on the left shows local sampling density plotted against the jackknife errors, computed for about 10\textsuperscript{5} TIN vertices (10\% of the total number of TIN vertices of all TIN models generated from this testing dataset).
+While I was doing this, I noticed that all my output errors were extremely small, and all roughly the same. This made me start suspecting the irrelevance of sampling density in our particular scenario, so I plotted the data and the model to verify this new hypothesis. Figure \ref{fig:empiricalaccuracy0} shows an example visualisation created from the empirical accuracy assessment of testing dataset \textit{Knooppunt Deil}. The chart on the left shows local sampling density plotted against the jackknife errors, computed for about 10\textsuperscript{5} TIN vertices (10\% of the total number of TIN vertices of all TIN models generated from this testing dataset).
 
 While at a first glance one might think that the inverse parabola shape in the scatter plot represents a meaningful trend, it does not, in fact, possess the correct shape for the relationship. We know from literature that when a correlation exists between errors and sampling densities, it tends to be logarithmic, and the trend in my chart does not appear to have that property. The fitted model does appear to have a weak logarithmic component, but it shows errors to increase in the wrong direction (towards larger sampling density), and the predicted error magnitudes are far too small to be meaningful too. The histogram on the right reveals that the shape of the scatter plot does not correspond to a statistical trend that concerns a relationship between sampling density and jackknife error - it can be fully explained by the distribution of the sampling densities in the dataset.
 
@@ -656,16 +656,16 @@ Although this analysis suggests that any errors in the output will be small and 
 
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{final_report/figs/formalaccuracy0.pdf}
-    \caption{Charts illustrating the formal accuracy assessment results on two wegvakken.}
+    \includegraphics[width=0.9\linewidth]{final_report/figs/formalaccuracy0.pdf}
+    \caption{Charts illustrating the formal accuracy assessment results on two \textit{wegvakken}.}
     \label{fig:formalaccuracy0}
 \end{figure}
 
-The charts in Figure \ref{fig:formalaccuracy0} show interpolation error profiles from 2 wegvakken from our chosen testing dataset. From the lack of a trend in the errors, and their small magnitudes overall, we may deduce that the output accuracy is sufficiently high with respect to the 20-centimetre requirement of NDW. Any differences due to the TIN-linear interpolation represent an \textit{increase} in accuracy relative to the 15 cm elevation accuracy of AHN3. The two wegvakken shown in the figure exhibit theoretical interpolation elevation errors in a range of about 4 centimetres to 7 centimetres, with mean errors of 5 centimetres for both. The variation is always randomly distributed, because the positions of NWB vertices relative to the containing triangles' vertices also lack correlation (which is what controls the value $M$ that determines how much the accuracy is improved). In theory, the only factor that could introduce correlation into these profiles would be roads with very steeply sloping surfaces, but no roads in this dataset (or any of my datasets) reach a slope steep enough to affect the errors significantly, and introduce correlation.
+The charts in Figure \ref{fig:formalaccuracy0} show interpolation error profiles from 2 \textit{wegvakken} from our chosen testing dataset. From the lack of a trend in the errors, and their small magnitudes overall, we may deduce that the output accuracy is sufficiently high with respect to the 20-centimetre requirement of NDW. Any differences due to the TIN-linear interpolation represent an \textit{increase} in accuracy relative to the 15 cm elevation accuracy of AHN3. The two \textit{wegvakken} shown in the figure exhibit theoretical interpolation elevation errors in a range of about 4 centimetres to 7 centimetres, with mean errors of 5 centimetres for both. The variation is always randomly distributed, because the positions of NWB vertices relative to the containing triangles' vertices also lack correlation (which is what controls the value $M$ that determines how much the accuracy is improved). In theory, the only factor that could introduce correlation into these profiles would be roads with very steeply sloping surfaces, but no roads in this dataset (or any of my datasets) reach a slope steep enough to affect the errors significantly, and introduce correlation.
 
-The top part of Figure \ref{fig:formalaccuracy1} shows the 3D geometry of the subclouds and centrelines of the same two wegvakken. Wegvak \#288259033 has a shape which is representative of the steepest slopes and sharpest bends one can expect from the Dutch road network; it connects a ground-level motorway lane with another one running orthogonal to it directly above, on a bridge. Wegvak \#600127973 is the ground-based motorway lane that it connects. It lies entirely flat on the ground, with little to no variation in its elevation. I picked it because its shape is the opposite of that of \#288259033, and because it had been split into two parts due to a 15-20 m long data gap which is visible in the figure. The gap also lacks DTB coverage. The bottom image in Figure \ref{fig:formalaccuracy1} shows the corresponding TINs, and it is visible in this figure that NWB veers to the outer edge of the steep, curved wegvak, almost reaching it. The relatively thin width of the TIN and its rugged outer edge is a result of this; the preliminary edges were constructed partially off-road due to NWB's poor georeferencing.
+The top part of Figure \ref{fig:formalaccuracy1} shows the 3D geometry of the subclouds and centrelines of the same two \textit{wegvakken}. \textit{Wegvak} \#288259033 has a shape which is representative of the steepest slopes and sharpest bends one can expect from the Dutch road network; it connects a ground-level motorway lane with another one running orthogonal to it directly above, on a bridge. \textit{Wegvak} \#600127973 is the ground-based motorway lane that it connects. It lies entirely flat on the ground, with little to no variation in its elevation. I picked it because its shape is the opposite of that of \#288259033, and because it had been split into two parts due to a 15-20 m long data gap which is visible in the figure. The gap also lacks DTB coverage. The bottom image in Figure \ref{fig:formalaccuracy1} shows the corresponding TINs, and it is visible in this figure that NWB veers to the outer edge of the steep, curved \textit{wegvak}, almost reaching it. The relatively thin width of the TIN and its rugged outer edge is a result of this; the preliminary edges were constructed partially off-road due to NWB's poor georeferencing.
 
-I added sampling density plots on the right in Figure \ref{fig:formalaccuracy0}. The first important observation to make about these charts is that the data gap in sampling density between 100 and 200 m along the profile in \#600127973 is due to the data gap I mentioned above; here the density is 3 points per m\textsuperscript{2} or less - which is the threshold below which the cut-out happens, i.e. accuracy is not computed - visible in the chart on the left in the same figure. The sharp drops in density around the gap illustrate that the neighbourhood queries already indicate the presence of the gap right before and after reaching the centreline vertices that fall into it. The two wegvakken \#288259033 and \#600127973 have mean sampling densities of 24 and 21 points per m\textsuperscript{2} respectively - well above the nominal accuracy of the dataset, primarily owing to the flatness of the road surfaces.
+I added sampling density plots on the right in Figure \ref{fig:formalaccuracy0}. The first important observation to make about these charts is that the data gap in sampling density between 100 and 200 m along the profile in \#600127973 is due to the data gap I mentioned above; here the density is 3 points per m\textsuperscript{2} or less - which is the threshold below which the cut-out happens, i.e. accuracy is not computed - visible in the chart on the left in the same figure. The sharp drops in density around the gap illustrate that the neighbourhood queries already indicate the presence of the gap right before and after reaching the centreline vertices that fall into it. The two \textit{wegvakken} \#288259033 and \#600127973 have mean sampling densities of 24 and 21 points per m\textsuperscript{2} respectively - well above the nominal accuracy of the dataset, primarily owing to the flatness of the road surfaces.
 
 The second important observation is that while local sampling density fluctuates by as much as 80-90\%, it never reaches the minimum threshold in places other than no-data zones and where only DTB data is available (the latter is not separately illustrated here). The fluctuation is due to the inhomogeneous sampling rate of AHN3. It is already present in the raw point cloud, and is simply a factor of how many times a given area was scanned by the aircraft's laser sensors. The figure was generated from my final results, which all use a thinning factor of 2 - meaning that the values seen in the charts are half of the maximum available. Increasing the thinning factor further may result in the sampling rate dropping below the threshold in certain exposed regions, hence it is not recommended. The results shown in these two charts are representative of all testing tiles; significant deviations from what I described above and what is shown in the figure were not observed elsewhere either.
 
@@ -678,7 +678,7 @@ The mean error and sampling density of the entire testing dataset are 5 cm and 1
 
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{final_report/figs/formalaccuracy1.png}
+    \includegraphics[width=0.9\linewidth]{final_report/figs/formalaccuracy1.png}
     \caption{Visualisations showing the subclouds, TINs and 3D-NWB centrelines in the area concerned by Figure \ref{fig:formalaccuracy0}.}
     \label{fig:formalaccuracy1}
 \end{figure}
@@ -698,7 +698,7 @@ Linear interpolation is rare outside of AHN3 data gaps (including those due to o
 
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{final_report/figs/bgtcomparison.png}
+    \includegraphics[width=0.8\linewidth]{final_report/figs/bgtcomparison.png}
     \caption{2D Visualisations comparing BGT road edges with the TINs, with NWB centrelines and with Luchtfoto 2020 satellite imagery.}
     \label{fig:bgtcomparison}
 \end{figure}
@@ -737,13 +737,13 @@ Almost no variation is observed in the mean \textbf{formal output vertical error
 
 The \textbf{sampling density} values show that the density of points is reliably high, consistently staying well above the threshold, below which accuracy is deemed undetermined. However, large variations are still observable between the testing datasets, with values ranging from about 14 to 27 points per m\textsuperscript{2}. The variation has several reasons based on my analysis, each with non-negligible influence. The first reason is that the stock sampling density of AHN3 appears to vary on a large scale, in various parts of the country, and also locally, which I have already shown in Figure \ref{fig:formalaccuracy0}. The second reason is that accuracy is computed based on radial queries around NWB vertices, and will therefore show lower values for very thin roads where NWB is close to the edge of the road.
 
-Lastly - but most importantly for us - it gives an indication of the pervasiveness of occlusion. Partial occlusion (due to vegetation) and complete occlusion (due to bridges and other opaque structures) decrease the TIN vertex density significantly. For instance, the low value seen in 33CN2 (\textit{"Hoenderloo"}) is primarly due to the road being situated in a dense, old-growth forest, and the one in 37HN2 (\textit{"Knoppunt Ridderkerk"}) is mainly due to occlusion resulting from the roads passing above and below one another in the motorway interchange.
+Lastly - but most importantly for us - it gives an indication of the pervasiveness of occlusion. Partial occlusion (due to vegetation) and complete occlusion (due to bridges and other opaque structures) decrease the TIN vertex density significantly. For instance, the low value seen in 33CN2 (\textit{Hoenderloo}) is primarly due to the road being situated in a dense, old-growth forest, and the one in 37HN2 (\textit{Knooppunt Ridderkerk}) is mainly due to occlusion resulting from the roads passing above and below one another in the motorway junction.
 
-However, the medium value seen in 25BZ2 ("Amsterdam Hemhavens") does \textit{not} reflect the fact that there is a sizeable tunnel in the dataset. Since the tunnel has no DTB line coverage, the relevant NBRS part's TINs do not extend into the tunnel. As I explained in the sections above, these densities are computed from the TINs, and therefore road sections without AHN3 and DTB coverage are not allowed to affect these sampling density measurements. I made this design choice because in these areas, my implementation simply interpolates output elevations via linear interpolation. Therefore, these areas do not, strictly speaking, constitute areas in which we can predict elevation with any certainty, especially not where they are long, such as the tunnel in this particular testing tile. Although I am providing linearly interpolated output values in these regions, I essentially consider them to be excluded from my analysis, and thus I also exclude them from the density computations.
+However, the medium value seen in 25BZ2 (Amsterdam Hemhavens) does \textit{not} reflect the fact that there is a sizeable tunnel in the dataset. Since the tunnel has no DTB line coverage, the relevant NBRS part's TINs do not extend into the tunnel. As I explained in the sections above, these densities are computed from the TINs, and therefore road sections without AHN3 and DTB coverage are not allowed to affect these sampling density measurements. I made this design choice because in these areas, my implementation simply interpolates output elevations via linear interpolation. Therefore, these areas do not, strictly speaking, constitute areas in which we can predict elevation with any certainty, especially not where they are long, such as the tunnel in this particular testing tile. Although I am providing linearly interpolated output values in these regions, I essentially consider them to be excluded from my analysis, and thus I also exclude them from the density computations.
 
-The presence of the tunnel can still be recognised in the \textbf{accurate vertex ratio} row in Table \ref{sub:accuracytabulated}. The lower value seen for 25BZ2 is simply due to the tunnel - almost all other parts of the roads in this dataset have detailed TINs associated with them. In this row, there is another value that stands out. The rest of the ratios show that between about 85\% and 95\% of the output vertices have reliable, estimated accuracy, whereas this ratio is only 56\% in the case of dataset 37EZ1 (\textit{"Rotterdam Ketheltunnel"}). This is the combined result of two factors: as the name implies, this dataset also contains a tunnel. But, as Table \ref{tab:inventory} mentions, the AHN3 data pre-dates the completion of the tunnel and the surrounding parts of the motorway, and as a result, part of the output is corrupted. Already during preliminary elevation estimation, the standard deviations are a magnitude larger than those encountered in other locations, because the construction works do not represent a smooth surface. In the Lidar segmentation step, the roads are split into many small NBRS parts, with much of the road thereby becoming flagged for linear interpolation. As a result, many of the NWB vertices' accuracy will be deemed unknown. This issue could be resolved in this case, if the large standard deviation in the preliminary elevation estimation triggered an alternative workflow in which only the support dataset is used in the region in which the primary data is unreliable. Developing and implementing such a workflow was not part of this research, hence it is further discussed in Section \ref{sec:futurework} in the context of recommended future work.
+The presence of the tunnel can still be recognised in the \textbf{accurate vertex ratio} row in Table \ref{sub:accuracytabulated}. The lower value seen for 25BZ2 is simply due to the tunnel - almost all other parts of the roads in this dataset have detailed TINs associated with them. In this row, there is another value that stands out. The rest of the ratios show that between about 85\% and 95\% of the output vertices have reliable, estimated accuracy, whereas this ratio is only 56\% in the case of dataset 37EZ1 (\textit{Rotterdam Ketheltunnel}). This is the combined result of two factors: as the name implies, this dataset also contains a tunnel. But, as Table \ref{tab:inventory} mentions, the AHN3 data pre-dates the completion of the tunnel and the surrounding parts of the motorway, and as a result, part of the output is corrupted. Already during preliminary elevation estimation, the standard deviations are a magnitude larger than those encountered in other locations, because the construction works do not represent a smooth surface. In the Lidar segmentation step, the roads are split into many small NBRS parts, with much of the road thereby becoming flagged for linear interpolation. As a result, many of the NWB vertices' accuracy will be deemed unknown. This issue could be resolved in this case, if the large standard deviation in the preliminary elevation estimation triggered an alternative workflow in which only the support dataset is used in the region in which the primary data is unreliable. Developing and implementing such a workflow was not part of this research, hence it is further discussed in Section \ref{sec:futurework} in the context of recommended future work.
 
-The values in the bottom row of the table are sometimes slightly lower than I would have expected. For instance 85\% for the 37HN2 (\textit{"Knoppunt Ridderkerk"}) dataset seemed to me to be too low, because almost all gaps have good DTB coverage, and NWB almost never misses the TINs. The reason why this value is lower than expected is because there are many AHN3 data gaps, and the point density in the DTB-defined parts of the TINs appears to consistently miss the minimum above which the vertices would be deemed accurate. The process also appears to sometimes filter out vertices that were interpolated in locations where although DTB was "sparse", it still managed to characterise the road surface quite well. This further suggests that it would be better if the decisions regarding where to trust DTB were not based on the same type of evaluation as AHN3, and were instead based on the geometric layout of the DTB lines. While this would indeed improve the accuracy assessment results, it would also mean that the procedure would become specialised to DTB, and would not work with other types of support datasets. This is elaborated in more detail in Section \ref{sec:futurework}.
+The values in the bottom row of the table are sometimes slightly lower than I would have expected. For instance 85\% for the 37HN2 (\textit{Knooppunt Ridderkerk}) dataset seemed to me to be too low, because almost all gaps have good DTB coverage, and NWB almost never misses the TINs. The reason why this value is lower than expected is because there are many AHN3 data gaps, and the point density in the DTB-defined parts of the TINs appears to consistently miss the minimum above which the vertices would be deemed accurate. The process also appears to sometimes filter out vertices that were interpolated in locations where although DTB was "sparse", it still managed to characterise the road surface quite well. This further suggests that it would be better if the decisions regarding where to trust DTB were not based on the same type of evaluation as AHN3, and were instead based on the geometric layout of the DTB lines. While this would indeed improve the accuracy assessment results, it would also mean that the procedure would become specialised to DTB, and would not work with other types of support datasets. This is elaborated in more detail in Section \ref{sec:futurework}.
 
 Some of the NWB centrelines overshoot the Lidar testing tile extents by up to 20-50 metres. These were left in some of the testing tiles deliberately, to test certain aspects of the the behaviour of the algorithms (as also mentioned in Section \ref{sec:manualpreprocessing}). These can further decrease the accurate vertex ratios by about 2-4\% artificially. The overshoots are visible in Figure \ref{fig:manualpreprocessing}.
 
@@ -752,46 +752,53 @@ Some of the NWB centrelines overshoot the Lidar testing tile extents by up to 20
 
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{final_report/figs/commercialcomparison0.pdf}
-    \caption{Charts illustrating the results of comparing the academic and commercial results on two wegvakken from dataset "Knoppunt Deil".}
+    \includegraphics[width=0.9\linewidth]{final_report/figs/commercialcomparison0.pdf}
+    \caption{Charts illustrating the results of comparing the academic and commercial results on two \textit{wegvakken} from dataset \textit{Knooppunt Deil}.}
     \label{fig:commercialcomparison0}
 \end{figure}
 
-Like in the accuracy assessment above, I picked some specific wegvakken that are particularly representative of the overall results of this comparison. However, here I did not restrict the selection to be from the \textit{"Knoppunt Deil"} dataset, because the results are very different across my set of testing datasets. Where the agreement is good, the two sets of results can be similar to a degree where it is difficult to tell them apart in a 3D visualisation, unless the Z axis is grossly exaggerated. Examining the correspondence on 2D charts (see Figures \ref{fig:commercialcomparison0}, \ref{fig:commercialcomparison1} and \ref{fig:commercialcomparison2}) works far better in terms of characterising the nature of both the small-scale and large-scale differences that are typically observed when comparing the two datasets. For this reason, I opted to show only 2D visualisations in this section. I also present tabulated mean RMSE values for all testing datasets in Section \ref{sub:comparisontabulated}.
+Like in the accuracy assessment above, I picked some specific \textit{wegvakken} that are particularly representative of the overall results of this comparison. However, here I did not restrict the selection to be from the \textit{Knooppunt Deil} dataset, because the results are very different across my set of testing datasets. Where the agreement is good, the two sets of results can be similar to a degree where it is difficult to tell them apart in a 3D visualisation, unless the Z axis is grossly exaggerated. Examining the correspondence on 2D charts (see Figures \ref{fig:commercialcomparison0}, \ref{fig:commercialcomparison1} and \ref{fig:commercialcomparison2}) works far better in terms of characterising the nature of both the small-scale and large-scale differences that are typically observed when comparing the two datasets. For this reason, I opted to show only 2D visualisations in this section. I also present tabulated mean RMSE values for all testing datasets in Section \ref{sub:comparisontabulated}.
 
 \subsection{Representative example comparisons}
 \label{sub:comparisonexamples}
 
-\subsubsection{Knoppunt Deil}
+\subsubsection{Knooppunt Deil}
 
-The top chart in Figure \ref{fig:commercialcomparison0} shows a LineString (wegvak) in which the RMSE between the two datasets is only 3 cm. The \textit{Knoppunt Deil} dataset, from where these LineStrings in this figure were taken, shows exceptionally good agreement between the results and a 3 to 5 cm RMSE can be regarded as typical everywhere in it. Such a small disagreement could be deemed unimportant, unless systematic - however, in this case there appears to be a small systematic component to it. Notably my results seem to consistently estimate higher elevations for the roads than the commercial ones here. The reason for the systematic nature of these differences is that this LineString represents a motorway, and the commercial implementation always takes motorway elevations from DTB where it has coverage. My implementation does the opposite; it prioritises AHN3. As a result, the systematic differences between DTB and AHN3 are manifested in these 2D profiles. This is further illustrated by the residuals dropping to almost zero in one place at around 220 metres along the profile, and then for about 50 metres starting at 800 metres along the profile. Here, the chosen wegvak passes underneath bridges, hence my implementation also used DTB here - thereby triggering near-perfect agreement with the commercial results. Since the absolute value of these systematic differences is minuscule in this location, it can be regarded as unimportant.
+The top chart in Figure \ref{fig:commercialcomparison0} shows a LineString (\textit{wegvak}) in which the RMSE between the two datasets is only 3 cm. The \textit{Knooppunt Deil} dataset, from where these LineStrings in this figure were taken, shows exceptionally good agreement between the results and a 3 to 5 cm RMSE can be regarded as typical everywhere in it. Such a small disagreement could be deemed unimportant, unless systematic - however, in this case there appears to be a small systematic component to it. Notably my results seem to consistently estimate higher elevations for the roads than the commercial ones here. The reason for the systematic nature of these differences is that this LineString represents a motorway, and the commercial implementation always takes motorway elevations from DTB where it has coverage. My implementation does the opposite; it prioritises AHN3. As a result, the systematic differences between DTB and AHN3 are manifested in these 2D profiles. This is further illustrated by the residuals dropping to almost zero in one place at around 220 metres along the profile, and then for about 50 metres starting at 800 metres along the profile. Here, the chosen \textit{wegvak} passes underneath bridges, hence my implementation also used DTB here - thereby triggering near-perfect agreement with the commercial results. Since the absolute value of these systematic differences is minuscule in this location, it can be regarded as unimportant.
 
 In this particular dataset, the agreement between the two datasets is almost always this good - the one exception I found is shown in the bottom charts in Figure \ref{fig:commercialcomparison0}. The difference represents a roughly 20-centimetre erratic drop in elevation in the commercial results. I could not explain this blunder by looking at the input data, hence it must have been introduced by the commercial processing pipeline. The error is large enough to break compliance with the 20-centimetre accuracy requirement of NDW, but it is an isolated issue - I have not found other examples of it.
 
 \subsubsection{Gorinchem}
 
-Both wegvakken in Figure \ref{fig:commercialcomparison1} were taken from \textit{provincial} roads in the \textit{"Gorinchem"} dataset. The top two charts were generated from a LineString that is situated in a well-exposed area, free of occlusions. While the RMSE is extremely low - as in the previous figure - we may notice that here a systematic deviation can also \textit{not} be observed at all. This is because the commercial implementation uses AHN3 \textit{rasters} to interpolate elevations. Although this does not affect the RMSE, it is evident from this chart that the commercial results are less detailed than the academic ones. This is simply the result of the academic results using 10-metre vertex densification, whereas my final results were generated using 5-metre vertex densification. Both result in much denser elevation profiles than the original NWB vertices would allow, which is the sampling density that the residual plots reflect.
+Both \textit{wegvakken} in Figure \ref{fig:commercialcomparison1} were taken from \textit{provincial} roads in the \textit{Gorinchem} dataset. The top two charts were generated from a LineString that is situated in a well-exposed area, free of occlusions. While the RMSE is extremely low - as in the previous figure - we may notice that here a systematic deviation can also \textit{not} be observed at all. This is because the commercial implementation uses AHN3 \textit{rasters} to interpolate elevations. Although this does not affect the RMSE, it is evident from this chart that the commercial results are less detailed than the academic ones. This is simply the result of the academic results using 10-metre vertex densification, whereas my final results were generated using 5-metre vertex densification. Both result in much denser elevation profiles than the original NWB vertices would allow, which is the sampling density that the residual plots reflect.
 
-While it might first appear to the reader that the agreement for provincial roads is even better than that for motorways, this is in fact not the case. The commercial solution has no feature implemented to intelligently switch between AHN3 and DTB, and also lacks a set of features that could enable it to handle occlusion correctly in the absence of DTB. I illustrate both of these limitations in the bottom two charts in Figure \ref{fig:commercialcomparison1}. Between about 330 and 420 metres along the profile, the commercial results show a sudden elevation increase, while the academic ones show a (much smaller) abrupt change in the opposite direction. Everywhere else in the wegvak, the agreement is at least as good as in the top chart.
+While it might first appear to the reader that the agreement for provincial roads is even better than that for motorways, this is in fact not the case. The commercial solution has no feature implemented to intelligently switch between AHN3 and DTB, and also lacks a set of features that could enable it to handle occlusion correctly in the absence of DTB. I illustrate both of these limitations in the bottom two charts in Figure \ref{fig:commercialcomparison1}. Between about 330 and 420 metres along the profile, the commercial results show a sudden elevation increase, while the academic ones show a (much smaller) abrupt change in the opposite direction. Everywhere else in the \textit{wegvak}, the agreement is at least as good as in the top chart.
 
-This artefact is created by the combination of the above missing features in the commercial software. At this location, the provincial road from which the wegvak is taken, passes underneath a series of bridges. At this location, the AHN3 rasters simply record the elevation of the surfaces \textit{on} these bridges, hence this is what appears in the commercial outputs. This represents an approximately 5 m systematic overestimation of elevations over just under a 100 metres of distance along this road. My results, on the other hand, underestimate the elevations in this zone by about 30 to 40 centimetres. This is not an issue with the academic methods or implementation, it is due to DTB being outdated locally. For this particular set of provincial roads, DTB exists because of their proximity to motorways - in general, provincial roads do not have DTB coverage. My implementation recognised the presence of DTB lines, and made use of them.
+This artefact is created by the combination of the above missing features in the commercial software. At this location, the provincial road from which the \textit{wegvak} is taken, passes underneath a series of bridges. At this location, the AHN3 rasters simply record the elevation of the surfaces \textit{on} these bridges, hence this is what appears in the commercial outputs. This represents an approximately 5 m systematic overestimation of elevations over just under a 100 metres of distance along this road. My results, on the other hand, underestimate the elevations in this zone by about 30 to 40 centimetres. This is not an issue with the academic methods or implementation, it is due to DTB being outdated locally. For this particular set of provincial roads, DTB exists because of their proximity to motorways - in general, provincial roads do not have DTB coverage. My implementation recognised the presence of DTB lines, and made use of them.
 
 The DTB data was close enough to the predicted elevation of the road for my implementation to deem it reliable. However, inspecting them on this 2D elevation profile reveals that DTB is, locally, itself underestimating the elevation of the road. This can be explained by the temporal difference between AHN3 and DTB locally. Had there been accurate support data available, my implementation would have produced correct results - and even in the absence of support data, it would have interpolated linearly across the region, which still represents a better solution than including the outliers the way the commercial results do.
 
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{final_report/figs/commercialcomparison1.pdf}
-    \caption{Charts illustrating the results of comparing the academic and commercial results on two wegvakken from dataset "Gorinchem".}
+    \includegraphics[width=0.9\linewidth]{final_report/figs/commercialcomparison1.pdf}
+    \caption{Charts illustrating the results of comparing the academic and commercial results on two \textit{wegvakken} from dataset \textit{Gorinchem}.}
     \label{fig:commercialcomparison1}
 \end{figure}
 
-\subsubsection{Knoppunt Ridderkerk}
+\subsubsection{Knooppunt Ridderkerk}
 
-Figure \ref{fig:commercialcomparison2} shows motorway wegvakken taken from the \textit{Knoppunt Ridderkerk} dataset. The reader might recall that I used this dataset as an example of where the temporal differences between DTB and AHN3 give rise to significant disagreements between the road elevations they contain. This last comparison figure serves to illustrate that this gives rise to significant differences between the commercial and academic results.
+Figure \ref{fig:commercialcomparison2} shows motorway \textit{wegvakken} taken from the \textit{Knooppunt Ridderkerk} dataset. The reader might recall that I used this dataset as an example of where the temporal differences between DTB and AHN3 give rise to significant disagreements between the road elevations they contain. This last comparison figure serves to illustrate that this gives rise to significant differences between the commercial and academic results.
 
 The outdated elevations in DTB are the only ones considered by the commercial implementation, which results in elevations being consistently overestimated by up to half a metre relative to AHN3, and therefore also my results. Good agreement between the two sets of results only emerges where my implementation also resorted to using DTB, because AHN3 was missing locally. This is the same phenomenon that caused the small, systematic deviations in Figure \ref{fig:commercialcomparison0}, the only difference is that DTB is more affected by the temporal issues here, than there.
 
-This demonstrates the flaws in NDW's unconditional assumption that DTB is more accurate spatially and temporally than AHN3, especially from a temporal updates perspective. They specifically opted to prioritise its use as it is updated far more frequently than AHN3. However, this assumption likely did not consider the fact that the updates only concern roads that underwent refurbishment, upgrades or other modifications, and roads that were newly built. Otherwise, the position of DTB's line features is \textit{not} re-measured regularly, as I also mentioned in Section \ref{sub:dtb}. These outdated elevations represent a further disparity between the noise regulations' requirements and the commercial implementation, and they affect the results in the \textit{Knoppunt Ridderkerk} area significantly.
+This demonstrates the flaws in NDW's unconditional assumption that DTB is more accurate spatially and temporally than AHN3, especially from a temporal updates perspective. They specifically opted to prioritise its use as it is updated far more frequently than AHN3. However, this assumption likely did not consider the fact that the updates only concern roads that underwent refurbishment, upgrades or other modifications, and roads that were newly built. Otherwise, the position of DTB's line features is \textit{not} re-measured regularly, as I also mentioned in Section \ref{sub:dtb}. These outdated elevations represent a further disparity between the noise regulations' requirements and the commercial implementation, and they affect the results in the \textit{Knooppunt Ridderkerk} area significantly.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/commercialcomparison2.pdf}
+    \caption{Charts illustrating the results of comparing the academic and commercial results on two \textit{wegvakken} from dataset \textit{Knooppunt Ridderkerk}.}
+    \label{fig:commercialcomparison2}
+\end{figure}
 
 \subsubsection{Summary of detailed comparison}
 
@@ -800,13 +807,6 @@ It appears that relative to the commercial implementation, there is a clear set 
 There is an area, however, in which the relationship is reversed: the commercial implementation can be run on the whole country, using a user-friendly UI, and with a far lower computational complexity than that of the academic implementation. In fact, I needed to extract the LineStrings for this comparison from the official, country-wide 3D-NWB release that was generated using the commercial implementation.
 
 This is a manifestation of the main difference between the two solutions' paradigms of an ideal implementation: the commercial project focused on developing a straightforward solution that works reliably out-of-the-box, even if corners need to be cut to achieve this and the results sometimes do not comply with the official requirements. On the other hand the academic project focused on exploring how various scientific approaches can be put to use in such a practical problem, and on scientific correctness and accuracy.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{final_report/figs/commercialcomparison2.pdf}
-    \caption{Charts illustrating the results of comparing the academic and commercial results on two wegvakken from dataset "Knoppunt Ridderkerk".}
-    \label{fig:commercialcomparison2}
-\end{figure}
 
 \subsection{Tabulated RMSE values}
 \label{sub:comparisontabulated}
@@ -832,13 +832,13 @@ I looked up the commercial counterpart of each elevation I computed for original
 
 Unlike in Table \ref{tab:accuracytabulated}, clear trends cannot be observed in the data. There appears to be some scatter in all rows and columns. This is connected to the observation mentioned in the detailed comparison, that similarity is a factor of both the particular location in question, and the source of the data (AHN3, DTB or simple linear interpolation). I will present examples based on the table above, to illustrate this.
 
-Dataset \codeword{39CZ1} (\textit{Knoppunt Deil}) generally shows good agreement between the two sets of outputs, with the RMSE metric not exceeding 20 cm in either of the three "classes". As I mentioned above, this is because at this particular location, NWB is comprised of motorways (R-roads) only, the completeness of DTB is good, and DTB and AHN3 are in good agreement. The extremely low RMSE in the case of the DTB-sourced academic elevations (only 1,5 cm) can be explained by both implementations relying on the exact same road surface elevation measurements locally.
+Dataset \codeword{39CZ1} (\textit{Knooppunt Deil}) generally shows good agreement between the two sets of outputs, with the RMSE metric not exceeding 20 cm in either of the three "classes". As I mentioned above, this is because at this particular location, NWB is comprised of motorways (R-roads) only, the completeness of DTB is good, and DTB and AHN3 are in good agreement. The extremely low RMSE in the case of the DTB-sourced academic elevations (only 1,5 cm) can be explained by both implementations relying on the exact same road surface elevation measurements locally.
 
 In the case of \codeword{38GZ1} (\textit{Gorinchem}), the middle value (DTB-based similarity) is equally simple to explain - the commercial methods were not aware of the presence of DTB data for provincial roads, and thus grossly overestimated road elevations in regions of occlusion. The AHN3-based RMSE of 0.75 m is because the dataset also contains R-roads where the DTB data is outdated (most of it is from 2004), and is consistently at lower elevations than AHN3. In both cases, it is the academic results that show elevations that are closer to reality, considering that they are much more recent.
 
 The dataset \codeword{25BZ2} (\textit{Amsterdam Hemhavens}) contains the largest tunnel among my datasets, and one which has no DTB coverage. As a result, the academic implementation interpolates linearly across the gap, resulting in the output containing an elevation profile close to the ground and water level above the tunnel. This is what gives rise to the 7 m RMSE in the table. The commercial results contain the correct, V-shaped elevation profile of the subterranean road - the explanation of this difference is simple: the commercial implementation considers a certain type of DTB line feature (\textit{lijnverlichting} - road surface illumination) as reliable road surface measurements. My implementation filters these out, as I found examples of this line feature not lying flat on the road surfaces in other locations. In any case, including them in my results is a matter of adding this keyword to a variable in my code. The large AHN3 RMSE in this dataset is also due to the tunnel; my implementation erratically identifies Lidar points describing the tunnel service structure as a continuation of the road, and uses it in the elevation interpolation step.
 
-In \codeword{25DN2} (\textit{Amsterdam Zuid}), The agreement between the datasets is generally very good (as the AHN3 and DTB values indicate), but the linear interpolation agreement is anomalously poor. This is the result of a single wegvak, which contains a medium-length tunnel. This tunnel contains good DTB coverage which my implementation correctly identifies and uses during the Lidar segmentation step, but which it then fails to make use of when constructing the preliminary edges, breaking off the edge geometry at the tunnel entrance. As I mentioned in Section \ref{sub:m_edgeapproximation}, this is because preliminary edge detection will mostly fail to construct cross-sections where only DTB is available, which will result in no TINs being constructed locally, if there is a bend in the road in the occluded area, or if the given LineString ends there. The particular LineString in question falls into both categories, as it contains a bending road in a tunnel that ends roughly in the same place as the LineString itself does. Fixing this issue falls into the category of future work, as it did not fit into the timeframe reserved for this research.
+In \codeword{25DN2} (\textit{Amsterdam Zuid}), The agreement between the datasets is generally very good (as the AHN3 and DTB values indicate), but the linear interpolation agreement is anomalously poor. This is the result of a single \textit{wegvak}, which contains a medium-length tunnel. This tunnel contains good DTB coverage which my implementation correctly identifies and uses during the Lidar segmentation step, but which it then fails to make use of when constructing the preliminary edges, breaking off the edge geometry at the tunnel entrance. As I mentioned in Section \ref{sub:m_edgeapproximation}, this is because preliminary edge detection will mostly fail to construct cross-sections where only DTB is available, which will result in no TINs being constructed locally, if there is a bend in the road in the occluded area, or if the given LineString ends there. The particular LineString in question falls into both categories, as it contains a bending road in a tunnel that ends roughly in the same place as the LineString itself does. Fixing this issue falls into the category of future work, as it did not fit into the timeframe reserved for this research.
 
 The results in \codeword{32HZ2} (\textit{Apeldoornseweg}) are interesting because the dataset contains tightly packed, thin, parallel provincial roads (no DTB coverage) in an old-growth forest that often completely covers the sky above the roads. This decreases the mean TIN vertex density to 14 points per m\textsuperscript{2}, often dropping below 10 in the most densely vegetated areas. In this case, my attention was piqued not by a disagreement between the datasets, but near-perfect agreement. Of course, both sets of results rely on AHN3 here, but the commercial ones used AHN3 rasters, rather than Lidar points. The similarity is likely to indicate that the raster-based AHN3 terrain model is very accurate in this area, despite the forest. The only (minor) artefacts - affecting both the academic and commercial results - are due to NWB sometimes missing the real centrelines by a significant margin, veering off into ditches and other sharp terrain features. The 1 m RMSE seen for linear interpolation in this dataset are due to the NWB centrelines often extending beyond the corresponding clipped point clouds, which I had already discussed in terms of the accurate vertex ratios, i.e. it is artificial and meaningless in the context of this comparison.
 

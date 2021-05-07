@@ -83,7 +83,7 @@ The work \cite{oudeElberink_vosselman_2006} is relevant not only because of the 
     \label{fig:conversionartefacts}
 \end{wrapfigure}
 
-They do not exclusively consider roads; all polygonal vector objects are extruded to 3D. Like in \cite{hatger_brenner_2003}, a region growing approach is proposed as the foundation of the elevation extraction workflow. They use the Hough transform to find seed points whose neighbourhood suggests a planar structure, fit planes and then grow them by checking the point-to-plane distance of new points, labelling points with the identifier of the plane they belong to. The vector data is then overlain on these regions and for each polygon, the plane is selected which is represented by the greatest number of labelled points in its interior. These points are re-fitted a plane, and each such plane is used to extrude the corresponding overlain vector geometry simply by projecting the polygon onto its surface. To improve upon the results of this simple extrusion, they suggest the application of algorithmic topological corrections. Furthermore, to model the interior of the extruded polygons in more detail, they recommend the construction of a Constrained Delaunay Triangulation (CDT) for each, first by inserting its edges as constraints, and then by inserting the Lidar points that its surface is based on. The CDT can be refined procedurally to ensure smoothness. The main limitations of their methods are that the extracted elevations (from the region growing approach) are not reliably accurate, and that it cannot handle overlapping objects, such as roads in motorway interchanges. 3D visualisations of the results of this approach and typical artefacts are shown in \ref{fig:conversionartefacts}. The specific artefacts shown in the figure demonstrate that in multi-level road layouts, only the topmost road is fully converted to 3D.
+They do not exclusively consider roads; all polygonal vector objects are extruded to 3D. Like in \cite{hatger_brenner_2003}, a region growing approach is proposed as the foundation of the elevation extraction workflow. They use the Hough transform to find seed points whose neighbourhood suggests a planar structure, fit planes and then grow them by checking the point-to-plane distance of new points, labelling points with the identifier of the plane they belong to. The vector data is then overlain on these regions and for each polygon, the plane is selected which is represented by the greatest number of labelled points in its interior. These points are re-fitted a plane, and each such plane is used to extrude the corresponding overlain vector geometry simply by projecting the polygon onto its surface. To improve upon the results of this simple extrusion, they suggest the application of algorithmic topological corrections. Furthermore, to model the interior of the extruded polygons in more detail, they recommend the construction of a Constrained Delaunay Triangulation (CDT) for each, first by inserting its edges as constraints, and then by inserting the Lidar points that its surface is based on. The CDT can be refined procedurally to ensure smoothness. The main limitations of their methods are that the extracted elevations (from the region growing approach) are not reliably accurate, and that it cannot handle overlapping objects, such as roads in motorway junctions. 3D visualisations of the results of this approach and typical artefacts are shown in \ref{fig:conversionartefacts}. The specific artefacts shown in the figure demonstrate that in multi-level road layouts, only the topmost road is fully converted to 3D.
 
 Their method was later extended in \cite{oudeElberink_vosselman_2009} to work well in complex multi-level road settings by using point cloud segmentation in a manner resembling what I already described in the context of \cite{boyko_funkhauser_2011}, which we may regard in general as decomposing the 3D problem into 2.5D sub-problems, also a main aim of my own research. In his doctoral thesis \cite{oudeElberink_2010} he combined this method with the overall procedure in \cite{oudeElberink_vosselman_2006} to form one integral whole. Furthermore he extended it with a road extraction quality and accuracy assessment procedure, which was later perfected and also published separately in \cite{oudeElberink_vosselman_2012}.
 
@@ -230,14 +230,14 @@ Class 26 also contains other types of objects, for instance large motorway signs
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/ahn_sample_01.png} 
-    \caption{Example render of AHN3 at Knoppunt Deil, SW of Geldermalsen, showing ground points and bridges.}
+    \caption{Example render of AHN3 at Knooppunt Deil, SW of Geldermalsen, showing ground points and bridges.}
     \label{fig:ahnbridges}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/ahn_sample_02.png} 
-    \caption{Example render of AHN3 at Knoppunt Deil, SW of Geldermalsen, showing ground points and motorway signs.}
+    \caption{Example render of AHN3 at Knooppunt Deil, SW of Geldermalsen, showing ground points and motorway signs.}
     \label{fig:ahnsigns}
 \end{figure}
 
@@ -304,7 +304,7 @@ For P-roads (where DTB data does not generally exist), the workflow is conceptua
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/rhdhv_combined.png}
-    \caption{Illustrations of RHDHV's commercial implementation.}
+    \caption{Illustrations of RHDHV's procedures to convert NWB to a 3D dataset.}
     \label{fig:rhdhv}
 \end{figure}
 
@@ -320,7 +320,7 @@ This procedure is illustrated on the left in \ref{fig:rhdhv}. The cross-sections
 
 \subsubsection{Potential limitations}
 
-At the time of finalising this report, the results of the commercial implementation have already been made available to me and the comparison with my own results carried out. However, in this section I discuss the \textit{suspected} limitations of their methods, not the properties of their results. During the project planning, system design and implementation stages, the commercial results were not available to me yet and as a result, the bulk of my work - almost everything apart from Section \ref{sec:r_comparison} - is based on verbal descriptions of their methods and preliminary results.
+At the time of finalising this report, the preliminary results of the commercial implementation have already been made public, as described in \cite{nwb_hoogte}. In this section I discuss the \textit{suspected} limitations of their methods, not yet the properties of their results. These will only be discussed in the context of the comparison of the two sets of results. During the project planning, system design and implementation stages, the commercial results were not yet available and as a result, the bulk of my work - almost everything apart from Section \ref{sec:r_comparison} - is based on verbal descriptions of their methods and the commercial source code.
 
 First and foremost, I suspected that using AHN3 rasters in place of the point cloud would affect the quality of their conversion. Point cloud to raster conversion is, by definition, associated with inherent information loss (less raster cells than point cloud points), and further reduction in accuracy is introduced by the interpolation mechanism itself, that created the rasters. Radial IDW was used to generate AHN3 DTM tiles, which several of the reviewed papers found to be specifically unsuitable for interpolating large-scale areas in which zones of decreased point density or gaps exist – both of which characterise ground-filtered AHN data (e.g. \cite{guo_etal_2010}). In addition, the procedure performs another layer of interpolation to infill gaps, which may further deteriorate accuracy. Furthermore, RHDHV uses bilinear interpolation inside the raster to produce NWB elevations, which is suggested by \cite{shi_etal_2005}, to be less accurate than other common methods such as bicubic.
 
