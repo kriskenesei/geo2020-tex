@@ -444,7 +444,7 @@ The \codeword{.write_maps(maps_fpath)} method writes all attractor maps generate
 
 In the class, the maps can be found in the variable \codeword{.nbrs_maps[nbrs_id][part_id]}, while \codeword{.nbrs_contours} contains the contours in the form of a GeoDataFrame.
 
-\subsection{\ac{tin} construction}
+\subsection{TIN construction}
 \label{sub:r_tinconstruction}
 
 \begin{figure}
@@ -456,7 +456,7 @@ In the class, the maps can be found in the variable \codeword{.nbrs_maps[nbrs_id
 
 By adjusting my methods to the circumstance of not being able to produce accurate enough optimised edges, I created a different implementation than originally planned, but one which is still robust and accurate. Figures \ref{fig:tinconstruction0} and \ref{fig:tinconstruction1} show examples of the resulting models compared with the preliminary edges and preliminary elevations. The images in Figure \ref{fig:tinconstruction0} show an initial \ac{tin} surface, and the same \ac{tin} after the extension stage. In these figures, the preliminary edges are shown because the initial \ac{tin} surface is seeded halfway between them, and because the \ac{tin} is only allowed to grow between them in the initialisation stage. The upper, large-scale image in Figure \ref{fig:tinconstruction1} shows and overview of all \ac{tin} surfaces in the \textit{Knooppunt Deil} dataset, and the bottom two images show small-scale examples of typical extension artefacts. The \ac{tin} structure is highlighted in one of the \ac{tin}s in Figure \ref{fig:tinconstruction0}.
 
-\subsubsection{\ac{tin} initialisation}
+\subsubsection{TIN initialisation}
 
 A comparison of the initialisation step's insertion boundary is shown in Figure \ref{fig:tinconstruction0} both with initial \ac{tin}s and extended ones. The pre-selection step takes place in 2D, but for viewing convenience I used preliminary edges in this example visualisation, which are originally 3D geometries (in contrast with the optimised edges, which are 2D geometries).
 
@@ -470,7 +470,7 @@ For the \ac{tin} initialisation step, I used an elevation discrepancy threshold 
 
 In all study areas, and especially where \ac{nwb} lies correctly on the road surface in 2D, my approach produces smooth 3D surfaces in which, as Figure \ref{fig:tinconstruction0} shows, most of the variation is solely due to noise in the Lidar data. Off-road points are only inserted in significant numbers, where the above conditions are satisfied; i.e. a smooth transition characterises the edge of the road or the underlying preliminary or optimised road edges were also significantly shifted outside of the road surface due to problems with \ac{nwb}.
 
-\subsubsection{\ac{tin} extension}
+\subsubsection{TIN extension}
 
 Figure \ref{fig:tinconstruction0} shows the visual appearance of one particular \ac{nbrs} part before and after applying \ac{tin} extension, in a location where it works nearly perfectly. The effectiveness of this step relative to its planned purpose is not uniform across all areas. Most road geometries allow it to perform well, but in certain places it may only serve to further exaggerate pre-existing artefacts.
 
@@ -515,7 +515,7 @@ While these redundant triangles represent no issue in terms of interpolating ele
 
 In this context, it is also important to point out that while \ac{ahn3} data gaps that are patched in with \ac{dtb} data are always completely covered by triangles in the \ac{tin}s if the preliminary edges extend through the gap. The reason why in the top image in Figure \ref{fig:tinconstruction1} this appears not to be the case, is that some of these triangles were large enough to be filtered out to improve visual appearance. The thresholds can be adjusted in my code to alter this behaviour.
 
-\subsubsection{\ac{tin} point density}
+\subsubsection{TIN point density}
 
 While using 50\% of the \ac{ahn3} point density (via a thinning factor of 2) offered practical benefits for all pipeline steps up to this point (especially the Lidar segmentation and edge approximation steps), the \textit{quality} of the generated \ac{tin}s does not significantly increase as a factor of point density.
 
@@ -547,7 +547,7 @@ The first method invocation performs the \ac{tin} construction itself. The first
 
 The second method invocation writes the \ac{tin}s to disk, one OBJ file for each \ac{nbrs} part As mentioned above, it also filters out large triangles and sliver triangles in the process. The supplied file path should only include the first part of the file name, as the \ac{nbrs} ID, part ID and file extension will be added automatically (for instance \codeword{.../C_39CZ1_tin} would work. Using a dedicated folder is recommended.
 
-\subsection{Interpolation in \ac{tin} and snapping}
+\subsection{Interpolation in TIN and snapping}
 \label{sub:r_interpolation}
 
 \begin{figure}
@@ -598,7 +598,7 @@ It is also important to note here that while the preliminary edges may be missin
     \label{fig:elevationinterpolation1}
 \end{figure}
 
-\subsubsection{Comparison with \ac{tin} models}
+\subsubsection{Comparison with TIN models}
 
 Example comparisons between the final output and the \ac{tin}s are shown in Figure \ref{fig:elevationinterpolation1}. An interesting aspect of this comparison is that the final 3D-converted centrelines are often found slightly above or below the model (less than a centimetre, typically). This is best evidenced in the output by the intermittent disappearance of the 3D centrelines beneath the \ac{tin} triangles. This is the result of the georeferencing of \ac{nwb} being coarse \textit{relative to the \ac{tin}s} even after applying vertex densification. \ac{nbrs} parts only have vertices approximately every 5 metres, whereas \ac{ahn3} has up to 10 to 30 points per m\textsuperscript{2} after after thinning using a factor of 2. This disparity simply indicates that if we wanted to, we could sample the \ac{tin} at smaller intervals to increase the output's vertical resolution. However, \ac{ndw} officially requires elevations only to be estimated at the original \ac{nwb} vertices, which can be several times further apart even than my densified vertices. In other words, these \ac{tin}s offer far more detail than that which would be minimally required for the conversion, as expected from such a high-resolution surface model.
 
@@ -693,7 +693,7 @@ As I mentioned in Section \ref{sub:accuracyoverview}, \ac{dtb} is effectively a 
 
 Linear interpolation is rare outside of \ac{ahn3} data gaps (including those due to occlusion), and especially rare where \ac{nwb}'s georeferencing is correct - in my datasets, 98-100\% of non-occluded vertices are interpolated in the underlying \ac{tin}s. The majority of these are due to the rare cases where too many cross-sections are skipped during preliminary edge estimation, preventing proper \ac{tin}s from being constructed locally.
 
-\subsection{\ac{tin} completeness}
+\subsection{TIN completeness}
 \label{sub:tincompleteness}
 
 \begin{figure}
