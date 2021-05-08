@@ -65,7 +65,7 @@ As a brief summary of the general idea, the pipeline takes \ac{nwb}, decomposes 
 \end{figure}
 
 \begin{enumerate}
-    \item \textbf{NBRS generation}
+    \item \textbf{\ac{nbrs} generation}
     \begin{enumerate}
         \item \textbf{Goal:} assemble optimal 2D profiles from the building blocks of \ac{nwb}.
         \item \textbf{Approach:}
@@ -615,9 +615,9 @@ Such steep roads are practically absent in The Netherlands. For Dutch roads, the
 \subsection{Evaluating \ac{tin} surface completeness}
 \label{sub:m_accuracycompleteness}
 
-To evaluate how complete the generated \ac{tin} road surfaces are relative to the true road surfaces, I relied on a visual comparison of the \ac{tin}s with the subclouds, as well as on a comparison with \ac{dtb} (\cite{bgt_homepage}). Like \ac{ahn3} and \ac{dtb}, it is a Dutch open data geospatial dataset. It is maintained by Kadaster, the national cadastral agency. It is a topographical map of the country which contains a wide range of classified areal features - such as city, building, and \textit{road} extents.
+To evaluate how complete the generated \ac{tin} road surfaces are relative to the true road surfaces, I relied on a visual comparison of the \ac{tin}s with the subclouds, as well as on a comparison with \ac{bgt} (\cite{bgt_homepage}). Like \ac{ahn3} and \ac{dtb}, it is a Dutch open data geospatial dataset. It is maintained by Kadaster, the national cadastral agency. It is a topographical map of the country which contains a wide range of classified areal features - such as city, building, and \textit{road} extents.
 
-Like \ac{nwb}, \ac{dtb} is also primarily intended to offer good topological accuracy, thus its 2D georeferencing is also relatively crude. However, upon a comparison with the Luchtfoto 2020 orthoimagery (also from Kadaster, see \cite{luchtfoto_pdok}), I deemed its road polygons reliable and accurate enough to serve as a reference with which my results can be compared. To make the comparison, I plotted some of the output \ac{tin}s against the relevant \ac{dtb} road outlines in 2D and assessed the agreement between them visually. An example of the results of this step, as well as a comparison of \ac{dtb} and \ac{nwb} with satellite imagery, are shown in Figure \ref{fig:bgtcomparison}.
+Like \ac{nwb}, \ac{bgt} is also primarily intended to offer good topological accuracy, thus its 2D georeferencing is also relatively crude. However, upon a comparison with the Luchtfoto 2020 orthoimagery (also from Kadaster, see \cite{luchtfoto_pdok}), I deemed its road polygons reliable and accurate enough to serve as a reference with which my results can be compared. To make the comparison, I plotted some of the output \ac{tin}s against the relevant \ac{bgt} road outlines in 2D and assessed the agreement between them visually. An example of the results of this step, as well as a comparison of \ac{bgt} and \ac{nwb} with satellite imagery, are shown in Figure \ref{fig:bgtcomparison}.
 
 \section{Comparison with commercial results}
 \label{sec:m_comparison}
