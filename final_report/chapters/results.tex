@@ -747,17 +747,17 @@ The values in the bottom row of the table are sometimes slightly lower than I wo
 
 Some of the \ac{nwb} centrelines overshoot the Lidar testing tile extents by up to 20-50 metres. These were left in some of the testing tiles deliberately, to test certain aspects of the the behaviour of the algorithms (as also mentioned in Section \ref{sec:manualpreprocessing}). These can further decrease the accurate vertex ratios by about 2-4\% artificially. The overshoots are visible in Figure \ref{fig:manualpreprocessing}.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.86\linewidth]{final_report/figs/commercialcomparison0.pdf}
+    \caption{Charts comparing the academic and commercial results using two \textit{wegvakken} from \textit{Knooppunt Deil}.}
+    \label{fig:commercialcomparison0}
+\end{figure}
+
 \section{Comparison with commercial implementation}
 \label{sec:r_comparison}
 
 Like in the accuracy assessment above, I picked some specific \textit{wegvakken} that are particularly representative of the overall results of this comparison. However, here I did not restrict the selection to be from the \textit{Knooppunt Deil} dataset, because the results are very different across my set of testing datasets. Where the agreement is good, the two sets of results can be similar to a degree where it is difficult to tell them apart in a 3D visualisation, unless the Z axis is grossly exaggerated. Examining the correspondence on 2D charts (see Figures \ref{fig:commercialcomparison0}, \ref{fig:commercialcomparison1} and \ref{fig:commercialcomparison2}) works far better in terms of characterising the nature of both the small-scale and large-scale differences that are typically observed when comparing the two datasets. For this reason, I opted to show only 2D visualisations in this section. I also present tabulated mean \ac{rmse} values for all testing datasets in Section \ref{sub:comparisontabulated}.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\linewidth]{final_report/figs/commercialcomparison0.pdf}
-    \caption{Charts illustrating the results of comparing the academic and commercial results on two \textit{wegvakken} from dataset \textit{Knooppunt Deil}.}
-    \label{fig:commercialcomparison0}
-\end{figure}
 
 \subsection{Representative example comparisons}
 \label{sub:comparisonexamples}
@@ -780,7 +780,7 @@ The \ac{dtb} data was close enough to the predicted elevation of the road for my
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/commercialcomparison1.pdf}
+    \includegraphics[width=0.92\linewidth]{final_report/figs/commercialcomparison1.pdf}
     \caption{Charts illustrating the results of comparing the academic and commercial results on two \textit{wegvakken} from dataset \textit{Gorinchem}.}
     \label{fig:commercialcomparison1}
 \end{figure}
