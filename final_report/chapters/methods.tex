@@ -437,7 +437,7 @@ Lastly, the effectiveness of the method is also far too reliant on the accuracy 
 
 While the method works and produces usable results, the poor quality of the output and its unreliability in general prompted me to make it possible to bypass its use in the software. This required modifications to various previous steps of the pipeline, as well as all subsequent ones - a significant challenge. This bypass in turn puts into question the relevance of much of the pipeline structure, many parts of which were intended to lay the groundwork for active contour optimisation, and to make use of its output. I elaborate on this topic further in Section \ref{sub:improvementsactivecontours}.
 
-\subsection{\ac{tin} construction}
+\subsection{TIN construction}
 \label{sub:m_tinconstruction}
 
 As I emphasised in the previous section, various aspects of active contour optimisation were found to be lacking. The severity of the issues with this step prompted me to develop \ac{tin} construction in a way that enables it to function without active contour optimisation. Bypassing  the active contour optimisation step altered the requirements that the \ac{tin} construction algorithm needs to satisfy.
@@ -459,7 +459,7 @@ Based on the parametrisation, the outermost boundary within which points will be
 
 They are used for two tasks: firstly, to construct a line halfway between the two edges to form the basis of seeding the \ac{tin}, and secondly, to select points that fall within the edges as insertion candidates for the \ac{tin} initialisation step. This step is labelled \textit{"Grow the initial \ac{tin} surface"} in Figure \ref{fig:tinconstructionflow}, marked as a pre-defined procedure because the underlying procedure is fairly complex. To keep the complexity of the flowchart manageable, both the \ac{tin} initialisation and the \ac{tin} extension workflows of this step are illustrated in a separate diagram, shown in Figure \ref{fig:tinconstructiondetailsflow}.
 
-\subsubsection{\ac{tin} initialisation}
+\subsubsection{TIN initialisation}
 
 \ac{tin} initialisation refers to the process of constructing an initial, conservative approximation of the road surface. As I noted above, it considers those Lidar points only, which fall between the preliminary or optimised edges. It first looks up those Lidar points, which are very close to the seed points. As these points are all but guaranteed to fall on the real-life road surface, they are unconditionally inserted into the \ac{tin} and are then pushed on a stack that in this case I will refer to as the "buffer". At this point in the algorithm, as Figure \ref{fig:tinconstructiondetailsflow} shows, we leave the \textit{"\ac{tin} initialisation"} group of operations and enter the \textit{"\ac{tin} growing"} group (which is shared with \textit{"\ac{tin} extension"}). The boundary vertices are also inserted into the \ac{tin} at this time (at an elevation of zero), which guarantees that the program can identify situations in which it is working with a triangle that is touching the boundary.
 
@@ -486,7 +486,7 @@ A further important performance consideration was to efficiently find Lidar poin
     \label{fig:tinconstructiondetailsflow}
 \end{figure}
 
-\subsubsection{\ac{tin} extension}
+\subsubsection{TIN extension}
 
 The extension of the \ac{tin} takes place in an iterative manner. The implementation accepts arguments that set the amount by which the boundary should be buffered in each iteration, as well as the number of extension iterations (steps). The starting boundary is \textit{not} the same as the one used during the initialisation of the \ac{tin}. There, the preliminary or optimised edges were used, but here the first iteration's boundary is buffered from the seed line (the line halfway between the preliminary or optimised edges). This allows the algorithm to take another look at the points between the edges in case in missed any good candidates during initialisation, while also allowing it to consider points outside the edges in later iterations.
 
@@ -504,7 +504,7 @@ I initially wished to build the \ac{tin} as a single growing operation, but this
 
 Performing conditional insertions outside of the convex hull of the pre-existing \ac{tin} points was also a challenge. Interpolating in the triangles is not a possibility here, but the importance of assessing the compliance of the tested points with the neighbourhood is ever so important - it depends on these surface growing insertions, whether a \ac{tin} might accidentally spread into an off-road area, or not.
 
-\subsection{\ac{tin}-based interpolation and vertex snapping}
+\subsection{TIN-based interpolation and vertex snapping}
 \label{sub:m_interpolation}
 
 \subsubsection{Interpolation and origin tracking}
