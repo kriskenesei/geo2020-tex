@@ -56,7 +56,7 @@ The two halves of the main research question were created by collecting my sub-q
         \item Does the literature suggest any methods that are particularly suitable to this research? If so, can we make use of them in our own methods?
         \item How can the academic methods best make use of the combined information content of the datasets that the commercial implementation uses?
         \item How should the road network be subdivided into parts that each represent a 2.5D problem? Can they be processed individually to facilitate easy parallel processing?
-        \item As we are using Lidar data, can we produce an accurate and complete TIN surface model for each 2.5D "unit"? Can we interpolate elevations for NWB through this model?
+        \item As we are using Lidar data, can we produce an accurate and complete \ac{tin} surface model for each 2.5D "unit"? Can we interpolate elevations for NWB through this model?
         \item How do we "stitch" the results of the individual 2.5D procedures back together into a 3D road network with the correct topology?
         \item Can the implementation be made robust enough to handle all (or \textit{most}) challenging road layouts correctly, such as complex motorway junctions?
         \item How can we make the implementation perform well in areas where input elevation data is scarce or missing over longer distances, such as in tunnels?
@@ -71,7 +71,7 @@ The two halves of the main research question were created by collecting my sub-q
         \item What is the accuracy of our input elevation data sources? Can we structure the pipeline in a way that their input accuracy can be propagated to the output in a straightforward manner?
         \item To facilitate the above, can we derive our output directly from input data points, despite the large number of processing steps that are potentially necessary?
         \item What is the effect of uncertainty in the lateral positions of NWB centrelines on the effectiveness of our methods, and on the output accuracy?
-        \item The road surface model TINs are also important products of the pipeline. How can we assess the overall quality and completeness of these?
+        \item The road surface model \ac{tin}s are also important products of the pipeline. How can we assess the overall quality and completeness of these?
         \item Can we indicate it in the output, which input elevation source each output elevation estimate was derived from, and to use this capability to derive the output accuracy from the appropriate input dataset's accuracy?
         \item How are temporal inconsistencies between the datasets manifested in the output? Can these be detected by the processing steps?
         \item In case we can estimate accuracy on the local scale, what physical features or sensing issues do drops in accuracy correspond to? If this corresponds to problems with the input, what properties of the input should be improved?
