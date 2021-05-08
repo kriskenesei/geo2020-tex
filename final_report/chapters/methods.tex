@@ -70,7 +70,7 @@ As a brief summary of the general idea, the pipeline takes \ac{nwb}, decomposes 
         \item \textbf{Goal:} assemble optimal 2D profiles from the building blocks of \ac{nwb}.
         \item \textbf{Approach:}
         \begin{enumerate}
-            \item Assemble \textit{Non-Branching Road Segments}, henceforth referred to as \textit{NBRS} (in both plural and singular) from \ac{nwb} geometry. To do so, look for series of \ac{nwb} \textit{wegvakken} (LineString objects) that represent the same road and join them into optimised 2D profiles - NBRS.
+            \item Assemble \textit{Non-Branching Road Segments}, henceforth referred to as  (in both plural and singular) from \ac{nwb} geometry. To do so, look for series of \ac{nwb} \textit{wegvakken} (LineString objects) that represent the same road and join them into optimised 2D profiles - NBRS.
             \item Perform the assembly of NBRS in a way that maximises their length (optimal for lengthwise 2D operations such as polynomial fitting), minimising internal angles at the same time. Disallow self-intersection, so that each NBRS can be modelled in 2.5D.
         \end{enumerate}
         \item \textbf{Purpose:} this step is necessary, because in addition to working with small-scale (short wavelength) features in the road network, we wish to be able to inspect trends that take place over longer distances in the network. The building blocks of \ac{nwb} (\textit{wegvakken}) can sometimes be short, occasionally only a few metres long. Hence, assembling them into NBRS provides a better starting point for later steps.
