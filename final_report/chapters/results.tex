@@ -720,8 +720,6 @@ Figure \ref{fig:bgtcomparison} is also illustrative in terms of showing just how
 
 In the sections above, I focused on assessing the accuracy and completeness of specific LineStrings (\textit{wegvakken}) in one testing dataset. In Table \ref{tab:accuracytabulated}, I present mean error, sampling density and accurate output vertex ratio values for \textit{all} my testing datasets.
 
-
-
 Almost no variation is observed in the mean \textbf{formal output vertical error} across the datasets. As explained in the sections above, this is due to the fact that propagating errors through the interpolation technique only exhibits large (positive) fluctuations in the output error when steep triangles are encountered. The first row of tabulated values thereby represent evidence that triangles steep enough to affect accuracy are decidedly rare in our \ac{tin}s, and the output accuracy is, in effect, roughly constant and almost entirely determined by the input accuracy.
 
 The \textbf{sampling density} values show that the density of points is reliably high, consistently staying well above the threshold, below which accuracy is deemed undetermined. However, large variations are still observable between the testing datasets, with values ranging from about 14 to 27 points per m\textsuperscript{2}. The variation has several reasons based on my analysis, each with non-negligible influence. The first reason is that the stock sampling density of \ac{ahn3} appears to vary on a large scale, in various parts of the country, and also locally, which I have already shown in Figure \ref{fig:formalaccuracy0}. The second reason is that accuracy is computed based on radial queries around \ac{nwb} vertices, and will therefore show lower values for very thin roads where \ac{nwb} is close to the edge of the road.
@@ -731,6 +729,19 @@ Lastly - but most importantly for us - it gives an indication of the pervasivene
 However, the medium value seen in 25BZ2 (Amsterdam Hemhavens) does \textit{not} reflect the fact that there is a sizeable tunnel in the dataset. Since the tunnel has no \ac{dtb} line coverage, the relevant \ac{nbrs} part's \ac{tin}s do not extend into the tunnel. As I explained in the sections above, these densities are computed from the \ac{tin}s, and therefore road sections without \ac{ahn3} and \ac{dtb} coverage are not allowed to affect these sampling density measurements. I made this design choice because in these areas, my implementation simply interpolates output elevations via linear interpolation. Therefore, these areas do not, strictly speaking, constitute areas in which we can predict elevation with any certainty, especially not where they are long, such as the tunnel in this particular testing tile. Although I am providing linearly interpolated output values in these regions, I essentially consider them to be excluded from my analysis, and thus I also exclude them from the density computations.
 
 The presence of the tunnel can still be recognised in the \textbf{accurate vertex ratio} row in Table \ref{sub:accuracytabulated}. The lower value seen for 25BZ2 is simply due to the tunnel - almost all other parts of the roads in this dataset have detailed \ac{tin}s associated with them. In this row, there is another value that stands out. The rest of the ratios show that between about 85\% and 95\% of the output vertices have reliable, estimated accuracy, whereas this ratio is only 56\% in the case of dataset 37EZ1 (\textit{Rotterdam Ketheltunnel}). This is the combined result of two factors: as the name implies, this dataset also contains a tunnel. But, as Table \ref{tab:inventory} mentions, the \ac{ahn3} data pre-dates the completion of the tunnel and the surrounding parts of the motorway, and as a result, part of the output is corrupted. Already during preliminary elevation estimation, the standard deviations are a magnitude larger than those encountered in other locations, because the construction works do not represent a smooth surface. In the Lidar segmentation step, the roads are split into many small \ac{nbrs} parts, with much of the road thereby becoming flagged for linear interpolation. As a result, many of the \ac{nwb} vertices' accuracy will be deemed unknown. This issue could be resolved in this case, if the large standard deviation in the preliminary elevation estimation triggered an alternative workflow in which only the support dataset is used in the region in which the primary data is unreliable. Developing and implementing such a workflow was not part of this research, hence it is further discussed in Section \ref{sec:futurework} in the context of recommended future work.
+
+\begin{table}
+    \resizebox{\linewidth}{!}{\begin{tabular}{@{}p{1cm}lllllllllll@{}}
+        \toprule
+        \multicolumn{1}{c}{}    & 20BN1 & 25BZ2 & 25DN2 & 32BN1 & 32FZ2 & 32HZ2 & 33CN2 & 37EZ1 & 37HN2 & 38GZ1 & 39CZ1 \\ \midrule
+        A                       & 5.26  & 5.26  & 5.30  & 5.27  & 5.28  & 5.30  & 5.28  & 5.36  & 5.30  & 5.30  & 5.30  \\
+        B                       & 26.82 & 19.81 & 20.05 & 14.89 & 16.58 & 14.96 & 16.20 & 13.54 & 13.78 & 15.49 & 19.29 \\
+        C                       & 93.03 & 76.15 & 95.09 & 91.74 & 95.51 & 94.21 & 90.52 & 56.26 & 85.25 & 89.09 & 91.73 \\ \bottomrule
+        \multicolumn{12}{c}{A = Mean error [$cm$], B = Mean sampling density [$pts/m^2$], C = Accurate ratio as \% of all vertices}
+    \end{tabular}}
+    \caption{Tabulated 3D-NWB accuracy and completeness results per testing dataset.
+    \label{tab:accuracytabulated}}
+\end{table}
 
 The values in the bottom row of the table are sometimes slightly lower than I would have expected. For instance 85\% for the 37HN2 (\textit{Knooppunt Ridderkerk}) dataset seemed to me to be too low, because almost all gaps have good \ac{dtb} coverage, and \ac{nwb} almost never misses the \ac{tin}s. The reason why this value is lower than expected is because there are many \ac{ahn3} data gaps, and the point density in the \ac{dtb}-defined parts of the \ac{tin}s appears to consistently miss the minimum above which the vertices would be deemed accurate. The process also appears to sometimes filter out vertices that were interpolated in locations where although \ac{dtb} was "sparse", it still managed to characterise the road surface quite well. This further suggests that it would be better if the decisions regarding where to trust \ac{dtb} were not based on the same type of evaluation as \ac{ahn3}, and were instead based on the geometric layout of the \ac{dtb} lines. While this would indeed improve the accuracy assessment results, it would also mean that the procedure would become specialised to \ac{dtb}, and would not work with other types of support datasets. This is elaborated in more detail in Section \ref{sec:futurework}.
 
@@ -769,8 +780,8 @@ The \ac{dtb} data was close enough to the predicted elevation of the road for my
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.92\linewidth]{final_report/figs/commercialcomparison1.pdf}
-    \caption{Charts illustrating the results of comparing the academic and commercial results on two \textit{wegvakken} from dataset \textit{Gorinchem}.}
+    \includegraphics[width=0.87\linewidth]{final_report/figs/commercialcomparison1.pdf}
+    \caption{Charts comparing the academic and commercial results using two \textit{wegvakken} from dataset \textit{Gorinchem}.}
     \label{fig:commercialcomparison1}
 \end{figure}
 
@@ -784,8 +795,8 @@ This demonstrates the flaws in \ac{ndw}'s unconditional assumption that \ac{dtb}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/commercialcomparison2.pdf}
-    \caption{Charts illustrating the results of comparing the academic and commercial results on two \textit{wegvakken} from dataset \textit{Knooppunt Ridderkerk}.}
+    \includegraphics[width=0.87\linewidth]{final_report/figs/commercialcomparison2.pdf}
+    \caption{Charts comparing the academic and commercial results using two \textit{wegvakken} from dataset \textit{Knooppunt Ridderkerk}.}
     \label{fig:commercialcomparison2}
 \end{figure}
 
