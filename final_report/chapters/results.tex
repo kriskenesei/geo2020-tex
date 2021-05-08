@@ -661,6 +661,13 @@ Although this analysis suggests that any errors in the output will be small and 
     \label{fig:formalaccuracy0}
 \end{figure}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{final_report/figs/formalaccuracy1.png}
+    \caption{Visualisations showing the subclouds, \ac{tin}s and 3D-NWB centrelines in the area concerned by Figure \ref{fig:formalaccuracy0}.}
+    \label{fig:formalaccuracy1}
+\end{figure}
+
 The charts in Figure \ref{fig:formalaccuracy0} show interpolation error profiles from 2 \textit{wegvakken} from our chosen testing dataset. From the lack of a trend in the errors, and their small magnitudes overall, we may deduce that the output accuracy is sufficiently high with respect to the 20-centimetre requirement of \ac{ndw}. Any differences due to the \ac{tin}-linear interpolation represent an \textit{increase} in accuracy relative to the 15 cm elevation accuracy of \ac{ahn3}. The two \textit{wegvakken} shown in the figure exhibit theoretical interpolation elevation errors in a range of about 4 centimetres to 7 centimetres, with mean errors of 5 centimetres for both. The variation is always randomly distributed, because the positions of \ac{nwb} vertices relative to the containing triangles' vertices also lack correlation (which is what controls the value $M$ that determines how much the accuracy is improved). In theory, the only factor that could introduce correlation into these profiles would be roads with very steeply sloping surfaces, but no roads in this dataset (or any of my datasets) reach a slope steep enough to affect the errors significantly, and introduce correlation.
 
 The top part of Figure \ref{fig:formalaccuracy1} shows the 3D geometry of the subclouds and centrelines of the same two \textit{wegvakken}. \textit{Wegvak} \#288259033 has a shape which is representative of the steepest slopes and sharpest bends one can expect from the Dutch road network; it connects a ground-level motorway lane with another one running orthogonal to it directly above, on a bridge. \textit{Wegvak} \#600127973 is the ground-based motorway lane that it connects. It lies entirely flat on the ground, with little to no variation in its elevation. I picked it because its shape is the opposite of that of \#288259033, and because it had been split into two parts due to a 15-20 m long data gap which is visible in the figure. The gap also lacks \ac{dtb} coverage. The bottom image in Figure \ref{fig:formalaccuracy1} shows the corresponding \ac{tin}s, and it is visible in this figure that \ac{nwb} veers to the outer edge of the steep, curved \textit{wegvak}, almost reaching it. The relatively thin width of the \ac{tin} and its rugged outer edge is a result of this; the preliminary edges were constructed partially off-road due to \ac{nwb}'s poor georeferencing.
@@ -672,13 +679,6 @@ The second important observation is that while local sampling density fluctuates
 The third, and last important observation is that neither the recorded sampling rates, nor the theoretical accuracy values are indicative of locations where \ac{nwb}'s 2D georeferencing is poor. While \ac{nwb}'s location is far from the road's real centre in \#288259033, it is not off the road, and as a result the interpolated elevations will still be correct, or at least they will definitely correspond to some part of the road surface. As far as theory is concerned, the elevation is the \textit{correct elevation} at the \textit{incorrect \ac{nwb} location}. This also holds for places where \ac{nwb} is not on the road surface, but in such places both the sampling density and the accuracy may drop, the former because the \ac{tin} construction algorithm is not meant to be used in uneven areas, and the latter because of (and only in the case of) introducing sloping triangles into the \ac{tin}.
 
 The mean error and sampling density of the entire testing dataset are 5 cm and 19 points per m\textsuperscript{2} respectively.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/formalaccuracy1.png}
-    \caption{Visualisations showing the subclouds, \ac{tin}s and 3D-NWB centrelines in the area concerned by Figure \ref{fig:formalaccuracy0}.}
-    \label{fig:formalaccuracy1}
-\end{figure}
 
 \subsection{Ratio of accurate vertices}
 \label{sub:completeness}
@@ -696,7 +696,7 @@ Linear interpolation is rare outside of \ac{ahn3} data gaps (including those due
 \subsection{TIN completeness}
 \label{sub:tincompleteness}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\linewidth]{final_report/figs/bgtcomparison.png}
     \caption{2D Visualisations comparing \ac{bgt} road edges with the \ac{tin}s, with \ac{nwb} centrelines and with Luchtfoto 2020 satellite imagery.}
@@ -718,9 +718,9 @@ Figure \ref{fig:bgtcomparison} is also illustrative in terms of showing just how
 \subsection{Tabulated values}
 \label{sub:accuracytabulated}
 
-In the sections above, I focused on assessing the accuracy and completeness of specific LineStrings (\textit{wegvakken}) in one testing dataset. In Table \ref{tab:accuracytabulated} below, I present mean error, sampling density and accurate output vertex ratio values for \textit{all} my testing datasets.
+In the sections above, I focused on assessing the accuracy and completeness of specific LineStrings (\textit{wegvakken}) in one testing dataset. In Table \ref{tab:accuracytabulated}, I present mean error, sampling density and accurate output vertex ratio values for \textit{all} my testing datasets.
 
-\begin{table}
+\begin{table}[h]
     \resizebox{\linewidth}{!}{\begin{tabular}{@{}p{1cm}lllllllllll@{}}
         \toprule
         \multicolumn{1}{c}{}    & 20BN1 & 25BZ2 & 25DN2 & 32BN1 & 32FZ2 & 32HZ2 & 33CN2 & 37EZ1 & 37HN2 & 38GZ1 & 39CZ1 \\ \midrule
@@ -747,15 +747,15 @@ The values in the bottom row of the table are sometimes slightly lower than I wo
 
 Some of the \ac{nwb} centrelines overshoot the Lidar testing tile extents by up to 20-50 metres. These were left in some of the testing tiles deliberately, to test certain aspects of the the behaviour of the algorithms (as also mentioned in Section \ref{sec:manualpreprocessing}). These can further decrease the accurate vertex ratios by about 2-4\% artificially. The overshoots are visible in Figure \ref{fig:manualpreprocessing}.
 
-\section{Comparison with commercial implementation}
-\label{sec:r_comparison}
-
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/commercialcomparison0.pdf}
+    \includegraphics[width=\linewidth]{final_report/figs/commercialcomparison0.pdf}
     \caption{Charts illustrating the results of comparing the academic and commercial results on two \textit{wegvakken} from dataset \textit{Knooppunt Deil}.}
     \label{fig:commercialcomparison0}
 \end{figure}
+
+\section{Comparison with commercial implementation}
+\label{sec:r_comparison}
 
 Like in the accuracy assessment above, I picked some specific \textit{wegvakken} that are particularly representative of the overall results of this comparison. However, here I did not restrict the selection to be from the \textit{Knooppunt Deil} dataset, because the results are very different across my set of testing datasets. Where the agreement is good, the two sets of results can be similar to a degree where it is difficult to tell them apart in a 3D visualisation, unless the Z axis is grossly exaggerated. Examining the correspondence on 2D charts (see Figures \ref{fig:commercialcomparison0}, \ref{fig:commercialcomparison1} and \ref{fig:commercialcomparison2}) works far better in terms of characterising the nature of both the small-scale and large-scale differences that are typically observed when comparing the two datasets. For this reason, I opted to show only 2D visualisations in this section. I also present tabulated mean \ac{rmse} values for all testing datasets in Section \ref{sub:comparisontabulated}.
 
