@@ -1,1 +1,1 @@
-The P4 document (draft thesis) is currently being built in this folder. Most of the report content is found in ´/chapters´, but ´thesis.tex´ needs to be compiled, not the ´.tex´ files in ´/chapters´.
+The final thesis report (P5) is being built in this folder based on the draft report(P4). Most of the report content is found in ´/chapters´, but ´thesis.tex´ needs to be compiled, not the ´.tex´ files in ´/chapters´.
