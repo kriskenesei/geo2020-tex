@@ -739,8 +739,8 @@ The presence of the tunnel can still be recognised in the \textbf{accurate verte
         C                       & 93.03 & 76.14 & 95.08 & 91.74 & 95.51 & 94.18 & 90.52 & 56.19 & 85.18 & 89.00 & 91.68 \\ \bottomrule
         \multicolumn{12}{c}{A = Mean error [$cm$], B = Mean sampling density [$pts/m^2$], C = Accurate ratio as \% of all vertices}
     \end{tabular}}
-    \caption{Tabulated 3D-NWB accuracy and completeness results per testing dataset.
-    \label{tab:accuracytabulated}}
+    \caption{Tabulated 3D-NWB accuracy and completeness results per testing dataset. Results based on original and densified NWB vertices.}
+    \label{tab:accuracytabulated}
 \end{table}
 
 The values in the bottom row of the table are sometimes slightly lower than I would have expected. For instance 85\% for the 37HN2 (\textit{Knooppunt Ridderkerk}) dataset seemed to me to be too low, because almost all gaps have good \ac{dtb} coverage, and \ac{nwb} almost never misses the \ac{tin}s. The reason why this value is lower than expected is because there are many \ac{ahn3} data gaps, and the point density in the \ac{dtb}-defined parts of the \ac{tin}s appears to consistently miss the minimum above which the vertices would be deemed accurate. The process also appears to sometimes filter out vertices that were interpolated in locations where although \ac{dtb} was "sparse", it still managed to characterise the road surface quite well. This further suggests that it would be better if the decisions regarding where to trust \ac{dtb} were not based on the same type of evaluation as \ac{ahn3}, and were instead based on the geometric layout of the \ac{dtb} lines. While this would indeed improve the accuracy assessment results, it would also mean that the procedure would become specialised to \ac{dtb}, and would not work with other types of support datasets. This is elaborated in more detail in Section \ref{sec:futurework}.
@@ -822,8 +822,8 @@ In the section above, I discussed detailed comparisons between my results and th
         L.I.                 & 0.0108 & 7.1152 & 3.3000 & 0.0692 & 0.2636  & 1.1244 & 0.3528 & 2.7504 & 0.7174 & 0.3036 & 0.1634 \\ \bottomrule
         \multicolumn{12}{c}{L.I. stands for linear interpolation.}
     \end{tabular}}
-    \caption{Tabulated academic and commercial 3D-NWB similarity quantification results.
-    \label{tab:comparisontabulated}.}
+    \caption{Tabulated academic and commercial RMSE-based similarity quantification results.}
+    \label{tab:comparisontabulated}
 \end{table}
 
 Table \ref{tab:comparisontabulated} shows the results of quantifying the similarity between the academic and commercial \ac{nwb} 3D-conversions. It contains \ac{rmse} values for each testing dataset, computed based on the residuals between the elevations estimated by the two methods for the same original \ac{nwb} vertices.
