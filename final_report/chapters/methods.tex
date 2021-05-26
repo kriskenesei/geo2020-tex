@@ -585,7 +585,7 @@ To make sure I use a conservative value, I opted to stay somewhat above this est
 
 \subsubsection{Types of areas violating the assumption}
 
-In most places, the local sampling density must drop by more than 80\% to reach the above minimum threshold, which means that it only happens in extreme events. As we lack a mathematical formulation describing the exact nature of the influence below the threshold sampling rate, the best we can do is mark the accuracy of vertices falling into such areas as \textit{unknown} in the output.
+In most places, the local sampling density must drop by more than 80\% to reach the above minimum threshold, which only happens in extreme events. As we lack a mathematical formulation describing the exact nature of the influence below the threshold sampling rate, the best we can do is mark the accuracy of vertices falling into such areas as \textit{unknown} in the output.
 
 Places where linear interpolation was used, the threshold-based evaluation is automatically assumed to be violated. They generally correspond to areas where there is no \ac{ahn3} and \ac{dtb} coverage, meaning that the local sampling density is zero, or nearly zero. Even in areas where linear interpolation had to be used due to the poor georeferencing of \ac{nwb}, the values were not based on the samples in the local \ac{tin}s, hence sampling density can considered to be zero there, too.
 
