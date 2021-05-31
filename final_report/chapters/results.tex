@@ -20,7 +20,7 @@ The last sections of the chapter (\ref{sec:accuracy}, \ref{sec:r_comparison}) co
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/manualpreprocessing.png}
-    \caption{Visualisations illustrating the results of manual pre-processing.}
+    \caption[Visualisations illustrating the results of manual pre-processing]{Visualisations illustrating the results of manual pre-processing. An \ac{nwb} tile (yellow lines) and the corresponding Lidar clipping polygon (in red) are shown alongside the clipped point cloud tile (on the right). Darker areas represent lower elevations, the total elevation range shown is about ten metres.}
     \label{fig:manualpreprocessing}
 \end{figure}
 
@@ -30,7 +30,7 @@ As scaling was not part of this project, the task of creating manageable subsets
 
 I derived the area of interest in which to keep Lidar points by buffering the centrelines in the \ac{nwb} tiles by 150 metres, and passing these geometries on to LASTools to use to \textit{clip} the relevant \ac{ahn3} tiles. \ac{ahn3} itself comes tiled in the official release (on a much larger scale), and I derived each testing dataset from a single \ac{ahn3} tile to keep the manual procedure simple. I also discarded \ac{ahn3} points not classed as ground or bridge points at this stage (2 and 26 respectively), as they are not relevant to our methods.
 
-Visualisations are shown in Figure \ref{fig:manualpreprocessing} in which an \ac{nwb} tile and the Lidar clipping polygon (on the left) is shown alongside the clipped point cloud tile (on the right). The clipping polygon was manually edited to have sharp, linear boundaries and \ac{nwb} \textit{wegvakken} (yellow lines) intersecting its interior (red areas) were included in the testing dataset. The resulting occasional overshoots of \ac{nwb} centrelines (relative to \ac{ahn3}) allowed me to test how well the procedure performs in areas where \ac{ahn3} is completely unavailable for a short distance, but where \ac{dtb} coverage is present - hence, I kept them. They also caused unforeseen issues in the accuracy assessment, which I will discuss in Section \ref{sub:accuracytabulated}. On the right, the point cloud is shown in its original density, not a derived \ac{dtm}. Darker areas represent lower elevations, the total elevation range shown in the image is about ten metres.
+Visualisations are shown in Figure \ref{fig:manualpreprocessing}. The clipping polygon was manually edited to have sharp, linear boundaries and \ac{nwb} \textit{wegvakken} intersecting its interior were included in the testing dataset. The resulting occasional overshoots of \ac{nwb} centrelines (relative to \ac{ahn3}) allowed me to test how well the procedure performs in areas where \ac{ahn3} is completely unavailable for a short distance, but where \ac{dtb} coverage is present - hence, I kept them. They also caused unforeseen issues in the accuracy assessment, which I discuss in Section \ref{sub:accuracytabulated}. On the right, the point cloud is shown in its original density, not a derived \ac{dtm}.
 
 I created 11 testing datasets in total, each with its own cropped \ac{nwb}, \ac{dtb} and \ac{ahn3} files, which are described in the next section. The dataset shown in this figure is \textit{Knooppunt Deil} (from \ac{ahn3} tile \codeword{39CZ1}).
 
@@ -60,7 +60,8 @@ Knooppunt Ridderkerk, \codeword{37HN2} & The Ridderkerk junction is one of the l
 Gorinchem, \codeword{38GZ1} & Complex junction between \ac{p_roads} and \ac{r_roads} with small ramps, roundabouts and overlapping geometries. & \raisebox{-0.95\totalheight}{\includegraphics[width=6cm, height=3.5cm]{final_report/figs/ahn_sample_38GZ1_a.png}} \\
 Knooppunt Deil, \codeword{39CZ1} & Less complex, but analogous junction to the Knooppunt Ridderkerk. & \raisebox{-0.5\totalheight}{\textit{Please refer to Figures \ref{fig:ahnbridges}, \ref{fig:ahnsigns}, \ref{fig:ahnnwb} and \ref{fig:dtbahn}.}} \\
 \toprule
-\caption{Inventory of testing datasets \label{tab:inventory}}
+\caption[Inventory of the testing datasets]{Inventory of testing datasets. In the renders, ground points are shown in green and bridge points in red.}
+\label{tab:inventory}
 \end{longtable}
 
 One instance of my software can process a single testing dataset at a time. However, running multiple Python instances in parallel allows one to easily parallel-process multiple tiles depending on the CPU installed in the computer. Each dataset consists of a cropped \ac{nwb} and \ac{dtb} file, and the clipped \ac{ahn3} point cloud.
@@ -82,7 +83,7 @@ The colours are generally inconsistent between the results of the two algorithms
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/nbrsgeneration0.png}
-    \caption{Visualisations illustrating the results of \ac{nbrs} generation.}
+    \caption[Renders illustrating the results of NBRS generation]{Visualisations illustrating the results of \ac{nbrs} generation. The colour-coding was randomly generated based on the generated ID numbers of the NBRS. The insets show differences between the results of the two algorithms.}
     \label{fig:nbrsgeneration0}
 \end{figure}
 
@@ -121,18 +122,18 @@ The invocation \codeword{roads.plot_all()} may be executed to plot the results o
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/elevationestimation0.png}
-    \caption{Visualisations illustrating the preliminary elevation estimation results.}
+    \caption[Visualisations illustrating the preliminary elevation estimation results]{Visualisations illustrating the preliminary elevation estimation results. The colour-coding of the 3D NBRS lines was randomly generated based on their ID numbers.}
     \label{fig:elevationestimation0}
 \end{figure}
 
-Figure \ref{fig:elevationestimation0} shows the results of this step in two 3D visualisations. The \ac{nwb} centrelines are shown once again in random colours based on which \ac{nbrs} they belong to, but now they are shown at their estimated elevations. The vertical dimension in this visualisation and all other 3D visualisations in this chapter are exaggerated 5-fold, so that changes in elevation are made better visible. The figure contains two visualisations that allow the reader to examine the same results from multiple viewing angles.
+Figure \ref{fig:elevationestimation0} shows the results of this step in two 3D visualisations. The \ac{nwb} centrelines are now shown at their estimated elevations. The vertical dimension in this visualisation and all other 3D visualisations in this chapter are exaggerated 5-fold, so that changes in elevation are made better visible. The figure contains two visualisations that allow the reader to examine the same results from multiple viewing angles.
 
 \subsubsection{Vertex densification}
 
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/elevationestimation1.png}
-    \caption{Visualisations illustrating the vertex densification feature.}
+    \caption[Visualisations illustrating vertex densification]{Plots illustrating vertex densification. Vertices are marked as red circles on the blue NBRS line.}
     \label{fig:elevationestimation1}
 \end{figure}
 
@@ -153,7 +154,7 @@ The top visualisation in Figure \ref{fig:elevationestimation2} illustrates that 
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/elevationestimation2.png}
-    \caption{Visualisations comparing preliminary 3D conversion results with the \ac{ahn3} point cloud.}
+    \caption[Visualisations comparing the preliminary 3D-NWB with AHN3]{Visualisations comparing preliminary 3D conversion results with the \ac{ahn3} point cloud. The colour-coding of the 3D NBRS lines was randomly generated based on their ID numbers. Darker areas represent lower elevations, the total elevation range shown is about ten metres.}
     \label{fig:elevationestimation2}
 \end{figure}
 
@@ -199,26 +200,26 @@ In the class itself, the results of this step are not stored in a separate varia
 \begin{figure}
     \centering
     \includegraphics[width=0.86\linewidth]{final_report/figs/lidarsegmentation0.png}
-    \caption{Visualisations illustrating the results of Lidar segmentation.}
+    \caption[Visualisations illustrating the results of Lidar segmentation]{Visualisations illustrating the results of Lidar segmentation. The colour-coding of the subclouds was randomly generated based on their NBRS IDs. In the bottom part of the figure, the centrelines are also shown in black.}
     \label{fig:lidarsegmentation0}
 \end{figure}
 
-Figure \ref{fig:lidarsegmentation0} shows some visualisations of the results of Lidar segmentation. Like in figures depicting \ac{nbrs} alone (such as e.g. Figure \ref{fig:elevationestimation0}), I used colours to dinstinguish between the subclouds of each \ac{nbrs}. On the right in the figure, the centrelines are also shown (in black, to help distinguish them from their subclouds). For subclouds which are positioned far from each other, a clear separation is observable. However, ones that are close to one another often overlap, such as in various places in the centre of the visualisation on the left in Figure \ref{fig:lidarsegmentation0}. This is the result of there not being much space between the roads themselves. The overlapping parts of such subclouds may contain duplicate points (in other words, points may be part of multiple subclouds). Out of these "duplicate" points, the visualisation only shows the ones that were loaded last, hence some subclouds may appear thinner than they are.
+Figure \ref{fig:lidarsegmentation0} shows some visualisations of the results of Lidar segmentation. For subclouds which are positioned far from each other, a clear separation is observable. However, ones that are close to one another often overlap, such as in various places in the top visualisation. This is the result of there not being much space between the roads themselves. The overlapping parts of such subclouds may contain duplicate points (in other words, points may be part of multiple subclouds). Out of these "duplicate" points, the visualisation only shows the ones that were loaded last, hence some subclouds may appear thinner than they are.
 
 \subsubsection{General description of results}
 
 The properties which we are looking for in the resulting subclouds is that they contain as many of the road surface points, and as few of the surrounding unrelated points, as possible - especially with regards to points reflected from occluding objects. Figure \ref{fig:lidarsegmentation0} illustrates quite vividly that indeed, each \ac{nbrs}'s subcloud is clearly related to the underlying real-life road surface and that very few unrelated points are included.
 
-Since this is not yet the stage where conservative thresholds are enforced, it is possible that a small amount of undesired points will be retained. This is mostly happens just before and after regions of occlusion, where the underlying plane fits have already been affected by the occlusion but not enough to be excluded. An example of such a group of points (the bottom part of a wall) is found in the blue subcloud on the right in Figure \ref{fig:lidarsegmentation0}. Reflections from tall vehicles, as well as from roadside guardrails and small signs may also be retained in this step sometimes, which explains the fuzzy appearance of the bridges on the left in the same figure.
+Since this is not yet the stage where conservative thresholds are enforced, it is possible that a small amount of undesired points will be retained. This mostly happens just before and after regions of occlusion, where the underlying plane fits have already been affected by the occlusion but not enough to be excluded. An example of such a group of points (the bottom part of a wall) is found in the blue subcloud in the bottom part of Figure \ref{fig:lidarsegmentation0}. Reflections from tall vehicles, as well as from roadside guardrails and small signs may also be retained in this step sometimes, which explains the fuzzy appearance of the bridges on the left in the same figure.
 
 This problem arises because the Lidar patches inevitably include off-road points, causing the fitted planes not to lie perfectly on the road surfaces. This in turn means that using very strict point-to-plane thresholds is not advisable, opening the possibility for unrelated points to make it into the subclouds. While iteratively refining the plane fits could reduce the impact of this issue, it would also introduce unnecessary computational complexity. This step of the pipeline does not \textit{need} to to produce perfect results, the small number of artefacts can be handled by later pipeline steps. 
 
-The visualisation on the left in Figure \ref{fig:lidarsegmentation0} shows the \textit{Knooppunt Ridderkerk} motorway junction in which many motorway lanes and ramps are present in complex 3D relationships, in one place including an area with 4 overlapping roads. The correctness of the resulting subclouds demonstrates that although some of my approach is procedural and relies on a fixed parametrisation, it is still robust enough to work in the simplest, as well as the most challenging environments.
+The top visualisation in Figure \ref{fig:lidarsegmentation0} shows the \textit{Knooppunt Ridderkerk} motorway junction in which many motorway lanes and ramps are present in complex 3D relationships, in one place including an area with 4 overlapping roads. The correctness of the resulting subclouds demonstrates that although some of my approach is procedural and relies on a fixed parametrisation, it is still robust enough to work in the simplest, as well as the most challenging environments.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/lidarsegmentation1.png}
-    \caption{Visualisations illustrating the disagreement between \ac{ahn3} and \ac{dtb}.}
+    \caption[Renders showing the disagreement between AHN3 and DTB]{Visualisations illustrating the disagreement between \ac{ahn3} and \ac{dtb}. The symbology is the same as in Figure \ref{fig:lidarsegmentation0}.}
     \label{fig:lidarsegmentation1}
 \end{figure}
 
@@ -228,7 +229,7 @@ As discussed in-depth in Section \ref{sub:m_lidarsegmentation}, the final versio
 
 Furthermore, even in the knowledge that \ac{dtb} is severely outdated in many places (see Section \ref{sub:dtb}), it is still the only information source we have about roads where \ac{ahn3} coverage is missing. Where the break in \ac{ahn3} coverage is short and \ac{dtb} is outdated (or missing), linear interpolation prevails. However, where longer gaps are present and the road's elevation may change inside of them, \ac{dtb} prevails even if its data its outdated.
 
-Unlike in most locations, \ac{dtb} has good coverage in the particular motorway junctions shown in Figures \ref{fig:lidarsegmentation0} and \ref{fig:lidarsegmentation1}, especially in the \textit{Knooppunt Ridderkerk} junction. Each of the visualisations in these figures contain examples of how \ac{dtb}-based "assistance" manifests itself in the output. Where subclouds contain Lidar-gaps filled with points in a linear arrangement, one can be certain that \ac{dtb} was used to re-fit planes and to supply points to the subcloud. On the left in Figure \ref{fig:lidarsegmentation0}, these linear sets of points appear in the lowest motorway lanes and ramps wherever the 3 overlying roads cast "shadows" on it, creating occluded zones of various shapes. Each level of the stack of roads has such a feature, except for the one on the top, which is not occluded by any objects.
+Unlike in most locations, \ac{dtb} has good coverage in the particular motorway junctions shown in Figures \ref{fig:lidarsegmentation0} and \ref{fig:lidarsegmentation1}, especially in the \textit{Knooppunt Ridderkerk} junction. Each of the visualisations in these figures contain examples of how \ac{dtb}-based "assistance" manifests itself in the output. Where subclouds contain Lidar-gaps filled with points in a linear arrangement, one can be certain that \ac{dtb} was used to re-fit planes and to supply points to the subcloud. In the upper part of Figure \ref{fig:lidarsegmentation0}, these linear sets of points appear in the lowest motorway lanes and ramps wherever the 3 overlying roads cast "shadows" on it, creating occluded zones of various shapes. Each level of the stack of roads has such a feature, except for the one on the top, which is not occluded by any objects.
 
 While this demonstrates that \ac{dtb} - or any support dataset with road surface elevation measurements - can be helpful in complementing this procedure (which is otherwise based entirely on \ac{ahn3}), it also highlights one of \ac{dtb}'s weaknesses. While the areas shown in these figures have good \ac{dtb} coverage, the \ac{dtb} lines in the \textit{Knooppunt Ridderkerk} dataset are in some cases approximately two decades older than \ac{ahn3} (they are up-to-date in \textit{Knooppunt Deil}). Figure \ref{fig:lidarsegmentation1} demonstrates that there are noticeable systematic differences between the road elevations as depicted by \ac{ahn3} and \ac{dtb}.
 
@@ -263,7 +264,7 @@ While the post-processing operations of this pipeline step (breaking into \ac{nb
 \begin{figure}
     \centering
     \includegraphics[width=0.92\linewidth]{final_report/figs/lidarsegmentation2.png}
-    \caption{Visualisation illustrating the handling of gaps in \ac{ahn3} coverage during Lidar segmentation.}
+    \caption[Render illustrating the handling of AHN3 gaps during Lidar segmentation]{Visualisation illustrating the handling of gaps in \ac{ahn3} coverage during Lidar segmentation. The colour-coding of the 3D NBRS lines and the subclouds was randomly generated based on their NBRS IDs. The relevant DTB lines are shown in dark red, where available.}
     \label{fig:lidarsegmentation2}
 \end{figure}
 
@@ -294,7 +295,7 @@ The output of this step is mostly satisfactory, no road layouts apart from tunne
 \begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/edgeapproximation0.png}
-    \caption{Visualisations illustrating the results of preliminary edge approximation.}
+    \caption[Renders illustrating the results of preliminary edge approximation]{Renders illustrating the results of preliminary edge approximation. Left: visualisations showing the generated preliminary edges and cross-sections. Right: visualisation comparing the edges and cross-sections to the underlying subclouds. The edges, cross-sections and subclouds are coloured randomly based on their NBRS IDs.}
     \label{fig:edgeapproximation0}
 \end{figure}
 
@@ -321,7 +322,7 @@ I implemented a workaround that mitigates the effects of this issue. The line fi
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/edgeapproximation1.png}
-    \caption{Visualisations illustrating challenging edge approximation scenarios.}
+    \caption[Renders illustrating challenging edge approximation scenarios]{Visualisations illustrating challenging edge approximation scenarios. The preliminary edges and cross-sections are shown as dark lines, and the subclouds are coloured randomly based on their NBRS IDs. One the left, the relevant preliminary 3D-NWB centrelines are also shown in the same colour.}
     \label{fig:edgeapproximation1}
 \end{figure}
 
@@ -370,7 +371,7 @@ As Figures \ref{fig:activecontouroptimisation0} and \ref{fig:activecontouroptimi
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.84\linewidth]{final_report/figs/activecontouroptimisation0.png}
-    \caption{Visualisations illustrating various degrees of active contour optimisation success.}
+    \caption[Renders illustrating the results of active contour optimisation]{Visualisations illustrating various degrees of active contour optimisation success. In these 2D visualisations, NWB is shown as dark grey lines, whereas the optimised edges are coloured randomly based on their NBRS IDs.}
     \label{fig:activecontouroptimisation0}
 \end{figure}
 
@@ -407,7 +408,7 @@ Thus, attraction in my recommended parametrisation is controlled almost entirely
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/activecontouroptimisation1.png}
-    \caption{Visualisations comparing optimised edges to the underlying attractor maps.}
+    \caption[Visualisations comparing optimised edges to attractor maps]{2D visualisations comparing optimised edges to the underlying attractor maps. The attractor maps contain a single band with scalar values, hence they are shown visually as greyscale rasters. The NWB centrelines are shown in dark green, and the optimised contours as dashed red lines.}
     \label{fig:activecontouroptimisation1}
 \end{figure}
 
@@ -450,7 +451,7 @@ In the class, the maps can be found in the variable \codeword{.nbrs_maps[nbrs_id
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/tinconstruction0.png}
-    \caption{Visualisations illustrating the results of \ac{tin} initialisation and extension.}
+    \caption[Renders illustrating the results of TIN initialisation and extension]{Visualisations illustrating the results of \ac{tin} initialisation and extension. The TIN surfaces are shaded in gray, and the preliminary 3D-NWB and edge geometries are coloured randomly, based on their NBRS IDs. The triangulation of one of the TINs is shown as a red wireframe.}
     \label{fig:tinconstruction0}
 \end{figure}
 
@@ -460,7 +461,7 @@ By adjusting my methods to the circumstance of not being able to produce accurat
 
 A comparison of the initialisation step's insertion boundary is shown in Figure \ref{fig:tinconstruction0} both with initial \ac{tin}s and extended ones. The pre-selection step takes place in 2D, but for viewing convenience I used preliminary edges in this example visualisation, which are originally 3D geometries (in contrast with the optimised edges, which are 2D geometries).
 
-While in most cases this does not represent an practical issue, my results suggest that there is a theoretical limitation to my methods. Since they were inspired by ground filtering algorithms, they are not particularly sensitive to gradual changes in the road surface, and especially insensitive to smooth transitions. The approach appears to excel at eliminating outlier points that were left undetected during previous steps, and detecting the edges of the roads where they are clearly defined by a significant vertical shift in the Lidar points, for instance a high curb or a wall. However, the conditional insertion tests often have difficulty in reliably recognising points close to, but not quite on the road surface where the edges are not well defined. Avoiding the insertion of such transitional points is key, because they may then act as a bridge between road points and off-road points in subsequent iterations, thereby allowing the surface to grow in undesired directions.
+While in most cases this does not represent a practical issue, my results suggest that there is a theoretical limitation to my methods. Since they were inspired by ground filtering algorithms, they are not particularly sensitive to gradual changes in the road surface, and especially insensitive to smooth transitions. The approach appears to excel at eliminating outlier points that were left undetected during previous steps, and detecting the edges of the roads where they are clearly defined by a significant vertical shift in the Lidar points, for instance a high curb or a wall. However, the conditional insertion tests often have difficulty in reliably recognising points close to, but not quite on the road surface where the edges are not well defined. Avoiding the insertion of such transitional points is key, because they may then act as a bridge between road points and off-road points in subsequent iterations, thereby allowing the surface to grow in undesired directions.
 
 The image on the bottom left in Figure \ref{fig:tinconstruction1} shows an area that exhibits the above type of challenging scenario and causes a small region of sloping terrain points to be added to the initial \ac{tin}. The bottom right image in the same figure shows a similar type of artefact which occurs due to \ac{nwb} getting as close as within 5-20 centimetres from the outer edges of the bending road, resulting in the insertion of many off-road points. In the latter case, it is possible that the "bridge" points were already inserted in the seeding step, because the outer preliminary edge was constructed far beyond the road's real edge.
 
@@ -489,7 +490,7 @@ While such a conservative parametrisation certainly avoids the addition of clear
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/tinconstruction1.png}
-    \caption{Visualisations providing an overview of constructed \ac{tin}s and illustrating \ac{tin} artefacts.}
+    \caption[Overview render of constructed TINs and renders of TIN artefacts]{Visualisations providing an overview of constructed \ac{tin}s (above) and illustrating \ac{tin} artefacts (below). The TIN surfaces are shaded in gray, and the preliminary edge geometries are coloured randomly based on their NBRS IDs. The triangulation of some of the TINs is shown as a red wireframe.}
     \label{fig:tinconstruction1}
 \end{figure}
 
@@ -503,7 +504,7 @@ As a result of this phenomenon, reducing the thresholds any further without incr
 
 In \ac{tin} extension, I could use smaller thresholds than during initialisation because of the differences in the underlying workflow. Since extension considers "layers" of points progressing away from the centres of the road, it considers candidate points in a more "orderly" fashion. In \ac{tin} initialisation, the \ac{tin} only grows towards a certain area if insertions lead the algorithm there, whereas the repeated seeding mechanism in the extension stage represents a more \textit{targeted} growing approach. In practice, this means that the candidates are simply examined in a better order, leading to more efficient decision-making. This counteracts the increased impact the Lidar noise has on the scale of the thresholds that are being used.
 
-A side-effect of this is that growing may be restarted during extension after a relatively large hiatus, leading to large triangles appearing in the \ac{tin}s. The hiatuses - or more precisely, the failed insertions in them - are mostly caused by the larger, slightly inaccurate triangles which I already mentioned in the previous paragraph. This can be seen in the \ac{tin} structure in the top image in Figure \ref{fig:tinconstruction0} - while the right half of the suspected area of the road has points spaced uniformly, the left side has large, slightly inaccurate triangles that prevented Lidar points from being inserted within their areas and growing the \ac{tin} further in that direction. As the bottom image in the same figure shows, the "second pass" over the data via the \ac{tin} extension solved this issue for the most part, although some of the large triangles remained.
+A side-effect of this is that growing may be restarted during extension after a relatively large hiatus, leading to large triangles appearing in the \ac{tin}s. The gaps - or more precisely, the small number of successful insertions in them - are mostly caused by the larger, slightly inaccurate triangles which I already mentioned in the previous paragraph. This can be seen in the \ac{tin} structure in the top image in Figure \ref{fig:tinconstruction0} - while the right half of the suspected area of the road has points spaced uniformly, the left side has large, slightly inaccurate triangles that prevented Lidar points from being inserted within their areas and growing the \ac{tin} further in that direction. As the bottom image in the same figure shows, the "second pass" over the data via the \ac{tin} extension solved this issue for the most part, although some of the large triangles remained.
 
 Inspecting a larger area around the point that is being considered for insertion (instead of just the one triangle containing it) could reduce the impact of this issue, but it is costly in terms of computational complexity. This is part of the reason why I only use that approach when inserting points in triangles touching the insertion boundary.
 
@@ -553,7 +554,7 @@ The second method invocation writes the \ac{tin}s to disk, one OBJ file for each
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/elevationinterpolation0.png}
-    \caption{Visualisations comparing final 3D conversion results to preliminary conversion, subclouds, and preliminary edges.}
+    \caption[Visualisations comparing final 3D-NWB geometries with intermediate results]{Visualisations comparing final 3D conversion results to preliminary conversion (above), subclouds (in the middle), and preliminary edges (below). In the upper visualisation, the final 3D-NWB geometries are shown coloured randomly based on their NBRS IDs, and the preliminary 3D conversion in brown. In the subcloud comparison, the subclouds are also coloured based on their NBRS IDs, and here the final 3D conversion of NWB is shown in a constant colour to help distinguish it from the points. In the bottom visualisation, the final 3D-NWB geometry, as well as the preliminary edges and cross-sections are coloured randomly, based on their NBRS IDs.}
     \label{fig:elevationinterpolation0}
 \end{figure}
 
@@ -594,7 +595,7 @@ It is also important to note here that while the preliminary edges may be missin
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/elevationinterpolation1.png}
-    \caption{Visualisations comparing final 3D conversion results to the underlying \ac{tin} models.}
+    \caption[Renders comparing final 3D-NWB geometries with the underlying TIN models]{Visualisations comparing final 3D conversion results to the underlying \ac{tin} models. The TIN surfaces are shaded in gray, and the final 3D-NWB geometries are coloured randomly based on their NBRS IDs. The triangulation of one of the TINs is shown as a red wireframe.}
     \label{fig:elevationinterpolation1}
 \end{figure}
 
@@ -637,7 +638,7 @@ I will first focus on the results of computing local sampling densities and form
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/empiricalaccuracy0.png}
-    \caption{Charts demonstrating the outcome of the empirical accuracy assessment process.}
+    \caption[Charts demonstrating the outcome of the empirical accuracy assessment process]{Charts demonstrating the outcome of the empirical accuracy assessment process.}
     \label{fig:empiricalaccuracy0}
 \end{figure}
 
@@ -659,14 +660,14 @@ Although this analysis suggests that any errors in the output will be small and 
 \begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/formalaccuracy0.pdf}
-    \caption{Charts illustrating the formal accuracy assessment results on two \textit{wegvakken}.}
+    \caption[Charts illustrating the formal accuracy assessment results on two LineStrings]{Charts illustrating the formal accuracy assessment results on two \textit{wegvakken}.}
     \label{fig:formalaccuracy0}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/formalaccuracy1.png}
-    \caption{Visualisations showing the subclouds, \ac{tin}s and 3D-NWB centrelines in the area concerned by Figure \ref{fig:formalaccuracy0}.}
+    \caption[Renders showing the subclouds, TINs and 3D-NWB centrelines relevant to Figure \ref{fig:formalaccuracy0}]{Visualisations showing the subclouds, \ac{tin}s and 3D-NWB centrelines in the area concerned by Figure \ref{fig:formalaccuracy0}. In the top visualisation, the subclouds and final 3D-NWB geometries are shown coloured randomly based on their NBRS IDs. In the bottom visualisation, the TIN surfaces are shaded in gray, and the final 3D-NWB geometries are coloured randomly based on their NBRS IDs.}
     \label{fig:formalaccuracy1}
 \end{figure}
 
@@ -701,7 +702,7 @@ Linear interpolation is rare outside of \ac{ahn3} data gaps (including those due
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\linewidth]{final_report/figs/bgtcomparison.png}
-    \caption{2D Visualisations comparing \ac{bgt} road edges with the \ac{tin}s, with \ac{nwb} centrelines and with Luchtfoto 2020 satellite imagery.}
+    \caption[2D comparison renders of NWB, BGT and aerial imagery]{Above: 2D visualisation comparing \ac{bgt} road edges with the \ac{tin}s (beige lines and beige wireframes). Below: comparison of \ac{bgt} road edges (dark brown) with \ac{nwb} centrelines (bright green) and with Luchtfoto 2020 aerial imagery.}
     \label{fig:bgtcomparison}
 \end{figure}
 
@@ -741,7 +742,7 @@ The presence of the tunnel can still be recognised in the \textbf{accurate verte
         C                       & 93.03 & 76.14 & 95.08 & 91.74 & 95.51 & 94.18 & 90.52 & 56.19 & 85.18 & 89.00 & 91.68 \\ \bottomrule
         \multicolumn{12}{c}{A = Mean error [$cm$], B = Mean sampling density [$pts/m^2$], C = Accurate ratio as \% of all vertices}
     \end{tabular}}
-    \caption{Tabulated 3D-NWB accuracy and completeness results per testing dataset. Results based on original and densified NWB vertices.}
+    \caption[Tabulated 3D-NWB accuracy and completeness results per testing dataset]{Tabulated 3D-NWB accuracy and completeness results per testing dataset. Results based on original and densified NWB vertices.}
     \label{tab:accuracytabulated}
 \end{table}
 
@@ -752,7 +753,7 @@ Some of the \ac{nwb} centrelines overshoot the Lidar testing tile extents by up 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.87\linewidth]{final_report/figs/commercialcomparison0.pdf}
-    \caption{Charts comparing the academic and commercial results using two \textit{wegvakken} from \textit{Knooppunt Deil}.}
+    \caption[Charts comparing the academic and commercial results (\textit{Knooppunt Deil})]{Charts comparing the academic and commercial results using two \textit{wegvakken} from \textit{Knooppunt Deil}.}
     \label{fig:commercialcomparison0}
 \end{figure}
 
@@ -783,7 +784,7 @@ The \ac{dtb} data was close enough to the predicted elevation of the road for my
 \begin{figure}
     \centering
     \includegraphics[width=0.87\linewidth]{final_report/figs/commercialcomparison1.pdf}
-    \caption{Charts comparing the academic and commercial results using two \textit{wegvakken} from dataset \textit{Gorinchem}.}
+    \caption[Charts comparing the academic and commercial results (\textit{Gorinchem})]{Charts comparing the academic and commercial results using two \textit{wegvakken} from dataset \textit{Gorinchem}.}
     \label{fig:commercialcomparison1}
 \end{figure}
 
@@ -798,7 +799,7 @@ This demonstrates the flaws in \ac{ndw}'s unconditional assumption that \ac{dtb}
 \begin{figure}
     \centering
     \includegraphics[width=0.87\linewidth]{final_report/figs/commercialcomparison2.pdf}
-    \caption{Charts comparing the academic and commercial results using two \textit{wegvakken} from dataset \textit{Knooppunt Ridderkerk}.}
+    \caption[Charts comparing the academic and commercial results (\textit{Knooppunt Ridderkerk})]{Charts comparing the academic and commercial results using two \textit{wegvakken} from dataset \textit{Knooppunt Ridderkerk}.}
     \label{fig:commercialcomparison2}
 \end{figure}
 
@@ -824,7 +825,7 @@ In the section above, I discussed detailed comparisons between my results and th
         L.I.                 & 0.0108 & 7.1152 & 3.3000 & 0.0692 & 0.2636  & 1.1244 & 0.3528 & 2.7504 & 0.7174 & 0.3036 & 0.1634 \\ \bottomrule
         \multicolumn{12}{c}{L.I. stands for linear interpolation.}
     \end{tabular}}
-    \caption{Tabulated academic and commercial RMSE-based similarity quantification results.}
+    \caption[Tabulated academic and commercial similarity quantification results]{Tabulated academic and commercial RMSE-based similarity quantification results.}
     \label{tab:comparisontabulated}
 \end{table}
 

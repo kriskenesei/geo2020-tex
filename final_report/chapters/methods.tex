@@ -39,7 +39,7 @@ Both \textit{the implementation and the present report itself was improved and f
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/methodology.pdf}
-    \caption{Flowchart-style illustration of the top-level methodology of my dissertation research.}
+    \caption[Illustration of my top-level methodology]{Flowchart-style illustration of the top-level methodology of my dissertation research.}
     \label{fig:methodologyflow}
 \end{figure}
 
@@ -60,12 +60,12 @@ As a brief summary of the general idea, the pipeline takes \ac{nwb}, decomposes 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/workflow_steps.pdf}
-    \caption{Illustration of the top-level steps and output of my processing pipeline.}
+    \caption[Illustration of the top-level pipeline steps]{Illustration of the top-level steps and output of my processing pipeline.}
     \label{fig:workflow}
 \end{figure}
 
 \begin{enumerate}
-    \item \textbf{Generating NBRS}
+    \item \textbf{Generating \ac{nbrs}}
     \begin{enumerate}
         \item \textbf{Goal:} assemble optimal 2D profiles from the building blocks of \ac{nwb}.
         \item \textbf{Approach:}
@@ -233,7 +233,7 @@ The first algorithm, which I call the "geometric algorithm", uses geometry only 
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/nbrs_generation.pdf}
-    \caption{Flowchart-style illustration of the \ac{nbrs} generation step of the pipeline.}
+    \caption[Flowchart illustrating of the NBRS generation step]{Flowchart-style illustration of the \ac{nbrs} generation step of the pipeline.}
     \label{fig:nbrsgenerationflow}
 \end{figure}
 
@@ -267,7 +267,7 @@ The elevation estimation stage of the pipeline consists of two operations. The f
 \begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{final_report/figs/elevation_estimation.pdf}
-    \caption{Flowchart-style illustration of the elevation estimation step of the pipeline.}
+    \caption[Flowchart illustrating of the elevation estimation step]{Flowchart-style illustration of the elevation estimation step of the pipeline.}
     \label{fig:elevationestimationflow}
 \end{figure}
 
@@ -307,7 +307,7 @@ The Lidar segmentation step is more complex than the previous two, and some of t
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/lidar_segmentation.pdf}
-    \caption{Flowchart-style illustration of the Lidar segmentation step of the pipeline.}
+    \caption[Flowchart illustrating of the Lidar segmentation step]{Flowchart-style illustration of the Lidar segmentation step of the pipeline.}
     \label{fig:lidarsegmentationflow}
 \end{figure}
 
@@ -367,7 +367,7 @@ The generation of preliminary edges is based on approximating the location of th
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/edge_estimation.pdf}
-    \caption{Flowchart-style illustration of the edge approximation step of the pipeline.}
+    \caption[Flowchart illustrating of the edge approximation step]{Flowchart-style illustration of the edge approximation step of the pipeline.}
     \label{fig:edgeapproximationflow}
 \end{figure}
 
@@ -405,7 +405,7 @@ The optimisation of preliminary edges is based on generating one attractor map f
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/edge_optimisation.pdf}
-    \caption{Flowchart-style illustration of the active contour optimisation step of the pipeline.}
+    \caption[Flowchart illustrating of the active contour optimisation step]{Flowchart-style illustration of the active contour optimisation step of the pipeline.}
     \label{fig:edgeoptimisationflow}
 \end{figure}
 
@@ -449,21 +449,21 @@ The outermost iteration loops over \ac{nbrs}, and \ac{nbrs} parts are iterated o
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/tin_construction.pdf}
-    \caption{Flowchart-style overview of the \ac{tin} construction step of the pipeline.}
+    \caption[Flowchart illustrating of the TIN construction step]{Flowchart-style overview of the \ac{tin} construction step of the pipeline.}
     \label{fig:tinconstructionflow}
 \end{figure}
 
-\subsubsection{Preparation for \ac{tin} initialisation}
+\subsubsection{Preparation for TIN initialisation}
 
 Based on the parametrisation, the outermost boundary within which points will be considered for insertion (including \ac{tin} extension) is constructed as a polygon, and points falling outside of its interior are excluded from further consideration. Then, either the preliminary edges or the optimised edges are fetched for the given \ac{nbrs} part. Since they are almost identical structurally, they can be treated the same way for the most part.
 
-They are used for two tasks: firstly, to construct a line halfway between the two edges to form the basis of seeding the \ac{tin}, and secondly, to select points that fall within the edges as insertion candidates for the \ac{tin} initialisation step. This step is labelled \textit{"Grow the initial \ac{tin} surface"} in Figure \ref{fig:tinconstructionflow}, marked as a pre-defined procedure because the underlying procedure is fairly complex. To keep the complexity of the flowchart manageable, both the \ac{tin} initialisation and the \ac{tin} extension workflows of this step are illustrated in a separate diagram, shown in Figure \ref{fig:tinconstructiondetailsflow}.
+They are used for two tasks: firstly, to construct a line halfway between the two edges to form the basis of seeding the \ac{tin}, and secondly, to select points that fall within the edges as insertion candidates for the \ac{tin} initialisation step. This step is labelled \textit{"Grow the initial \ac{tin} surface"} in Figure \ref{fig:tinconstructionflow}, marked as a pre-defined procedure because the underlying procedure is fairly complex. To keep the complexity of the flowchart manageable, both the \ac{tin} initialisation and the \ac{tin} extension workflows of this step are illustrated in a separate diagram, which shown in Figure \ref{fig:tinconstructiondetailsflow}.
 
 \subsubsection{TIN initialisation}
 
-\ac{tin} initialisation refers to the process of constructing an initial, conservative approximation of the road surface. As I noted above, it considers those Lidar points only, which fall between the preliminary or optimised edges. It first looks up those Lidar points, which are very close to the seed points. As these points are all but guaranteed to fall on the real-life road surface, they are unconditionally inserted into the \ac{tin} and are then pushed on a stack that in this case I will refer to as the "buffer". At this point in the algorithm, as Figure \ref{fig:tinconstructiondetailsflow} shows, we leave the \textit{"\ac{tin} initialisation"} group of operations and enter the \textit{"\ac{tin} growing"} group (which is shared with \textit{"\ac{tin} extension"}). The boundary vertices are also inserted into the \ac{tin} at this time (at an elevation of zero), which guarantees that the program can identify situations in which it is working with a triangle that is touching the boundary.
+\ac{tin} initialisation refers to the process of constructing an initial, conservative approximation of the road surface. As I noted above, it considers those Lidar points only, which fall between the preliminary or optimised edges. It first looks up those Lidar points, which are very close to the seed line that was derived from the preliminary or optimised edges. As these points are all but guaranteed to fall on the real-life road surface, they are unconditionally inserted into the \ac{tin} and are then pushed on a stack that I will refer to as the "buffer". At this point in the algorithm, as Figure \ref{fig:tinconstructiondetailsflow} shows, we leave the \textit{"\ac{tin} initialisation"} group of operations and enter the \textit{"\ac{tin} growing"} group (which is shared with \textit{"\ac{tin} extension"}). The boundary vertices are also inserted into the \ac{tin} at this time (at an elevation of zero), which guarantees that conditional insertions always take place within the convex hull of an existing triangulation.
 
-At this time, the \ac{tin} contains a high density of small triangles in the immediate vicinity of the original centreline of the \ac{nbrs} part. Furthermore, it contains large triangles connecting this area with the boundary inside of which the road surface is allowed to grow. During the initialisation stage, this boundary is represented by the preliminary edges or optimised edges themselves. Inserting these in the \ac{tin} serves a dual purpose. Firstly, it avoids raising errors when a conditional insertion test is being performed outside of the convex hull of inserted \ac{ahn3} and \ac{dtb} points. The boundary itself becomes the convex hull even before the insertions begin, so each time the program tries to locate the triangle into which a given point would be inserted, it will be guaranteed to succeed. Secondly, since the boundary is at an elevation of zero in the \ac{tin}, the program can easily identify when it is \textit{growing} the Lidar-defined surface because one or more of the located triangle's vertices will be found at an elevation of zero. This also means that the program is aware of the position of the tested points relative to the detailed surface and the boundary.
+At this time, the \ac{tin} contains a high density of small triangles in the immediate vicinity of the seed line. It also contains larger triangles connecting this area with the insertion boundary (the preliminary or optimised edges). Lastly, it contains large triangles and sliver triangles on the convex sides of any bends in the given road, which are not necessarily connected to the insertion boundary, but which are also artefacts in the sense that they do not describe the road surface - they are simply a byproduct of using Delaunay triangulation. Since the boundary is at an elevation of zero in the \ac{tin}, the program can easily identify when it is \textit{growing} the Lidar-defined surface because one or more of the located triangle's vertices will be found at an elevation of zero. If the located triangle contains no such vertex, an additional test is performed to see if the triangle is large or has a long circumference, to further verify that the triangle describes the surface of the road, rather than being a "filler" triangle of the Delaunay triangulation.
 
 The buffer at this point consists of all the seed points that were inserted unconditionally. It is used to query all the points between the edges in a bulk KD-tree query, and is then emptied. All points returned by the query are pushed on a stack, and this stack forms the basis for the conditional insertions. One by one, the candidate points are popped, and are conditionally inserted into the \ac{tin}. Figure \ref{fig:tinconstructiondetailsflow} does not describe the conditions themselves, but I will go into detail about them here.
 
@@ -475,14 +475,14 @@ Each popped point that ends up being inserted into the \ac{tin} is also pushed o
 
 As soon as no more insertions are taking place, the iteration ends and returns all points inserted into the \ac{tin}, in the order they were inserted. The \ac{tin} itself is not kept, instead it is reconstructed later on - this is due to the fact that point deletions in the triangulation package \textit{startin} do not appear to work reliably in this workflow, but we do not wish to keep the boundary points in the \ac{tin}. The straightforward way to achieve this without point removal is by reconstructing the \ac{tin} with the subcloud points only.
 
-While the final implementation of this step is not too complex, it is in fact the result of an experimental development process in which several previous versions of the design were implemented and discarded after I found them lacking in effectiveness. The final version of the \ac{tin} initialisation procedure is effective, and not too complex computationally owing to the buffering-based implementation of the spatial queries. Other than improving its performance via adding the buffer-based approach, I also needed to improve its reliability. Originally, I implemented \ac{tin} point removals to remove the insertion boundaries. In fact, in the first version of the implementation, I inserted points and then conditionally \textit{removed} them depending on the geometry of the tree triangles created upon insertion. However, as I mentioned above, I found that using point removals in practice made \textit{startin} unstable, causing it to crash at random points in the process. However, from previous experience with this package, I knew that it is extremely efficient in building \ac{tin}s and interpolating in them, owing to its Rust-based implementation. Ultimately, I made to choice to keep using \textit{startin}, but to implement the workflow in a way that the \ac{tin}s are rebuilt once after initialisation (and then again after each extension iteration), "removing" the insertion boundaries implicitly.
+While the final implementation of this step is not too complex, it is in fact the result of an experimental development process in which several previous versions of the design were implemented and discarded after I found them lacking in effectiveness. The final version of the \ac{tin} initialisation procedure is effective, and not too complex computationally owing to the buffering-based implementation of the spatial queries. Other than improving its performance via adding the buffer-based approach, I also needed to improve its reliability. Originally, I implemented \ac{tin} point removals to remove the insertion boundaries. In fact, in the first version of the implementation, I inserted points and then conditionally \textit{removed} them depending on the geometry of the three triangles created upon insertion. However, as I mentioned above, I found that using point removals in practice made \textit{startin} unstable, causing it to crash at random points in the process. However, from previous experience with this package, I knew that it is extremely efficient in building \ac{tin}s and interpolating in them, owing to its Rust-based implementation. Ultimately, I made the choice to keep using \textit{startin}, but to implement the workflow in a way that the conditional insertions are based on the pre-existing TIN layout, rather than that which results from inserting a candidate point. This is what necessitated inserting the preliminary or optimised edges in the \ac{tin}s and carefully detecting when the TINs are being grown, and when they are being refined.
 
 A further important performance consideration was to efficiently find Lidar points falling within the insertion boundaries prior to starting the insertions. I found that testing the points one-by-one using \textit{shapely} takes an unacceptable toll on performance, hence I modified this procedure to work as a bulk task via the \codeword{path} module of \textit{matplotlib}, which is capable of finding points within a polygon formed of a single ring of coordinates with much lower computational complexity.
 
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/tin_construction_details.pdf}
-    \caption{Flowchart-style illustration of the details of \ac{tin} initialisation and construction.}
+    \caption[Flowchart illustrating the details of TIN initialisation and extension]{Flowchart-style illustration of the details of \ac{tin} initialisation and extension.}
     \label{fig:tinconstructiondetailsflow}
 \end{figure}
 
@@ -490,7 +490,9 @@ A further important performance consideration was to efficiently find Lidar poin
 
 The extension of the \ac{tin} takes place in an iterative manner. The implementation accepts arguments that set the amount by which the boundary should be buffered in each iteration, as well as the number of extension iterations (steps). The starting boundary is \textit{not} the same as the one used during the initialisation of the \ac{tin}. There, the preliminary or optimised edges were used, but here the first iteration's boundary is buffered from the seed line (the line halfway between the preliminary or optimised edges). This allows the algorithm to take another look at the points between the edges in case in missed any good candidates during initialisation, while also allowing it to consider points outside the edges in later iterations.
 
-The seeding of extension iterations is different than that of the initialisation step. The seed points are always derived from the boundary used in the previous iteration. Furthermore, in \ac{tin} initialisation the candidate points included all points between the road edges, whereas in the extension steps only the points located in-between the previous and the current boundary (in 2D), are considered. Depending on the parametrisation, the boundary may be buffered to examine areas \textit{beyond} the preliminary or optimised edges. This allows the program to try to grow the surface into areas which were not between the edges because of issues with the edges themselves. It is specifically intended to counteract the problem where road surfaces might get very thin where edge detection or optimisation significantly underestimated their width.
+The seeding of extension iterations is different than that of the initialisation step. The seed points are always derived from the boundary used in the previous extension iteration (except for the first iteration, as mentioned above). Furthermore, in \ac{tin} initialisation the candidate points included all points between the road edges, whereas in the extension steps only the points located between the previous and the current boundary (in 2D), are considered. Otherwise, the workflow is largerly identical to TIN initialisation.
+
+Depending on the parametrisation, the boundary may be buffered to examine areas \textit{beyond} the preliminary or optimised edges. This allows the program to try to grow the surface into areas which were not between the edges because of issues with the edges themselves. It is specifically intended to counteract the problem where road surfaces might get very thin where edge detection or optimisation significantly underestimated their width.
 
 Each iteration first reconstructs the \ac{tin} yielded by the previous iteration, and inserts its new, buffered boundary into it. Since boundaries are always at an elevation of zero, when the previous iteration's boundary is reused to seed the current iteration, it first needs to be \textit{transposed to 3D}, otherwise spatial queries based on it would not work. This is done by creating a KD-tree from all pre-existing \ac{tin} vertices and associating the closest one's elevation with each vertex of the 2D geometry. It is then ready to seed the new iteration, by itself being the basis for KD-tree queries on the new candidate points. However, the results of this seed-query are not inserted into the \ac{tin} unconditionally like they are in \ac{tin} initialisation, because the assumption that points close to the seed geometry are sure to be part of the real-life road surface no longer holds. Instead, they are simply pushed to the buffer to start the main iteration involving the conditional insertions.
 
@@ -498,11 +500,11 @@ Once \ac{tin} extension has finished, the final \ac{tin} is reconstructed and is
 
 \subsubsection{Challenges encountered}
 
-As implementing such a complex algorithm in this pipeline step was not originally intended, the biggest challenge here was to come up with a good solution within the timeframe reserved for the project. In terms of the methods themselves, I spent the most amount of time and effort on developing a solution that allows the road surface to grow into regions not covered by the preliminary or optimised edges. While in all cases, the surface generated by \ac{tin} initialisation is adequate to generate 3D-NWB, my desire was to not only model the central, traffic-occupied part of the road, but to grow it to the real-life edges of the paved surface as best as possible.
+As implementing such a complex algorithm in this pipeline step was not originally intended, the biggest challenge here was to come up with a good solution within the timeframe reserved for the project. In terms of the methods themselves, I spent the most amount of effort on developing a solution that allows the road surface to grow into regions not covered by the preliminary or optimised edges. While in all cases, the surface generated by \ac{tin} initialisation is adequate to generate 3D-NWB, my desire was to not only model the central, traffic-occupied part of the road, but to grow it to the real-life edges of the paved surface as best as possible.
 
-I initially wished to build the \ac{tin} as a single growing operation, but this proved to be prone to spreading into off-road regions. Depending on what order certain groups of points are examined in, even relatively sharp breaks in the underlying surface may appear smooth. A good way to deal with this problem would have been to decrease the query radius used in the buffer queries, but this in turn often prevented the \ac{tin} from growing at all. This is the reason why I eventually implemented the final version of the method as a combination of first initialising a conservative \ac{tin} in a large-scale growing operation, and then extending it carefully by examining thin "layers" of additional points progressing outwards from the centre of the road.
+I initially wished to build the \ac{tin} as a single growing operation, but this proved to be prone to spreading into off-road regions. Depending on what order certain groups of points are examined in, even relatively sharp breaks in the underlying surface may appear smooth. A straightforward way to deal with this problem would have been to decrease the query radius used in the buffer queries, but this turned out to prevent the \ac{tin} from growing at all, simply because this results in too large triangles being generated. This is the reason why I eventually implemented the final version of the method as a combination of first initialising a conservative \ac{tin} in a large-scale growing operation, and then extending it carefully by examining thin "layers" of additional points progressing outwards from the centre of the road.
 
-Performing conditional insertions outside of the convex hull of the pre-existing \ac{tin} points was also a challenge. Interpolating in the triangles is not a possibility here, but the importance of assessing the compliance of the tested points with the neighbourhood is ever so important - it depends on these surface growing insertions, whether a \ac{tin} might accidentally spread into an off-road area, or not.
+Performing growing-type insertions was also a challenge. Simply interpolating in triangles is not a possibility here, but the importance of assessing the compliance of the tested points with the neighbourhood is ever so important - in fact, it largely depends on these surface growing insertions, whether a \ac{tin} might accidentally spread into an off-road area, or not. The careful treatment of these insertions via carefully detecting where they occur, and by using additional triangles rather than just one for the conditional insertion, turned out to be a key step to achieve my desired results.
 
 \subsection{TIN-based interpolation and vertex snapping}
 \label{sub:m_interpolation}
@@ -537,7 +539,7 @@ where $x_{pt}$ and $y_{pt}$ denote the X and Y coordinates of the location of in
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/elevation_interpolation.pdf}
-    \caption{Flowchart-style illustration of the elevation interpolation step of the pipeline.}
+    \caption[Flowchart illustrating the elevation interpolation step]{Flowchart-style illustration of the elevation interpolation step of the pipeline.}
     \label{fig:elevationinterpolationflow}
 \end{figure}
 
