@@ -45,3 +45,7 @@ The latter improvement also benefits the generation of the final 3D-NWB geometri
 
 \subsection{On improving NWB's 2D georeferencing dynamically}
 \label{sub:nwb_updated_dynamic}
+
+Improving NWB's stock georeferencing is certainly desirable, and \ac{ndw}'s recent efforts to realise this are already looking very promising, as the discussion and figures presented in this section indicate. However, there are still many centrelines in \ac{nwb} which have not been refined yet, and even in the case of motorways, the refinement is only partial (because \ac{dtb} is incomplete).
+
+My pipeline produces two main types of data: road surface TIN models and 3D-NWB geometry. Both of these appear to benefit significantly from improving the quality of the 2D georeferencing of the centrelines. However, some of these improvements can be achieved internally without "hardcoding" the modifications into the output 3D-NWB geometry. Namely, the georeferencing of \ac{nwb} could be somewhat refined internally 
