@@ -62,4 +62,8 @@ To improve the TINs themselves, the edge approximation and/or optimisation algor
 
 \subsubsection{Effects on 3D-NWB}
 
-The above refinements would primarily target the improvement of the generated TINs via improving the centrelines. The surrogate centrelines 
+The above refinements would primarily target the improvement of the generated TINs via improving the centrelines. The surrogate centrelines would presumably not be accurate enough to be used in place of the original \ac{nwb} geometries when producing the output 3D-NWB geometries.
+
+Hence, the output centrelines would still be in the same locations as the original ones. However, since the TINs would be more accurate, the elevation interpolation step would need to resort to linear interpolation less frequently. The improved TINs, themselves, would be the other main reason why one may wish to add such routines to the pipeline.
+
+I judge such methods not to be reliable enough to serve as a means to refine the stock \ac{nwb} 2D georeferencing, approaches that involve pre-existing \ac{rws} and third-party datasets (or surveying new data) are almost certainly better suited to this task.
