@@ -20,7 +20,7 @@ As the centrelines were "centred" using \ac{dtb} lines, the refinements were onl
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/nwb_updated_geometry.png}
-    \caption[Figure illustrating recent NWB improvements]{This 2D visualisation compares the original version of \ac{nwb} (on which the present research was based) to the newest release, in which \ac{r-road} centrelines were improved using \ac{dtb}. Solid green lines show the new position of the centrelines, while the dashed ones show the original ones. The thin red lines show the relevant \ac{dtb} lines.}
+    \caption[Figure illustrating recent NWB improvements]{This 2D visualisation compares the original version of \ac{nwb} (on which the present research was based) to the newest release, in which \ac{r-road} centrelines were improved using \ac{dtb}. Solid green lines show the new position of the centrelines, while the dashed ones show the original ones. The thin red lines show the relevant \ac{dtb} features.}
     \label{fig:nwb_updated_geometry}
 \end{figure}
 
@@ -39,6 +39,13 @@ With the new \ac{nwb} geometry, this is no longer an issue. Since the centreline
 
 The improved edges also appear to positively affect the performance of active contour optimisation, although not to an extent where re-introducing it into the recommended pipeline configuration would be justified.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{final_report/figs/nwb_updated_edgeapproximation.png}
+    \caption[Visualisation of the effects of improving NWB on preliminary edges]{This visualisation compares the cross-sections and preliminary edges generated using the original \ac{nwb} centrelines (above, in dark red) with the ones derived from the refined centrelines (below, in beige).}
+    \label{fig:nwb_updated_edgeapproximation}
+\end{figure}
+
 \subsection{Impact on TIN construction}
 \label{sub:nwb_updated_tinconstruction}
 
@@ -49,6 +56,13 @@ As a result, the TIN initialisation step will be more reliable both in the seedi
 The fact that the edges extend closer towards areas with partial or full occlusion (such as the tunnel in this area) also means that the TINs now also provide far better coverage in such regions. In fact, the TIN in this case extends all through the tunnel although this is not shown in the visualisation since the large tunnel-based triangles were removed when the TINs were exported.
 
 The latter improvement also benefits the generation of the final 3D-NWB geometries, since less elevations will need to be interpolated linearly. The former improvements (away from occluded areas) only has this benefit where \ac{nwb}'s 2D referencing was so bad, that the preliminary edge approximation algorithm needed to skip enough cross-sections for the centreline to become located outside of the area delineated by the preliminary edges. This is extremely rare, hence we may safely conclude that the 3D-NWB elevations improve primarily in and directly around occluded lengths of roads.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{final_report/figs/nwb_updated_tinconstruction.png}
+    \caption[Visualisation of the effects of improving NWB on the TINs]{This visualisation compares the TINs generated using the original \ac{nwb} centrelines (above) with the ones derived from the refined centrelines (below).}
+    \label{fig:nwb_updated_tinconstructionn}
+\end{figure}
 
 \subsection{On improving NWB's 2D georeferencing dynamically}
 \label{sub:nwb_updated_dynamic}
