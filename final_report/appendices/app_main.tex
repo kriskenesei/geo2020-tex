@@ -6,4 +6,10 @@
 \section{Working with the updated NWB motorways}
 \label{sec:nwb_updated}
 
-In an effort to resolve some of the problems regarding \ac{nwb}'s georeferencing issues, \ac{ndw} has commissioned a commercial project. Like their commercial project to convert \ac{nwb} to 3D, this project relied entirely on \ac{dtb}. Together with the \ac{bgt}-based refinement of municipal roads, this means that \ac{g-roads} and \ac{r-roads} are becoming more and more accu
+In an effort to resolve some of the problems regarding \ac{nwb}'s georeferencing issues, \ac{ndw} has commissioned a commercial project. Like their commercial project to convert \ac{nwb} to 3D, this project relied entirely on \ac{dtb}. Together with the \ac{bgt}-based refinement of municipal roads, this means that \ac{g-roads} and \ac{r-roads} are becoming more and more accurate in terms of their 2D positions.
+
+My project was affected noticeably by the coarse georeferencing of this dataset. While it is theoretically possible to derive elevations for the road network that comply with the 20 cm elevation accuracy requirement, the elevations will not necessarily reflect elevation at the desired 2D location, in locations where \ac{NWB}'s georeferencing is particularly inaccurate. Furthermore, the fact that it is impossible to predict where the centreline lies on a given road surface (and in places, \textit{whether} it even lies on it) caused practical issues with my procedures.
+
+Figure \ref{fig:nwb_updated} shows the differences between some original \ac{nwb} geometries and the updated ones in the \textit{Knooppunt Deil} area. 
+
+The procedures from my processing pipeline that suffer the most from this situation are the edge approximation (and optimisation) and TIN construction workflows.
