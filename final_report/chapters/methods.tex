@@ -335,7 +335,7 @@ Originally, the algorithm was configured to automatically revert to the previous
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/lidar_segmentation_illu.pdf}
-    \caption[Illustration of the Lidar segmentation step]{This figure illustrates the plane-fitting step of the Lidar segmentation procedure. Each of the vertices of the preliminary 3D-NWB geometry is fitted with a plane based on the nearby Lidar points. In the case of well-exposed roads, this results in planes lying on the respective road surfaces, labelled "normal plane fits". Where complete occlusion occurs, the plane will be shifted to the elevation of the occluding object, which is a bridge in this illustration - hence the plane fit is labelled "plane fit on bridge". In the case of partial occlusion}
+    \caption[Illustration of the Lidar segmentation step]{This figure illustrates the plane-fitting step of the Lidar segmentation procedure. Each of the vertices of the preliminary 3D-NWB geometry is fitted with a plane based on the nearby Lidar points. In the case of well-exposed roads, this results in planes lying on the respective road surfaces, labelled "normal plane fits". Where complete occlusion occurs, the plane will be shifted to the elevation of the occluding object, which is a bridge in this illustration - hence the plane fit is labelled "plane fit on bridge". In the case of partial occlusion, the plane will be shifted moderately relative to the true road surface, and potentially tilted. In this illustration, and example is shown where }
     \label{fig:lidarsegmentation_illu}
 \end{figure}
 
