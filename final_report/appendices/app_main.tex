@@ -6,10 +6,15 @@
 \section{Working with the updated NWB motorways}
 \label{sec:nwb_updated}
 
+\subsection{Updated NWB geometry}
+\label{sub:nwb_updated_geometry}
+
 In an effort to resolve some of the problems regarding \ac{nwb}'s georeferencing issues, \ac{ndw} has commissioned a commercial project. Like their commercial project to convert \ac{nwb} to 3D, this project relied entirely on \ac{dtb}. Together with the \ac{bgt}-based refinement of municipal roads, this means that \ac{g-roads} and \ac{r-roads} are becoming more and more accurate in terms of their 2D positions.
 
 My project was affected noticeably by the coarse georeferencing of this dataset. While it is theoretically possible to derive elevations for the road network that comply with the 20 cm elevation accuracy requirement, the elevations will not necessarily reflect elevation at the desired 2D location, in locations where \ac{NWB}'s georeferencing is particularly inaccurate. Furthermore, the fact that it is impossible to predict where the centreline lies on a given road surface (and in places, \textit{whether} it even lies on it) caused practical issues with my procedures.
 
-Figure \ref{fig:nwb_updated} shows the differences between some original \ac{nwb} geometries and the updated ones in the \textit{Knooppunt Deil} area. The displacements are typically on the 0-1 m scale, but I observed up 3 
+Figure \ref{fig:nwb_updated} shows the differences between some original \ac{nwb} geometries and the updated ones in the \textit{Knooppunt Deil} area. The displacements are typically on the 0-1 m scale, but I observed up to 3 metre in certain locations. In the region shown by the figure, the displacement is 1-2.5 m in the locations labelled as "large shifts in NWB's location". As noted in various places in this report, problems are most common in sharp bends. Accordingly, the updated geometry shows the largest displacement relative to the original in sharp bends. The second most common location is where no \ac{nwb} vertices are present for hundreds of metres due to the local straightness of certain motorways. This type of simplification results in several metres of displacement that may be present for most of the simplified length of the road (hundreds of metres).
+
+As the centrelines were "centred" using \ac{dtb} lines, the refinements were only carried out for motorways, and only where sufficient \ac{dtb} data is present, i.e. at least the two road edge lines. In the testing dataset shown by Figure \ref{fig:nwb_updated}, this means about 75\% of the tot
 
 The procedures from my processing pipeline that suffer the most from this situation are the edge approximation (and optimisation) and TIN construction workflows.
