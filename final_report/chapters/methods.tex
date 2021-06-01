@@ -262,7 +262,7 @@ A second issue was that the geometry of \textit{wegvakken} often \textit{reverse
 \subsection{Elevation estimation}
 \label{sub:m_elevationestimation}
 
-The elevation estimation stage of the pipeline consists of two operations. The first operation is to associate each \ac{nbrs} vertex with a preliminary elevation estimate based solely on nearby Lidar points, and the second a refinement step to eliminate occlusion-related artefacts. The procedure is illustrated by the flowchart in Figure \ref{fig:elevationestimationflow}.
+The elevation estimation stage of the pipeline consists of two operations. The first operation is to associate each \ac{nbrs} vertex with a preliminary elevation estimate based solely on nearby Lidar points, and the second a refinement step to eliminate occlusion-related artefacts. The procedure is illustrated by the flowchart in Figure \ref{fig:elevationestimationflow}, as well as the vector graphics in Figure \ref{fig:elevationestimation_illu}.
 
 \begin{figure}
     \centering
@@ -331,6 +331,13 @@ Each of these patches are further processed to enhance the results. The program 
 Next, the program considers the vertices of each \ac{nbrs} one by one, in the order in which the vertices geometrically represent a valid road centreline. The program searches procedurally for places where the succession of fitted planes may indicate a break in shape of the surface. At the beginning of the iteration, the program initialises three variables describing the \textit{previous} plane fit's relative position to the 3D \ac{nbrs} centreline, the median elevation of the relevant patch's Lidar points, and the standard deviation of their distances to the fitted plane. By examining variations in these metrics, the algorithm can detect where the plane fits become unstable. It always compares the values of the current iteration to the ones from the previous iteration. Significant changes relative to the previous vertex and plane may indicate the presence objects occluding the sensor's view of the road's surface. I determined the exact metrics and parameters (thresholds) to detect "plane instability" based on experimentation and iterative refinement. The current setup works well with all testing datasets examined. This step is represented in the flowchart by the conditional element labelled \textit{"Instability detected?"}.
 
 Originally, the algorithm was configured to automatically revert to the previous plane in case of plane instability and be allowed to use the reverted plane for a few iterations before asking help from the support dataset, in case the road emerged from underneath the occluding object after a few iterations at roughly the same elevation at which it disappeared. If the support dataset could also not help (due to e.g. a lack of coverage) after the expiration of the tolerance period, the algorithm would "give up" and move on to the next \ac{nbrs}. This meant that long occluding objects and no \ac{dtb} coverage could prevent the algorithm from processing certain \ac{nbrs}, for instance ones containing tunnels.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{final_report/figs/lidar_segmentation_illu.pdf}
+    \caption[Illustration of the Lidar segmentation step]{This figure illustrates the plane-fitting step of the Lidar segmentation procedure. Each of the vertices of the preliminary 3D-NWB geometry is fitted with a plane based on the nearby Lidar points. In the case of well-exposed roads, this results in planes lying on the respective road surfaces, labelled "normal plane fit". Where complete occlusion occurs, the plane will be shifted to the elevation of the occluding object, which is a bridge in this illustration - hence the plane fit is labelled "plane fit on bridge". }
+    \label{fig:lidarsegmentation_illu}
+\end{figure}
 
 \subsubsection{Handling breaks in the trend and missing data}
 
