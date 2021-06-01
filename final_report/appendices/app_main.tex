@@ -32,5 +32,9 @@ With the new \ac{nwb} geometry, this is no longer an issue. Since the centreline
 
 The improved edges also appear to positively affect the performance of active contour optimisation, although not to an extent where re-introducing it into the recommended pipeline configuration would be justified.
 
-\subsection{Impact on edge approximation}
-\label{sub:nwb_updated_edgeapproximation}
+\subsection{Impact on TIN construction}
+\label{sub:nwb_updated_tinconstruction}
+
+The TIN construction effectiveness improves in the same fashion as edge approximation, since it is the direct result of the latter. There are less off-road points between the updated edges (relative to the originals), and they better define the true road edges, which means that the seed line derived from them will also be more accurate.
+
+As a result, the TIN initialisation step will be more reliable both in the seeding stage and during the conditional insertions that follow. Less off-road Lidar points will be tested with the less strict thresholds than before, since most of them will no longer fall between the road edges. Instead, they will be examined with the stricter thresholds of the TIN extension stage. At the same time, many road surface points that were previously missing will now correctly lie between the road edges. This is likely to occur on the opposite side of the road, relative to the side where off-road points were moved outside the edges. In simpler terms, 
