@@ -309,7 +309,7 @@ A second challenge was to find a good benchmark of what to consider outliers aft
 \subsection{Lidar segmentation}
 \label{sub:m_lidarsegmentation}
 
-The Lidar segmentation step is more complex than the previous two, and some of the intricacies are omitted in the relevant flowchart (Figure \ref{fig:lidarsegmentationflow}) to keep its complexity manageable. I will attempt to fill in some of these details here in the text, referencing where approximately in the flowchart they occur. The goal of this step is to create subclouds from the Lidar data containing points relevant to the roads represented by individual \ac{nbrs}.
+The Lidar segmentation step is more complex than the previous two, and some of the intricacies are omitted in the relevant flowchart (Figure \ref{fig:lidarsegmentationflow}) to keep its complexity manageable. I will attempt to fill in some of these details here in the text, referencing where approximately in the flowchart they occur. The goal of this step is to create subclouds from the Lidar data containing points relevant to the roads represented by individual \ac{nbrs}. To procedure is further illustrated by the vector graphics in Figure \ref{fig:lidarsegmentation_illu}.
 
 \begin{figure}
     \centering
@@ -335,7 +335,7 @@ Originally, the algorithm was configured to automatically revert to the previous
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/lidar_segmentation_illu.pdf}
-    \caption[Illustration of the Lidar segmentation step]{This figure illustrates the plane-fitting step of the Lidar segmentation procedure. Each of the vertices of the preliminary 3D-NWB geometry is fitted with a plane based on the nearby Lidar points. In the case of well-exposed roads, this results in planes lying on the respective road surfaces, labelled "normal plane fits". Where complete occlusion occurs, the plane will be shifted to the elevation of the occluding object, which is a bridge in this illustration - hence the plane fit is labelled "plane fit on bridge". In the case of partial occlusion, the plane will be shifted moderately relative to the true road surface, and potentially tilted. In this illustration, and example is shown where }
+    \caption[Illustration of the Lidar segmentation step]{This figure illustrates the plane-fitting step of the Lidar segmentation procedure. Each of the vertices of the preliminary 3D-NWB geometry is fitted with a plane based on the nearby Lidar points. In the case of well-exposed roads, this results in planes lying on the respective road surfaces, labelled "normal plane fits". Where complete occlusion occurs, the plane will be shifted to the elevation of the occluding object, which is a bridge in this illustration - hence the plane fit is labelled "plane fit on bridge". In the case of partial occlusion, the plane will be shifted moderately relative to the true road surface, and potentially tilted. In this illustration, and example is shown where this occurs at the edge of the bridge, labelled "transitional plane fit".}
     \label{fig:lidarsegmentation_illu}
 \end{figure}
 
@@ -376,7 +376,7 @@ A second revision to the algorithm was necessary after the implementation of the
 \subsection{Edge approximation}
 \label{sub:m_edgeapproximation}
 
-The generation of preliminary edges is based on approximating the location of the two road edges at road centreline vertices. For each \ac{nbrs} part, the two road edge lines are assembled from these discrete edge point estimates. The process is illustrated in Figure \ref{fig:edgeapproximationflow}.
+The generation of preliminary edges is based on approximating the location of the two road edges at road centreline vertices. For each \ac{nbrs} part, the two road edge lines are assembled from these discrete edge point estimates. The process is illustrated in Figure \ref{fig:edgeapproximationflow}, as well as the vector graphics in Figure \ref{fig:edgeapproximation_illu}.
 
 \begin{figure}
     \centering
@@ -402,6 +402,13 @@ In areas where the above procedure fails multiple times consecutively, "gaps" ar
 However, long gaps may cause various problems in later pipeline steps. To avoid creating them, a relaxation of the conditions takes place after a set number of failures. After relaxing the conditions, the first inlier point on both sides is selected when fitting the next cross-section with a line, and the constraint regarding sudden changes in width is also ignored. Immediately after a success, the constraints are re-enabled. This temporary relaxation allows the algorithm to regain its references even if a sudden real-life change in the road's dimensions is encountered. It also helps in scenarios where the location of the edge is ambiguous.
 
 Lastly, once per \ac{nbrs} part the program generates the final 3D cross-section and edge geometries and saves them. After all \ac{nbrs} parts have been processed, the global cross-section and preliminary edge object is also created.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{final_report/figs/edge_estimation_illu.pdf}
+    \caption[Illustration of the edge approximation step]{The edge approximation procedure is illustrated in this figure. The cross-sections are either accepted (black line segments) or skipped if they fail the threshold-based evaluations (red dashed line segments). They may fail to generate in the first place, if there is insufficient \ac{ahn3} and \ac{dtb} data. The figure also shows an example of the cross-sections and the preliminary edges being shifted partially off-the road due to the incorrect georeferencing of NWB locally. The inset illustrates the details of the edge point identification sub-process. The third inlier point on both sides of \ac{nwb} relative to the line fit is taken to represent a suitable edge point.}
+    \label{fig:edgeapproximation_illu}
+\end{figure}
 
 \subsubsection{Challenges encountered}
 
@@ -482,6 +489,13 @@ At this time, the \ac{tin} contains a high density of small triangles in the imm
 The buffer at this point consists of all the seed points that were inserted unconditionally. It is used to query all the points between the edges in a bulk KD-tree query, and is then emptied. All points returned by the query are pushed on a stack, and this stack forms the basis for the conditional insertions. One by one, the candidate points are popped, and are conditionally inserted into the \ac{tin}. Figure \ref{fig:tinconstructiondetailsflow} does not describe the conditions themselves, but I will go into detail about them here.
 
 First, the triangle containing the popped point is located. If the triangle is defined only by subcloud points, then the elevation of the point according to the triangle is interpolated, and the difference in elevation is treated as an elevation discrepancy to which a threshold applies. If the threshold is not violated, then the distances to the three vertices of the triangle are computed, and based on that, the angles between the triangle's plane and the line segments connecting the popped point to the three vertices. If any of the three angles violate the applicable threshold, the point is not inserted.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{final_report/figs/tin_construction_illu.pdf}
+    \caption[Illustration of the TIN construction step]{This figure illustrates the TIN co}
+    \label{fig:tinconstruction_illu}
+\end{figure}
 
 If the located triangle contains one or more boundary points, the elevation discrepancy is computed in a different way. Growing the \ac{tin} needs to be done with some caution, as introducing erratic points around the edges of the current convex hull would entail that future insertions would have an incorrect basis for the conditional insertions and as a result, the surface would occasionally be allowed to grow in undesired directions. To minimise the chances of this happening, growing the surface takes into account multiple pre-existing \ac{tin} triangles in the neighbourhood, not just the closest ones. Specifically, all triangles containing the non-boundary vertices of the located triangle are fetched. Then, this is repeated with all the vertices of the resulting set of triangles. The vertices of this collection of nearby triangles are then fitted with a plane (re-using, once again, the least-squares method), and the distance of the tested point to the plane is taken to be a good approximation of the elevation discrepancy. Points in the buffer are always close to the pre-existing Lidar points in the \ac{tin} (see below for the reason), hence this is a reasonable assumption. The angle-based test is then administered the same way as for regular insertions.
 
