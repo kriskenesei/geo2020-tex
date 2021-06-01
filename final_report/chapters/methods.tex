@@ -465,7 +465,7 @@ As I emphasised in the previous section, various aspects of active contour optim
 
 In my planned pipeline, I made the assumption that points falling within the area of contours could be safely considered road points, and that conditional insertions would primarily be used to filter out any remaining \textit{vertical} outliers. Working with preliminary edges (as well as \textit{inaccurate} optimised edges) necessitates a less straightforward, but more robust implementation that is capable of telling apart road surface reflections and other reflections, in general. The result is an algorithm that borrows ideas mainly from region growing and ground filtering algorithms. An in-depth explanation of the algorithm is found below.
 
-The outermost iteration loops over \ac{nbrs}, and \ac{nbrs} parts are iterated one level below. In Figure \ref{fig:tinconstructionflow} this is explicitly indicated as an iteration over \ac{nbrs} IDs and \ac{nbrs} part IDs respectively. In contrast with previous steps of the pipeline, the centrelines themselves are no longer used, hence the change of notation. The procedure is further illustrated by the vector graphics i
+The outermost iteration loops over \ac{nbrs}, and \ac{nbrs} parts are iterated one level below. In Figure \ref{fig:tinconstructionflow} this is explicitly indicated as an iteration over \ac{nbrs} IDs and \ac{nbrs} part IDs respectively. In contrast with previous steps of the pipeline, the centrelines themselves are no longer used, hence the change of notation. The procedure is further illustrated by the vector graphics in Figure \ref{fig:tinconstruction_illu}.
 
 \begin{figure}
     \centering
