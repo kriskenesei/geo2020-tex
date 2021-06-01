@@ -285,6 +285,13 @@ The replacement values are interpolated \textit{linearly} based on the series of
 
 This polynomial-fitting approach is reused in various subsequent parts of the implementation. It is similar to the approach in \cite{boyko_funkhauser_2011}, but it simplifies the global optimisation of splines into individual polynomial fits. Adapting the exact approach proposed in that research would certainly improve the effectiveness of my methods somewhat, but not drastically - I implemented subsequent steps in a way that they can deal with occasional mediocre-quality fits, and my results do not indicate that implementing a more sophisticated algorithm is justified.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{final_report/figs/elevation_estimation_illu.pdf}
+    \caption[Illustration of the elevation estimation step]{This illustration shows the main components of the elevation estimation step. The raw, Lidar-derived elevations of the vertices are shown in red, while the derived polynomial is shown in green. Non-conformant vertices are replaced in the refinement step, which is shown by the blue line segments and vertices.}
+    \label{fig:elevationestimation_illu}
+\end{figure}
+
 \subsubsection{Vertex densification}
 
 Although it is not strictly related to \ac{nbrs} generation, vertex densification is not listed as a discrete pipeline step as it is a rather trivial operation. It is only presented in this report as a pre-processing operation of preliminary elevation estimation. It is shown in \ref{fig:elevationestimationflow} as the first processing step that acts on 2D \ac{nbrs}.
