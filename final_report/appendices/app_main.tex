@@ -50,4 +50,10 @@ Improving NWB's stock georeferencing is certainly desirable, and \ac{ndw}'s rece
 
 My pipeline produces two main types of data: road surface TIN models and 3D-NWB geometry. Both of these appear to benefit significantly from improving the quality of the 2D georeferencing of the centrelines. However, some of these improvements can be achieved internally without "hardcoding" the modifications into the output 3D-NWB geometry. Namely, the georeferencing of \ac{nwb} could be somewhat refined internally at various points in my pipeline.
 
-\subsubsection{Refinement suri}
+\subsubsection{Refinement during edge approximation}
+
+In the TIN construction step, the TINs are seeded via a seed line that is derived from the preliminary or optimised edges. Since the road edges are generated in a way that that attempts to counteract the effects of \ac{nwb}'s coarse georeferencing, the seed line is often a more accurate representation of the road's centreline than \ac{nwb} itself. The same line geometry could be easily derived already during the edge approximation step and then used as surrogate centrelines. It may be advisable to simplify or smooth the line somewhat, so that small-scale issues with the preliminary edges are not reflected in it. Before continuing, it would be necessary to perform edge approximation once again, but this time starting from the surrogate centreline. Without this additional step, the TIN construction stage would make use of the \textit{original} preliminary edges, which is not desirable as they are based on \ac{nwb} rather than the surrogate centrelines.
+
+\subsubsection{Refinement during TIN construction}
+
+Alternatively, one may 
