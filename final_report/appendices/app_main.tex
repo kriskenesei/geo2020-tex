@@ -15,6 +15,9 @@ My project was affected noticeably by the coarse georeferencing of this dataset.
 
 Figure \ref{fig:nwb_updated} shows the differences between some original \ac{nwb} geometries and the updated ones in the \textit{Knooppunt Deil} area. The displacements are typically on the 0-1 m scale, but I observed up to 3 metre in certain locations. In the region shown by the figure, the displacement is 1-2.5 m in the locations labelled as "large shifts in NWB's location". As noted in various places in this report, problems are most common in sharp bends. Accordingly, the updated geometry shows the largest displacement relative to the original in sharp bends. The second most common location is where no \ac{nwb} vertices are present for hundreds of metres due to the local straightness of certain motorways. This type of simplification results in several metres of displacement that may be present for most of the simplified length of the road (hundreds of metres).
 
-As the centrelines were "centred" using \ac{dtb} lines, the refinements were only carried out for motorways, and only where sufficient \ac{dtb} data is present, i.e. at least the two road edge lines. In the testing dataset shown by Figure \ref{fig:nwb_updated}, this means about 75\% of the tot
+As the centrelines were "centred" using \ac{dtb} lines, the refinements were only carried out for motorways, and only where sufficient \ac{dtb} data is present, i.e. at least the two road edge lines. In the testing dataset shown by Figure \ref{fig:nwb_updated}, this means about 75\% of the total length of the roads.
+
+\subsection{Benefits }
+\label{sub:nwb_updated_geometry}
 
 The procedures from my processing pipeline that suffer the most from this situation are the edge approximation (and optimisation) and TIN construction workflows.
