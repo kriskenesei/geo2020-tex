@@ -56,4 +56,10 @@ In the TIN construction step, the TINs are seeded via a seed line that is derive
 
 \subsubsection{Refinement during TIN construction}
 
-Alternatively, one may 
+Alternatively, one may instead attempt to derive the skeleton of the generated TINs rather than that of the preliminary or optimised edges. The edges of the road surface would first need to be located inside the generated TINs. One could employ the same tactics that I utilised to export and visualise the models in this project, i.e. to remove large triangles and sliver triangles. The triangle edges that define the road edge could either be identified procedurally as part of the triangle removal step, or a formal $\alpha$-shape generation program could be used on the vertices of the accepted triangles.
+
+To improve the TINs themselves, the edge approximation and/or optimisation algorithms would then need to be re-run and the TINs would need to be re-generated based on the results. This would increase runtimes by a significant amount, hence performing centreline refinement as part of or as an extension of the edge approximation step is my recommendation.
+
+\subsubsection{Effects on 3D-NWB}
+
+The above refinements would primarily target the improvement of the generated TINs, since this is the only way in which we can positively influence the generated 3D geometries without 
