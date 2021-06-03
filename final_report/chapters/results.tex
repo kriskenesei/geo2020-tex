@@ -180,7 +180,7 @@ The optimal lower limit for the outlier filtering threshold is determined, in pr
 
 Even when using a sufficiently high outlier filtering threshold, the algorithm may occasionally identify lengths of such roads as outliers and reposition them to the incorrect elevation level suggested by the polynomial model. I successfully bridged this relatively uncommon issue by taking it into account while implementing the Lidar segmentation workflow. Therefore, these inaccurate elevations do not represent a problem on the scale of the pipeline as a whole, because the next pipeline step is not sensitive to them. Shorter \ac{nbrs} lengths could help deal with this problem in a more explicit manner, but this would also mean that certain longer trends would become impossible to model later on.
 
-Using general curve fitting or an interconnected set of splines (rather than using fixed-degree polynomials) could also help solve this issue, but the toll this would take on the computational complexity and the complexity of the code is not justified by the issues that arise.
+Using general curve fitting or an interconnected set of splines (in place of fixed-degree polynomials) could help solve this issue in a more direct manner, but the toll this would take on computational complexity and the complexity of the code is not justified by the issues that arise.
 
 \subsubsection{Using the implementation}
 
