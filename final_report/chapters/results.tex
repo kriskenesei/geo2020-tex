@@ -334,8 +334,6 @@ Such data gaps may exist under bridges for instance, but also in places where ve
 
 The second most common reason is the generation of poor line fits. If the elevation estimates of the cross-section vertices are scattered, the errors in the fit will be large. Elevations further than one standard deviation of the data-model error are not considered any further. If too many points are filtered out in such a way, the cross-section will be skipped. This happens most commonly due to \ac{nwb}'s poor georeferencing, i.e. in the rare cases when not even only using the central 40\% of the cross-section vertices could avoid including a large number of off-road elevation measurements.
 
-Lastly, failures may also be the result of violating the conditions of the verification step. Namely, if a unrealistically sudden width or elevation change is detected, the cross-section is skipped. If this is the sole reason for the failures, then generally only a limited number of cross-sections and corresponding edge vertices will be missing, as the conditions are relaxed after 3 successive failures.
-
 \subsubsection{Edge generation in data gaps}
 
 In the absence of \ac{ahn3} data, vertices will be skipped frequently, as I already mentioned above. However, quite frequently, one or two cross-sections will be accepted in such regions too, if \ac{ahn3} coverage reappears temporarily, for instance due to a small gap between two bridges. Due to the repeated skipping of vertices, the conditions will almost certainly be relaxed most of the time, and hence sudden width or elevation changes will be allowed. This combination of factors may result in the generation of strange edge geometries in occluded zones.
