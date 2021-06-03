@@ -243,11 +243,11 @@ This issue draws our attention to the general issue of temporal discrepancies be
 
 \subsubsection{Splitting NBRS into parts}
 
-On the right in Figure \ref{fig:lidarsegmentation2}, a road with a neither \ac{ahn3} nor \ac{dtb} coverage under some bridges is shown. The relevant \ac{nbrs} was split into two parts. The matching colour of the points (purple) shows that they still belong to the same \ac{nbrs}. However, the program stores a separate subclouds for each \ac{nbrs} part, meaning that they are loaded as a separate MultiPoint object in the 3D viewer I used to generate these figures. \ac{nbrs} splitting also works well in general, it performs as expected.
+On the right in Figure \ref{fig:lidarsegmentation2}, a road with a neither \ac{ahn3} nor \ac{dtb} coverage under some bridges is shown. The relevant \ac{nbrs} was split into two parts. The matching colour of the points (purple) shows that they still belong to the same \ac{nbrs}. However, the program stores a separate subclouds for each \ac{nbrs} part, meaning that they are loaded as a separate MultiPoint object in the 3D viewer I used to generate these figures. \ac{nbrs} splitting also performs as expected in my final implementation.
 
 \subsubsection{Parametrisation}
 
-The parametrisation of this pipeline step is extensive, because many parts of the algorithm are of a procedural nature. Hence, I will dedicate some attention here to describing the final parametrisation I used to produce my outputs. Here I will not go into details about the exact way in which these parameters are used, as I have already described this in Section \ref{sub:m_lidarsegmentation} without specifying numerical values.
+The parametrisation of this pipeline step is extensive, because many parts of the algorithm are of a procedural nature. Hence, I will dedicate some attention here to describing the final configuration I used to produce my final results. Here I will not go into detail about the exact way in which these parameters are used, as I have already described this in Section \ref{sub:m_lidarsegmentation} without specifying numerical values.
 
 All parameters were derived from a process of experimentation and fine-tuning, although a good understanding of the problem, the procedures, and the properties of the input data were also essential in being able to define the parameters as well as to find suitable values for them.
 
