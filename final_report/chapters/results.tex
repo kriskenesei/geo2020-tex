@@ -83,15 +83,15 @@ The colours are generally inconsistent between the results of the two algorithms
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/nbrsgeneration0.png}
-    \caption[Renders illustrating the results of NBRS generation]{Visualisations illustrating the results of \ac{nbrs} generation. The colour-coding was randomly generated based on the generated ID numbers of the NBRS. The insets show differences between the results of the two algorithms.}
+    \caption[Renders illustrating the results of NBRS generation]{Visualisations illustrating the results of \ac{nbrs} generation. The colour-coding was randomly generated based on the generated ID numbers of the NBRS. The insets and annotations highlight differences between the results of the two algorithms, which are further explained in the text.}
     \label{fig:nbrsgeneration0}
 \end{figure}
 
 \subsubsection{Issues with geometric algorithm}
 
-The figure also serves to illustrate the fundamental differences that exist between the results of the two algorithms. The geometric algorithm makes the assumption that the 2D georeferencing of \ac{nwb} is fully representative of the real-life geometry of road centrelines. However, I found this to be violated in various places as already mentioned in Section \ref{sub:nwb}. In short, where \ac{r_roads} intersect (this includes ramps, motorways and all combinations thereof), they often do so at abrupt angles, which can be observed in various places in Figure \ref{fig:nbrsgeneration0}, and especially in the insets. These angles are not representative of the real-life road geometry, they were drawn manually by data handlers to ensure that \ac{nwb} complies with certain external requirements. Consequently, they may prevent correct decisions from being made based on the intersection angles.
+Figure \ref{fig:nbrsgeneration0} also serves to illustrate the fundamental differences that exist between the results of the two algorithms. The geometric algorithm makes the assumption that the 2D georeferencing of \ac{nwb} is fully representative of the real-life geometry of road centrelines. However, I found this to be violated in various places as already mentioned in Section \ref{sub:nwb}. In short, where \ac{r_roads} intersect (this includes ramps, motorways and all combinations thereof), they often do so at abrupt angles, which can be observed in various places in Figure \ref{fig:nbrsgeneration0}, and especially in the insets. These angles are not representative of the real-life road geometry, they were drawn manually by data handlers to ensure that \ac{nwb} complies with certain external requirements. Consequently, they may prevent correct decisions from being made based on the intersection angles.
 
-In places where the above intersection angle related problem exists, choosing the straightest continuation across an intersection when building an \ac{nbrs} does not necessarily represent the optimal choice, because the angles are artificial. This can be observed in the inset of the top chart in Figure \ref{fig:nbrsgeneration0}, where I numbered some of the \ac{nbrs} on the geometric results. While the geometric algorithm obviously made the right choice \textit{based on the pairwise angles} between the individual road segments concerned, attribute table data told the semantic algorithm that the role and road number of certain parts of \ac{nbrs} 0 and 2 are the same as that of \ac{nbrs} 1, which resulted in these parts of \ac{nbrs} 0 and 2 connecting via \ac{nbrs} 1. The "discarded" ends of \ac{nbrs} 0 and 2 then became two unique \ac{nbrs} by themselves. In the overall large-scale context of the local road network, the semantic algorithm evidently made the correct choice, even though this introduced some small, abrupt internal angles into the \ac{nbrs}.
+In places where this problem exists, choosing the straightest continuation across an intersection when building an \ac{nbrs} does not necessarily represent the optimal choice, because the angles are artificial. This can be observed in the inset of the top chart in Figure \ref{fig:nbrsgeneration0}, where I numbered some of the \ac{nbrs} on the geometric results. While the geometric algorithm obviously made the right choice \textit{based on the angles} between the individual road segments concerned, \textit{attribute table data} told the semantic algorithm that the role and road number of certain parts of \ac{nbrs} 0 and 2 are the same as that of \ac{nbrs} 1, which resulted in these parts of \ac{nbrs} 0 and 2 connecting via \ac{nbrs} 1. The "discarded" ends of \ac{nbrs} 0 and 2 then became two unique \ac{nbrs} by themselves. In the large-scale context of the road network, the semantic algorithm evidently made the correct choice, even though this introduced some small, abrupt internal angles into the \ac{nbrs}.
 
 \subsubsection{Issues with semantic algorithm}
 
@@ -99,7 +99,7 @@ The green dotted circle in the semantic \ac{nbrs} generation results points out 
 
 \subsubsection{Evaluation and choice of algorithm}
 
-Both algorithms produce usable results overall. In general, the resulting chains of \textit{wegvakken} (LineStrings) satisfy all the original requirements I set for the outputs of this step (minimise internal angles, maximise length, disallow self-intersections and branching). Based on some further testing after implementing the rest of the pipeline, I also verified that the choice of algorithm does not significantly influence the output of subsequent steps.
+Both algorithms produce usable results overall. In general, the resulting chains of LineStrings satisfy all the original requirements I set for the outputs of this step (minimise internal angles, maximise length, disallow self-intersections and branching). Based on some further testing after implementing the rest of the pipeline, I also verified that the choice of algorithm does not significantly influence the output of subsequent steps.
 
 Since the geometric algorithm generalises to arbitrary road networks better than the semantic algorithm (i.e. does not rely on specific properties of \ac{nwb}), I used it to generate the rest of the results shown and discussed in this report.
 
@@ -112,7 +112,7 @@ roads = nbrs_manager(fpath = nwb_fpath)
 roads.generate_nbrs(algorithm = 'geometric')
 \end{verbatim}
 
-In the code snippet above, \codeword{nwb_fpath} refers to a variable containing the file path in the operating system to the cropped \ac{nwb} file of the desired testing dataset. For instance, the file path could end in \codeword{.../C_39CZ1_nwb.shp}, using the naming convention of the released testing files, the dataset called \textit{Knooppunt Deil} is desired. Switching to \codeword{algorithm = 'geometric'} triggers the use of the semantic algorithm.
+In the code snippet above, \codeword{nwb_fpath} refers to a variable containing the file path to the cropped \ac{nwb} file of the desired testing dataset. For instance, the file path could end in \codeword{.../C_39CZ1_nwb.shp}, using the naming convention of the released testing files, the dataset called \textit{Knooppunt Deil} is desired. Switching to \codeword{algorithm = 'semantic'} triggers the use of the semantic algorithm.
 
 The invocation \codeword{roads.plot_all()} may be executed to plot the results on a 2D diagram using random colours to distinguish between \ac{nbrs}. At this point, \ac{nbrs} generation results are saved in class variables only (see \codeword{roads.nbrs_wvkn}), hence running \codeword{roads.write_all()} at this point is \textbf{not} going to write the \ac{nbrs} IDs into the attribute table. The imported road network is stored in \codeword{roads.nwb} in a GeoDataFrame which also contains the generated \ac{nbrs} IDs.
 
@@ -122,24 +122,26 @@ The invocation \codeword{roads.plot_all()} may be executed to plot the results o
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/elevationestimation0.png}
-    \caption[Visualisations illustrating the preliminary elevation estimation results]{Visualisations illustrating the preliminary elevation estimation results. The colour-coding of the 3D NBRS lines was randomly generated based on their ID numbers.}
+    \caption[Visualisations illustrating the preliminary elevation estimation results]{Visualisations illustrating the preliminary elevation estimation results. The colour-coding of the 3D NBRS lines was randomly generated based on their \ac{nbrs} IDs.}
     \label{fig:elevationestimation0}
 \end{figure}
 
-Figure \ref{fig:elevationestimation0} shows the results of this step in two 3D visualisations. The \ac{nwb} centrelines are now shown at their estimated elevations. The vertical dimension in this visualisation and all other 3D visualisations in this chapter are exaggerated 5-fold, so that changes in elevation are made better visible. The figure contains two visualisations that allow the reader to examine the same results from multiple viewing angles.
+Figure \ref{fig:elevationestimation0} shows the results of this step in two 3D visualisations. The \ac{nwb} centrelines are now shown at their estimated elevations. The figure contains two visualisations that allow the reader to examine the same results from multiple viewing angles. 
+
+\textit{The vertical dimension in this visualisation and all other 3D visualisations in this chapter are exaggerated 5-fold, so that changes in elevation are made better visible.}
 
 \subsubsection{Vertex densification}
 
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{final_report/figs/elevationestimation1.png}
-    \caption[Visualisations illustrating vertex densification]{Plots illustrating vertex densification. Vertices are marked as red circles on the blue NBRS line.}
+    \caption[Visualisations illustrating vertex densification]{Plots illustrating vertex densification. Vertices are marked as red circles on the blue \ac{nbrs}.}
     \label{fig:elevationestimation1}
 \end{figure}
 
-The vertices were densified before running preliminary elevation estimation; I used a threshold of 5 metres for the final outputs shown here. This means that no individual line segment in the 3D road network is longer than 5 metres. I found this threshold value to offer a compromise between longer processing times (in later steps) and more refined results.
+The vertices were densified before running preliminary elevation estimation; I used a threshold of 5 metres for all my final results. This means that no individual line segment in the 3D road network is longer than 5 metres. I found this threshold value to offer a compromise between longer processing times (in later steps) and more refined results.
 
-We may say that while the horizontal dimensions were merely oversampled, the vertical sampling benefited from the vertex densification in the sense that it is far more detailed than it would be without them (as also mentioned in Section \ref{sub:m_elevationestimation}). An example visualisation of what happens to a specific \ac{nbrs} during vertex densification is shown in Figure \ref{fig:elevationestimation1}.
+We may say that while the horizontal dimensions were merely oversampled, the vertical sampling benefited from the vertex densification in the sense that it is far more detailed than it would be without it (as also mentioned in Section \ref{sub:m_elevationestimation}). An example visualisation of what happens to a specific \ac{nbrs} during vertex densification is shown in Figure \ref{fig:elevationestimation1}.
 
 \subsubsection{Types of challenging scenarios}
 
