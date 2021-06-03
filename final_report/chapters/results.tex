@@ -66,19 +66,19 @@ Knooppunt Deil, \codeword{39CZ1} & Less complex, but analogous junction to the K
 
 One instance of my software can process a single testing dataset at a time. However, running multiple Python instances in parallel allows one to easily parallel-process multiple tiles depending on the CPU installed in the computer. Each dataset consists of a cropped \ac{nwb} and \ac{dtb} file, and the clipped \ac{ahn3} point cloud.
 
-All datasets mentioned in Table \ref{tab:inventory} are part of the GitHub release of the results. A compressed archive with the input testing files (and all intermediate results and final results) can be downloaded via a link found in the repository's readme file.
+All datasets mentioned in Table \ref{tab:inventory} are part of the GitHub release of the results. A compressed archive with the input testing files (as well as all intermediate results and the final results) can be downloaded via a link found in the repository's readme file.
 
 \section{Results of processing steps}
 \label{sec:results}
 
-The results below are presented in the same section structure as the detailed methods were in Section \ref{sec:methods} of the previous chapter. This is intended to make it easy for readers to correlate the results with the theory underlying the relevant processing mechanisms. In each section, I describe - with the help of 3D visualisations - how well each processing step performs, and how effective and useful they are in the context of the entire pipeline as a whole. I also devote attention to describing typical scenarios in which algorithms are useful and perform well, as well as ones where the opposite is true and they may produce sub-optimal results. Lastly, in each of the pipeline steps I make mention of how exactly the underlying software implementation is meant to be used, with notes on the recommended arguments.
+The results below are presented in the same section structure as the detailed methods were in Section \ref{sec:methods} of the previous chapter. This is intended to make it easy for readers to correlate the results with the theory underlying the relevant processing mechanisms. In each section, I describe - with the help of 3D visualisations - how well each processing step performs, and how effective and useful they are in the context of the entire pipeline as a whole. I also devote attention to describing typical scenarios in which algorithms are useful and perform well, as well as ones where the opposite is true and they may produce sub-optimal results. Since the section structure also corresponds to the overall implemented pipeline structure, in each of the pipeline steps I describe how exactly the underlying software implementation is meant to be used, with notes on the recommended arguments.
 
 \subsection{Splitting NWB into NBRS}
 \label{sub:r_nbrsgeneration}
 
-Each line colour in Figure \ref{fig:nbrsgeneration0} corresponds to a specific \ac{nbrs} ID, meaning that LineStrings (\textit{wegvakken}) belonging to the same \ac{nbrs} are also coloured the same. The figure demonstrates that as a result of the \ac{nbrs} generation step, the cropped road network becomes semantically enriched with identifiers linking certain LineStrings together, based on semantic or geometric conditions depending on which algorithm was used.
+Each colour in Figure \ref{fig:nbrsgeneration0} corresponds to a specific \ac{nbrs} ID, meaning that LineStrings (\textit{wegvakken}) belonging to the same \ac{nbrs} are coloured the same. The figure demonstrates that as a result of the \ac{nbrs} generation step, the cropped road network becomes semantically enriched with identifiers linking certain LineStrings together, based on semantic or geometric conditions depending on which algorithm was used.
 
-The colours are generally inconsistent between the results of the two algorithms (top and bottom parts of the figure). Although the same colour scheme was used to prepare them, the two algorithms distribute the \ac{nbrs} IDs differently.
+The colours are generally inconsistent between the results of the two algorithms (top and bottom parts of the figure). The same colour scheme was used to generate the two figures, but the two algorithms distribute \ac{nbrs} IDs differently.
 
 \begin{figure}
     \centering
