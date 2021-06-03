@@ -686,15 +686,13 @@ The third, and last important observation is that neither the recorded sampling 
 
 The mean error and sampling density of the entire testing dataset are 5 cm and 19 points per m\textsuperscript{2} respectively.
 
-\subsubsection{Using the implementation}
+\subsubsection{Using the accuracy assessment implementation}
 
 The following two commands may be used to run the final elevation interpolation code, and export the resulting 3D-converted version of \ac{nwb} as a Shapefile:
 
 \begin{verbatim}
-roads.interpolate_elevations()
-roads.write_all(fpath = accurateZ_fpath,
-                to_drop = ['geometry_simpleZ'])
-roads.write_origins(fpath = origins_fpath)
+roads.generate_theoreticalerrors(0.075, 0.09, 0.1, 0.05, 3, 9)
+roads.
 \end{verbatim}
 
 The algorithm does not have a parametrisation, hence the method invocation does not require any arguments. The \codeword{.write_all()} invocation requires a list of GeoDataFrame columns to drop, as the Shapefile can only have one set of geometries in it. The column name in \codeword{['geometry_simpleZ']} corresponds to the preliminary elevation estimates. The original 2D \ac{nwb} geometries are always dropped automatically, so that column does not need to be manually specified.
