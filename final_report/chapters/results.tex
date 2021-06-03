@@ -530,11 +530,11 @@ As I will further explain in Section \ref{sec:accuracy}), the system design guar
 
 While the above discussion focuses on describing issues with the quality of the generated \ac{tin}s, many of these issues are constrained to the academic goals of the project only. The academic goal related to the \ac{tin}s is to make them complete and accurate representations of the real-life road surfaces. This is the quality on which I primarily focused in this section, while the next section will see more mentions of quality in terms of their suitability for interpolating elevations for \ac{nwb}.
 
-These two qualities need to be distinguished not only because of the conceptual differences, but because there are much less issues with the less academic goal of converting \ac{nwb} to 3D than with producing ideal road surface models. The reason is, that for the 3D conversion to be accurate, one only needs complete and accurate \ac{tin} surfaces close to where the centrelines are found in 2D. Fortunately, these locations generally correspond to areas which are less difficult to reconstruct accurately in 3D, than for instance the immediate vicinity of road edges.
+These two qualities need to be distinguished not only because of the conceptual differences, but because there are much less issues with the less academic goal of converting \ac{nwb} to 3D than with producing ideal road surface models. The reason is, that for the 3D conversion to be accurate, one only needs complete and accurate \ac{tin} surfaces close to where the centrelines are found in 2D. Fortunately, these locations generally correspond to areas which are less difficult to reconstruct, than for instance the immediate vicinity of road edges.
 
 \subsubsection{Using the implementation}
 
-The following two commands may be used to run \ac{tin} construction and export the resulting 3D surface models:
+The following two commands may be used to run \ac{tin} construction and to export the resulting 3D surface models:
 
 \begin{verbatim}
 roads.build_tin(max_dh_int = 0.1, max_angle_int = 0.12, r_int = 1,
@@ -544,9 +544,9 @@ roads.build_tin(max_dh_int = 0.1, max_angle_int = 0.12, r_int = 1,
 roads.write_tins(fpath = tin_fpath)
 \end{verbatim}
 
-The first method invocation performs the \ac{tin} construction itself. The first line of arguments corresponds to the elevation and angle thresholds, and the buffer-filling query radius used in \ac{tin} initialisation, respectively. The role of the second line of arguments is identical, with the exception that they are used for \ac{tin} extension. The next two arguments (\codeword{ext_steps} and \codeword{ext_dist}) specify the number of extension steps to be performed, and the distance by which the query region should be expanded in each step. The first insertion boundary for extension is always a polygon created by buffering the seed LineString by 0.5 metres; the extension starts from this base boundary. If no extension is desired, \codeword{ext_steps} should be set to 0. The last parameter, \codeword{type_edges} can be set either to \codeword{preliminary} or \codeword{optimised}; it controls which type of road edges the user desires to use.
+The first method invocation performs the \ac{tin} construction itself. The first line of arguments corresponds to the elevation and angle thresholds, and the buffer-filling query radius used in \ac{tin} initialisation, respectively. The role of the second line of arguments is identical, with the exception that they are used for \ac{tin} extension. The next two arguments (\codeword{ext_steps} and \codeword{ext_dist}) specify the number of extension steps to be performed, and the distance by which the query region should be expanded in each step. The first insertion boundary for extension is always a polygon created by buffering the seed LineString by 1 m; the extension starts from this base boundary. If no extension is desired, \codeword{ext_steps} should be set to 0. The last parameter, \codeword{type_edges} can be set either to \codeword{preliminary} or \codeword{optimised}; it controls which type of road edges the user desires to use.
 
-The second method invocation writes the \ac{tin}s to disk, one OBJ file for each \ac{nbrs} part As mentioned above, it also filters out large triangles and sliver triangles in the process. The supplied file path should only include the first part of the file name, as the \ac{nbrs} ID, part ID and file extension will be added automatically (for instance \codeword{.../C_39CZ1_tin} would work. Using a dedicated folder is recommended.
+The second method invocation writes the \ac{tin}s to disk, one OBJ file for each \ac{nbrs} part. As mentioned above, it also filters out large triangles and sliver triangles in the process. The supplied file path should only include the first part of the file name, as the \ac{nbrs} ID, part ID and file extension will be added automatically (for instance \codeword{.../C_39CZ1_tin} would work. The use of a dedicated folder is recommended.
 
 \subsection{Interpolation in TIN and snapping}
 \label{sub:r_interpolation}
