@@ -699,7 +699,7 @@ roads.write_errors(errors_fpath)
 
 The first line of arguments in the first method call correspond to the vertical and horizontal accuracy of \ac{ahn3}, and the second line to the same metrics of \ac{dtb}. The last two arguments represent the radius of the spatial queries that will be used to gather neighbouring \ac{tin} vertices to assess sampling density, and the minimum sampling density. The configuration shown here is the same as the one introduced in previous sections, i.e. a radius of 3 m is used for the queries, and a threshold of 3 m\textsuperscript{2} is applied.
 
-The second line of the code snippet writes the accuracy assessment results to disk as a CSV file - \codeword{errors_fpath} represents the file path where the CSV file should be deposited. This is necess
+The second line of the code snippet writes the accuracy assessment results to disk as a CSV file - \codeword{errors_fpath} represents the file path where the CSV file should be deposited. This is necessary, as this information cannot be written into the exported 3D-NWB dataset.
 
 \subsection{Ratio of accurate vertices}
 \label{sub:completeness}
