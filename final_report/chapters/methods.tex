@@ -582,7 +582,9 @@ These gaps are infilled using linear interpolation, and instead of indicating th
 
 \subsubsection{Outputting 3D-NWB}
 
-The last step of the pipeline converts the internal road centreline data structure of the program (\ac{nbrs} parts and \ac{nbrs}) back into the data structure used by the input data (the LineStrings or \textit{wegvakken} of \ac{nwb}). In effect, the 2D geometry of each input LineString is overwritten with the new 3D geometry created using the original 2D coordinates, and the newly generated elevations. Unlike at the end of preliminary elevation estimation (see Section \ref{sub:m_elevationestimation}), the original orientations of the \textit{wegvakken} are automatically respected irrespective of some of them having been internally flipped earlier in the pipeline. This is because the elevations are taken from the hashed data structures linking 2D positions to elevations, not from the internal representations of these geometries (which are often.
+The last step of the pipeline converts the internal road centreline data structure of the program (\ac{nbrs} parts and \ac{nbrs}) back into the data structure used by the input data (the LineStrings or \textit{wegvakken} of \ac{nwb}). In effect, the 2D geometry of each input LineString is overwritten with the new 3D geometry created using the original 2D coordinates, and the newly generated elevations.
+
+Unlike at the end of preliminary elevation estimation (see Section \ref{sub:m_elevationestimation}), the original orientations of the \textit{wegvakken} are automatically respected irrespective of some of them having been internally reversed earlier in the pipeline. This is because the elevations are taken from the hashed data structures linking 2D positions to elevations, not from the internal representations of these geometries (which are often reversed relative to the input).
 
 \subsubsection{Challenges encountered}
 
