@@ -261,7 +261,7 @@ The way the metric related to the centreline-subcloud elevation differences is e
 
 When \ac{dtb}-based assistance is attempted, the initial query radius when looking for \ac{dtb} points is 40 cm. If enough points were found to re-fit the plane (more than 2), then the second repositioning query is performed with the same radius as the one used in the generation of the Lidar patches (10 m in my final parametrisation), because at this point it is assumed that the query position has been moved relatively close to the true elevation of the road surface. When deciding whether to do a final re-fit on the nearby part of the Lidar patch, the program once again uses the condition that the density of these points should at least be 2 points per m\textsuperscript{2}. Lidar points are deemed to be close if they are less then 1 m away from the plane.
 
-When pre-selecting the final set of conformant points from the patches, the program uses a threshold distance of 5\% of the query radius used in the initial Lidar patch queries, corresponding to 50 cm in my final configuration (relative to the final plane fit).
+When pre-selecting the final set of conformant points from the patches, the program uses a threshold distance of 5\% of the query radius used in the initial Lidar patch queries, corresponding to 50 cm in my final configuration. Points less than 50 cm away from the final (potentially adjusted) plane fits
 
 While the post-processing operations of this pipeline step (breaking into \ac{nbrs} parts and filtering outliers) also have a few parameters, these are insignificant and are thus omitted from this discussion.
 
