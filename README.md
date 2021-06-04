@@ -2,11 +2,11 @@
 
 **This LaTeX repository hosts my final source code and compiled PDF MSc thesis at the TU Delft, titled "Constructing a digital 3D road network for The Netherlands".** The software implementation is hosted in [my Python repository](https://github.com/kriskenesei/geo2020-modules).
 
-The reports are all based on the LaTeX framework provided [here](https://github.com/tudelft3d/msc_geomatics_thesis_template), a copy of which is found in this repository under ´template_unchanged´.
+The reports are all based on the LaTeX framework provided [here](https://github.com/tudelft3d/msc_geomatics_thesis_template), a copy of which is found in this repository under `template_unchanged`.
 
-The final thesis report is now available in the folder ´final_report´ with file name ´MScThesis_KristofKenesei_TUDelft.pdf´. The same folder containts the LaTeX source code of said report. No further modifications to the report are expected.
+The final thesis report is now available in the folder `final_report` with file name `MScThesis_KristofKenesei_TUDelft.pdf`. The same folder containts the LaTeX source code of said report. No further modifications to the report are expected.
 
-The original research proposal (P2 document) is found in the folder ´p2´. It is based on a modified version of the template that I adapted to comply better with the graduation manual's P2 requirements. The P2 and P3 presentations are also part of this repository.
+The original research proposal (P2 document) is found in the folder `p2`. It is based on a modified version of the template that I adapted to comply better with the graduation manual's P2 requirements. The P2 and P3 presentations are also part of this repository.
 
 The graduation regulations are found [here](https://3d.bk.tudelft.nl/courses/geo2020/rules/GraduationManualGeomatics2020-2021.pdf). 
 
