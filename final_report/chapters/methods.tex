@@ -370,7 +370,7 @@ The original algorithm was capable of detecting where it ran into a data gap (or
 
 Eventually, I realised that moving part of the decision-making mechanism outside of the iteration would solve these issues. I transitioned to first saving Lidar patches per vertex separately (instead of adding them straight to a subcloud), constructing a polynomial based on their centroids to describe the overall trend, and detecting and excluding patches with unrelated points this way.
 
-A second revision to the algorithm was necessary after the implementation of the next three pipeline steps. Keeping regions with no coverage inside \ac{nbrs} meant that in subsequent steps, I was optimising contours and continuing \ac{TIN} models across them as well - sometimes over hundreds of metres. This turned out to be problematic especially with active contour optimisation, which frequently ended up producing corrupted outputs as a result. Implementing \ac{nbrs}-splitting solved these issues. Regions that lack elevation measurements are excluded from \ac{nbrs} parts, and as a result, later steps of the pipeline do not need to handle them. They are only considered again at the very last step of the pipeline, described in Section \ref{sub:m_interpolation}.
+A second revision to the algorithm was necessary after the implementation of the next three pipeline steps. Keeping regions with no coverage inside \ac{nbrs} meant that in subsequent steps, I was optimising contours and continuing \ac{tin} models across them as well - sometimes over hundreds of metres. This turned out to be problematic especially with active contour optimisation, which frequently ended up producing corrupted outputs as a result. Implementing \ac{nbrs}-splitting solved these issues. Regions that lack elevation measurements are excluded from \ac{nbrs} parts, and as a result, later steps of the pipeline do not need to handle them. They are only considered again at the very last step of the pipeline, described in Section \ref{sub:m_interpolation}.
 
 \subsection{Edge approximation}
 \label{sub:m_edgeapproximation}
@@ -420,13 +420,6 @@ The former ensures that road centrelines are found between the preliminary edges
 
 The optimisation of preliminary edges is based on generating one attractor map for each \ac{nbrs} part based on subcloud point normals, and running active contour optimisation to attract the preliminary edges to certain features in the attractor maps. The procedure is illustrated in Figure \ref{fig:edgeoptimisationflow}.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{final_report/figs/edge_optimisation.pdf}
-    \caption[Flowchart illustrating of the active contour optimisation step]{Flowchart illustration of the active contour optimisation step of the pipeline.}
-    \label{fig:edgeoptimisationflow}
-\end{figure}
-
 \subsubsection{Attractor map generation}
 
 The procedure underlying this step is once again based on a 2D KD-tree of the subcloud of the \ac{nbrs} part. 2D suffices because attractor maps are 2D rasters, and once again, because we are safe to assume at this point that the subclouds of \ac{nbrs} parts mostly describe 2.5D surfaces. For each of the rasters, a region of interest is derived by buffering the appropriate centreline by a certain amount. The rectangle-shaped raster is then masked out everywhere except for pixels whose centres lie within the geographical region delineated by the buffer polygon.
@@ -434,6 +427,13 @@ The procedure underlying this step is once again based on a 2D KD-tree of the su
 The centre of each unmasked pixel is then used in a bulk KD-tree query to find a small patch of nearby Lidar points for each. Normals vectors are computer for pixels thus associated with a certain minimum number of neighbouring Lidar points. The normal vectors are based on the \ac{mle} plane fits of the Lidar patches.
 
 Normal vectors can be stored in the pixels in my framework, but they cannot be used directly in active contour optimisation because it requires scalar pixel values. To derive these from the vectors, I designed a kernel-based approach. The pairwise inner products of the normal vectors falling into the moving window are computed, and the median of the value is saved. Since computing inner products is computationally expensive, not all pairwise combinations of the normal vectors in the kernel are dotted, only a representative random subset.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.94\linewidth]{final_report/figs/edge_optimisation.pdf}
+    \caption[Flowchart illustrating of the active contour optimisation step]{Flowchart illustration of the active contour optimisation step of the pipeline.}
+    \label{fig:edgeoptimisationflow}
+\end{figure}
 
 \subsubsection{Running the optimisation algorithm}
 
@@ -565,7 +565,7 @@ where $x_{pt}$ and $y_{pt}$ denote the X and Y coordinates of the location of in
 
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{final_report/figs/elevation_interpolation.pdf}
+    \includegraphics[width=0.92\linewidth]{final_report/figs/elevation_interpolation.pdf}
     \caption[Flowchart illustrating the elevation interpolation step]{Flowchart illustration of the elevation interpolation step of the pipeline.}
     \label{fig:elevationinterpolationflow}
 \end{figure}
