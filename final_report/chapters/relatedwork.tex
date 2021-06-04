@@ -3,7 +3,7 @@
 \chapter{Related work}
 \label{chap:rw}
 
-When I started the literature review, I already had a good starting point about what exactly to look for. This is because I had alraedy known that my focus would be restricted to three specific Dutch open-data datasets, and because I had already settled on a range of specifics regarding the goals and requirements of the project. The three datasets were picked early on in the planning process for reasons related to our wish to mainly use the same datasets as the commercial solution does.
+When I started the literature review, I already had a good starting point about what exactly to look for. This is because I had alraedy known that my focus would be restricted to three specific Dutch open data datasets, and because I had already settled on a range of specifics regarding the goals and requirements of the project. The three datasets were picked early on in the planning process for reasons related to our wish to mainly use the same datasets as the commercial solution does.
 
 As it is the most up-to-date detailed elevation source overall, my primary candidate became the national \ac{als} point cloud of The Netherlands. The name of the latest release of this product is \ac{ahn3}. As a result of this choice, there are two main areas that I focused on as part of my literature review: road feature reconstruction from Lidar point clouds, and the theoretical and empirical propagation of Lidar accuracy into derived models. The literature review concerning these two areas is presented below in two parts.
 
@@ -75,7 +75,7 @@ The results of \cite{gopfert_etal_2011} demonstrate that active contour optimisa
 
 \subsubsection{Relevant work with Dutch data}
 
-The work \cite{oudeElberink_vosselman_2006} is relevant not only because of the methods it applies, but also the specific datasets. They enrich the best-known Dutch open-data national topographical vector dataset (the present-day equivalent of which is \ac{bgt}) with elevations, and as their source of elevations, they use first-edition \ac{ahn} data (the third edition of which I used in my own research).
+The work \cite{oudeElberink_vosselman_2006} is relevant not only because of the methods it applies, but also the specific datasets. They enrich the best-known Dutch open data national topographical vector dataset (the present-day equivalent of which is \ac{bgt}) with elevations, and as their source of elevations, they use first-edition \ac{ahn} data (the third edition of which I used in my own research).
 
 \begin{wrapfigure}{O}{0.5\textwidth}
     \includegraphics[width=\linewidth]{final_report/figs/oudeElberink_vosselman_2006_03.png} 
@@ -177,7 +177,7 @@ In addition to helping with isolating purely processing-related differences betw
     \item \ac{dtb} - Digital Topographic Database
 \end{itemize}
 
-In the sections below, I will present the results of assessing the general properties and quality of each of the three datasets listed above. As this project does not specifically concern the formal quantification of the accuracy of these datasets, it will rely on the global, nominal values provided in the specifications of the datasets. Regardless of this, I still present qualitative results on this topic based examining the degree of agreement between them and attempting to explain the differences both below and in Chapter \ref{chap:r}.
+In the sections below, I present the results of assessing the general properties and quality of each of the three datasets listed above. As this project does not specifically concern the formal quantification of the accuracy of these datasets, it relies on the global, nominal values provided in the specifications of the datasets. Regardless of this, I still present qualitative results on this topic based examining the degree of agreement between them and attempting to explain the differences both below and in Chapter \ref{chap:r}.
 
 \subsection{Nationaal Wegenbestand – NWB}
 \label{sub:nwb}
@@ -248,7 +248,7 @@ The Lidar tiles are released in the binary LAZ format (compressed LAS, or LASzip
 \subsection{Digitaal Topografisch Bestand – DTB}
 \label{sub:dtb}
 
-Like \ac{nwb}, \ac{dtb} (or more specifically, DTB-Droog, the \ac{dtb} product relevant to roads) is a Dutch open-data geospatial dataset in the \textit{ESRI Shapefile} format. For the purposes of this project, we only need only those \ac{dtb} line features, which correspond to road surface markings. Hence we can also regard this as a dataset comprised exclusively of LineString objects, making it identical to \ac{nwb} in its data structure apart from being a 3D dataset. \ac{dtb} is also managed by \ac{rws} and it is concerned only with state-owned roads and roads on state-leased land, which translate almost exclusively to \ac{nwb} \ac{r_road}s, that is, motorways. \ac{dtb} is, hence, not a reliable source of information about provincial road elevations (\ac{nwb} \ac{p_road}s), our other road type of interest.
+Like \ac{nwb}, \ac{dtb} (or more specifically, DTB-Droog, the \ac{dtb} product relevant to roads) is a Dutch open data geospatial dataset in the \textit{ESRI Shapefile} format. For the purposes of this project, we only need only those \ac{dtb} line features, which correspond to road surface markings. Hence we can also regard this as a dataset comprised exclusively of LineString objects, making it identical to \ac{nwb} in its data structure apart from being a 3D dataset. \ac{dtb} is also managed by \ac{rws} and it is concerned only with state-owned roads and roads on state-leased land, which translate almost exclusively to \ac{nwb} \ac{r_road}s, that is, motorways. \ac{dtb} is, hence, not a reliable source of information about provincial road elevations (\ac{nwb} \ac{p_road}s), our other road type of interest.
 
 There are various types of \ac{dtb} road markings that are of interest to us, the main one being a category called \textit{verflijnen}. These \ac{dtb} lines represent the painted lines marking the outermost edges of the area open to traffic. This is a lucky correspondence with \ac{nwb}, as it contains the centrelines of the areas that are open to traffic, rather than the entire paved surfaces – meaning that \ac{nwb} is expected to lie between these \ac{dtb} lines, wherever they exist. The other two types I found to be reliably represent road surface elevations are the categories \textit{verfstippellijn} and \textit{blokmarkering}, which represent lane separation lines and block marks respectively. The category \textit{lijnverlichting} also appeared to be interesting at first, as it corresponds to road surface lighting features (not street lighting). However, I found it to not be reliably located on road surfaces in practice, hence I excluded it from further consideration.
 
@@ -273,9 +273,9 @@ Interestingly, the opposite can also be observed, although less commonly, and in
 
 Figure \ref{fig:dtbahn} shows renders of \ac{dtb} overlain on \ac{ahn3} with all \ac{dtb} features shown (above), and with only \textit{verflijnen} shown (below). The top render illustrates that other features, such as roadside slopes, canals, ditches, safety rails are represented in \ac{dtb}. Full-width motorway signs are also occasionally represented (either by lines on the road, or on the structure itself). The bottom render shows that locally, the edge markings are in good agreement with \ac{ahn3} visually, and are only occasionally incomplete. This location has the best vertical correspondence with \ac{ahn3}, and also the best completeness, of all the areas I examined. For illustrations of the \textit{disagreements} between \ac{dtb} and \ac{ahn3}, please refer to Figure \ref{fig:lidarsegmentation1} and the associated discussion in Chapter \ref{chap:r}.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.9\linewidth]{final_report/figs/ahn_sample_10.png} 
+    \includegraphics[width=0.84\linewidth]{final_report/figs/ahn_sample_10.png} 
     \caption[Renders comparing AHN3 with DTB lines]{Renders showing all \ac{dtb} line features (above) and \textit{verflijnen} only (below) overlain with \ac{ahn3} in 3D. Ground points are shown in green, bridge points in red.}
     \label{fig:dtbahn}
 \end{figure}
