@@ -1,4 +1,4 @@
-# LaTeX Repository of MSc research reports
+# LaTeX repository of MSc research reports
 
 **This LaTeX repository hosts my final source code and compiled PDF MSc thesis at the TU Delft, titled "Constructing a digital 3D road network for The Netherlands".** The software implementation is hosted in [my Python repository](https://github.com/kriskenesei/geo2020-modules).
 
