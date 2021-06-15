@@ -1,13 +1,4 @@
-Shield: [![CC BY 4.0][cc-by-shield]][cc-by]
-
-This work is licensed under a
-[Creative Commons Attribution 4.0 International License][cc-by].
-
-[![CC BY 4.0][cc-by-image]][cc-by]
-
-[cc-by]: http://creativecommons.org/licenses/by/4.0/
-[cc-by-image]: https://i.creativecommons.org/l/by/4.0/88x31.png
-[cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
+[![CC BY 4.0][cc-by-shield]][cc-by]
 
 # LaTeX repository of MSc research reports
 
@@ -24,3 +15,12 @@ The graduation regulations are found [here](https://3d.bk.tudelft.nl/courses/geo
 This repo is linked to Overleaf using [this method](https://www.overleaf.com/learn/how-to/How_do_I_push_a_new_project_to_Overleaf_via_git%3F). I used Overleaf for most LaTeX editing tasks.
 
 _Note:_ Following the release of my project proposal (P2), I have been informed that some of my statements about the accuracy of DTB (Section 4.3 of the report) are incorrect. Notably, while some of the dataset is indeed photogrammetry-derived, the road markings were derived from land-based Lidar surveying and tacheometry. As such, they are more accurate than I anticipated. The description of DTB in the thesis reflects this. The methods of the research were not affected by this.
+
+This work is licensed under a
+[Creative Commons Attribution 4.0 International License][cc-by].
+
+[![CC BY 4.0][cc-by-image]][cc-by]
+
+[cc-by]: http://creativecommons.org/licenses/by/4.0/
+[cc-by-image]: https://i.creativecommons.org/l/by/4.0/88x31.png
+[cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
