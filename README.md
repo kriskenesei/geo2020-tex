@@ -6,11 +6,11 @@
 
 The reports are all based on the LaTeX framework provided [here](https://github.com/tudelft3d/msc_geomatics_thesis_template), a copy of which is found in this repository under `template_unchanged`.
 
-The final thesis and thesis defence presentation are now available in the folder `final_report` with file name `MScThesis_KristofKenesei_TUDelft.pdf` and `ThesisDefencePresentation_KristofKenesei_TUDelft.pptx` respectively. The same folder containts the LaTeX source code of said report. No further modifications to the report are expected.
+The final thesis and thesis defence presentation are now available in the folder `final_report` with file names `MScThesis_KristofKenesei_TUDelft.pdf` and `ThesisDefencePresentation_KristofKenesei_TUDelft.pptx` respectively. The same folder containts the LaTeX source code of said report. No further modifications to the report are expected.
 
-The original research proposal (P2 document) is found in the folder `p2`. It is based on a modified version of the template that I adapted to comply better with the graduation manual's P2 requirements. The P2 and P3 presentations are also part of this repository.
+The original research proposal (P2 document) is found in the folder `p2`. It is based on a modified version of the template that I adapted to comply better with the P2 requirements of the graduation manual. The P2 and P3 presentations are also part of this repository.
 
-The graduation regulations are found [here](https://3d.bk.tudelft.nl/courses/geo2020/rules/GraduationManualGeomatics2020-2021.pdf). 
+The graduation manual is found [here](https://3d.bk.tudelft.nl/courses/geo2020/rules/GraduationManualGeomatics2020-2021.pdf). 
 
 This repo is linked to Overleaf using [this method](https://www.overleaf.com/learn/how-to/How_do_I_push_a_new_project_to_Overleaf_via_git%3F). I used Overleaf for most LaTeX editing tasks.
 
